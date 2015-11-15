@@ -1,7 +1,7 @@
 package com.facturador.danmar.form.mapper;
 
-import com.facturador.danmar.common.ConvertionUtil;
-import com.facturador.danmar.common.DateUtil;
+import com.danmar.utils.ConvertionUtil;
+import com.danmar.utils.DateUtil;
 import com.facturador.danmar.form.DocumentoEncabezadoForm;
 import com.facturador.danmar.model.DocumentoEncabezado;
 

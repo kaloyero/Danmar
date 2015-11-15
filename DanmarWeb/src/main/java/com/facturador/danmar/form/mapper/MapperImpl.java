@@ -3,6 +3,8 @@ package com.facturador.danmar.form.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.danmar.mapper.Mapper;
+
 public abstract class MapperImpl<E,F> implements Mapper<E,F>{
 
 	

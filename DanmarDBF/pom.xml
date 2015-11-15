@@ -20,13 +20,25 @@
 	</properties>
 
 	<dependencies>
+		<!-- Bean Project-->
+		<dependency>
+			<groupId>com.danmar.beans</groupId>
+			<artifactId>DanmarBeans</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	
 		<!-- JUnit -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+      <!-- drivers de mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.31</version>
+        </dependency>
 		<!-- DBF lib -->
 		<dependency>
 			<groupId>com.danmar.dbf</groupId>

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.danmar.dbf.dto.ArticuloDto;
 import com.danmar.dbf.dto.filtro.FiltroArticulo;
+import com.danmar.service.PaginacionService;
 
 public interface ArticuloService extends PaginacionService<ArticuloDto>{
 

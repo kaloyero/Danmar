@@ -1,6 +1,6 @@
 package com.facturador.danmar.service;
 
-import com.facturador.danmar.common.ErrorRespuestaBean;
+import com.danmar.error.ErrorRespuestaBean;
 import com.facturador.danmar.model.DocumentoEncabezado;
 
 

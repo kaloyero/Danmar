@@ -1,5 +1,7 @@
 package com.danmar.dbf.dto.filtro;
 
+import com.danmar.filtro.Paginacion;
+
 public class FiltroArticulo extends Paginacion{
 
 //	private String codigo;

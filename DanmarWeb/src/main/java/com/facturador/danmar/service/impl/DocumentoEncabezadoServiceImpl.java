@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.facturador.danmar.common.ErrorRespuestaBean;
+import com.danmar.error.ErrorRespuestaBean;
 import com.facturador.danmar.dao.DocumentoEncabezadoDao;
 import com.facturador.danmar.model.DocumentoEncabezado;
 import com.facturador.danmar.service.DocumentoEncabezadoService;

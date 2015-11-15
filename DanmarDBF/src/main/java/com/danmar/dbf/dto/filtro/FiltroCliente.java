@@ -2,6 +2,8 @@ package com.danmar.dbf.dto.filtro;
 
 import java.util.Date;
 
+import com.danmar.filtro.Paginacion;
+
 public class FiltroCliente extends Paginacion{
 
 	private int codigo;

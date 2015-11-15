@@ -2,7 +2,7 @@ package com.danmar.dbf.service.impl;
 
 import java.util.List;
 
-import com.danmar.dbf.dao.PaginacionDao;
+import com.danmar.dao.PaginacionDao;
 import com.danmar.dbf.dao.impl.ClienteDao;
 import com.danmar.dbf.dto.ClienteDto;
 import com.danmar.dbf.service.ClienteService;

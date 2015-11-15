@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.danmar.dbf.dao.PaginacionDao;
+import com.danmar.dao.PaginacionDao;
 import com.danmar.dbf.dto.ClienteDto;
 
 public class ClienteDao extends GenericDao<ClienteDto> implements

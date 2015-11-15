@@ -4,7 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.danmar.dbf.dao.PaginacionDao;
+import com.danmar.dao.PaginacionDao;
 import com.danmar.dbf.dto.ArticuloDto;
 import com.danmar.dbf.dto.filtro.FiltroArticulo;
 
@@ -64,17 +64,20 @@ public class ArticuloDao extends GenericDao<ArticuloDto> implements PaginacionDa
     public static void main(String[] args) {
         
     	ArticuloDao access = new ArticuloDao();
-    	//List<ArticuloDto> listado = access.getAll();
-    	FiltroArticulo filtro = new FiltroArticulo();
-    	//filtro.setArticulo("Solen.Arr.Indiel Chev.C-20");
-    	filtro.setCc1("C6");
-    	filtro.setCc2("23");
-    	filtro.setCc3("0710");
-    	filtro.setTipo("01");
-    	access.searchByFiltros(filtro,1,5);
+//    	//List<ArticuloDto> listado = access.getAll();
+//    	FiltroArticulo filtro = new FiltroArticulo();
+//    	//filtro.setArticulo("Solen.Arr.Indiel Chev.C-20");
+//    	filtro.setCc1("C6");
+//    	filtro.setCc2("23");
+//    	filtro.setCc3("0710");
+//    	filtro.setTipo("01");
+//    	access.searchByFiltros(filtro,1,5);
+//    	
+//    	access.getById("Solen.Arr.Indiel Chev.C-20");
+    	System.out.println("Empieza");
+    	access.getAll();
+    	System.out.println("tERMINA");
     	
-    	access.getById("Solen.Arr.Indiel Chev.C-20");
-
     }
 
 	    
@@ -88,7 +91,11 @@ public class ArticuloDao extends GenericDao<ArticuloDto> implements PaginacionDa
 		return super.getAll(pagina, cantRegistros);
 	}   
 	    
-	    @Override
+	public List<ArticuloDto> getAll() {
+		return super.getAll();
+	}   
+
+	@Override
 	protected ArticuloDto getDto(ResultSet res) throws SQLException {
         	ArticuloDto articulo = new ArticuloDto();
 
@@ -132,7 +139,7 @@ public class ArticuloDao extends GenericDao<ArticuloDto> implements PaginacionDa
         	articulo.setVarMin(res.getString(CAMPO_VARMIN));
         	articulo.setVisible(res.getString(CAMPO_VISIBLE));
 
-
+        	//System.out.println(articulo.getArticulo());
         	return articulo;
 
 	}

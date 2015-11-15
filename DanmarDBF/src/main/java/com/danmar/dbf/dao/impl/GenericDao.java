@@ -53,9 +53,7 @@ public abstract class GenericDao<E> {
 		List<E> respuesta = new ArrayList<E>();
 
 		String sql = getQuery(whereClause);
-
 		respuesta = excecuteQueryList(sql);
-
 		return respuesta;
 	}
 

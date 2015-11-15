@@ -1,9 +1,9 @@
 package com.facturador.danmar.form.mapper;
 
 import com.danmar.dbf.dto.ClienteDto;
-import com.facturador.danmar.common.ConvertionUtil;
-import com.facturador.danmar.common.DateUtil;
-import com.facturador.danmar.common.FormatUtil;
+import com.danmar.utils.ConvertionUtil;
+import com.danmar.utils.DateUtil;
+import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.ClienteForm;
 
 

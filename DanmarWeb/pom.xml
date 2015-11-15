@@ -37,8 +37,12 @@
 			<groupId>com.danmar.dbf</groupId>
 			<artifactId>DanmarDBF</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-<!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>path/to/myejbproject.jar</systemPath> -->
+		</dependency>
+		<!-- Bean Project-->
+		<dependency>
+			<groupId>com.danmar.beans</groupId>
+			<artifactId>DanmarBeans</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<!-- JSON -->
