@@ -12,4 +12,5 @@ public interface TarjetaService {
 	
 	TarjetaDto getById(int tarjeta,int cuotas);
 	
+	public List<TarjetaDto> getCuotasByTarjeta(int tarjeta);
 }

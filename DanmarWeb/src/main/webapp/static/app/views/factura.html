@@ -1,0 +1,640 @@
+<div ng-controller="FacturaController">
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-md-8">
+				<panel data-heading="Factura" panel-class="panel-midnightblue">
+				<div class="panel panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">
+							<!-- ngIf: panelIcon -->
+							Factura
+						</h2>
+					</div>
+					<div class="panel-body">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-xs-2">
+										<a class="info-tiles tiles-midnightblue"
+											data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
+											<div class="tiles-heading">
+												<div class="text-center ng-binding">Factura</div>
+											</div>
+											<div class="tiles-body">
+												<div class="text-center ng-binding">{{tipoFactura}}</div>
+											</div>
+										</a>
+										<div class="pull-right text-center">
+											<span class="badge ng-binding">00000000000016</span>
+										</div>
+									</div>
+
+									<div class="col-md-8">
+										<div class="form-horizontal row-border ng-scope">
+											<div class="form-group">
+												<div class="row">
+													<label for="#" class="col-md-2 control-label"
+														style="text-align: left !important;"> <strong>Fecha:</strong>
+													</label>
+													<div class="col-md-10">
+														<div class="input-group">{{fechaFactura |
+															date:'dd-MM-yyyy'}}</div>
+													</div>
+												</div>
+												<div class="row">
+													<span class="col-md-2"> <strong>Notas:</strong>
+													</span>
+													<div class="col-sm-10">
+														<textarea class="form-control"></textarea>
+													</div>
+												</div>
+												<div class="row">
+													<span class="col-md-2"> <strong>Producto:</strong>
+													</span>
+													<div class="col-md-7">
+														<input type="text" class="form-control"
+															placeholder="Placeholder" ng-keypress="onKeyArticulo($event);"
+															ng-model="articuloSeleccionadoBuscar">
+													</div>
+
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-4"></div>
+								</div>
+								<div tabindex="0" ng-focus=pruebaFocusFactura()
+									ag-grid="gridOptionsFactura" id="facturaGrid" class="ag-fresh"
+									style="height: 400px; margin-top: 24px;"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
+			<!-- CLIENTE -->
+			<div class="col-xs-12 col-md-4">
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">
+							<!-- ngIf: panelIcon -->
+							Cliente
+						</h2>
+					</div>
+					<div class="panel-body" ng-transclude="">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<form action="" class="form-horizontal row-border2">
+										<div class="form-group">
+											<label class="col-md-2 control-label"> <strong>Cliente:</strong>
+											</label>
+											<div class="col-md-7">
+												<input type="text" class="form-control"
+													placeholder="Placeholder" ng-keypress=onKeyCliente()
+													ng-model="clienteSeleccionadoRazon">
+											</div>
+											<div class="col-md-2">
+												<button type="button" class="btn btn-block btn-primary"
+													data-toggle="modal" data-target="#myModal">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="col-md-4 control-label"> <strong>CUIT:</strong>
+											</label>
+											<div class="col-md-8">
+												<span class="label label-default form-control">{{clienteSeleccionadoCuit}}</span>
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="col-md-4 control-label"> <strong>Categoria:</strong>
+											</label>
+											<div class="col-md-8">
+												<span class="label label-default form-control">{{clienteSeleccionadoCategoria}}</span>
+											</div>
+										</div>
+
+																			<div class="form-group  col-md-6" >
+																				<label for="checkbox" class="col-sm-2 control-label"></label>
+																				<div class="col-sm-9">
+																					<div class="checkbox block">
+																						<label class="checkbox-inline"> <input icheck
+																							type="checkbox" checked>Consumidor Final
+																						</label>
+																					</div>
+																				</div>
+																			</div>
+
+<!-- 										<div class="form-group  col-md-6"> -->
+<!-- 											<label class="col-sm-6 control-label">Consumidor -->
+<!-- 												Final</label> -->
+<!-- 											<div class="col-sm-6"> -->
+<!-- 												<input type="checkbox" ng-model="consumidorFinalCheck" -->
+<!-- 													class="js-switch ng-pristine ng-untouched ng-valid ng-isolate-scope" -->
+<!-- 													ui-switch="{color: '#7dcc93', secondaryColor: '#c5cbd1'}" -->
+<!-- 													data-switchery="true" style="display: none;"> <span -->
+<!-- 													class="switchery" -->
+<!-- 													style="border-color: rgb(197, 203, 209); box-shadow: rgb(197, 203, 209) 0px 0px 0px 0px inset; transition: border 0.4s, box-shadow 0.4s; background-color: rgb(197, 203, 209);"> -->
+<!-- 													<small -->
+<!-- 													style="left: 0px; transition: left 0.2s; background-color: rgb(255, 255, 255);"> -->
+<!-- 												</small> -->
+<!-- 												</span> -->
+<!-- 											</div> -->
+<!-- 										</div> -->
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
+
+
+			<!-- PAGO 
+			<div class="panel panel-inverse" panel-tabs="true"
+				panel-class="panel-inverse" heading="Tabbed Panel Heading"
+				ng-drag="true" draggable="false">
+				<div class="panel-heading" ng-attr-ng-drag-handle="{{draggable}}"
+					ng-drag-handle="true">
+					<h2 class="ng-binding">
+						Pago
+					</h2>
+					<div class="panel-ctrls">
+						<ul class="nav nav-tabs"
+							ng-class="{'nav-stacked': vertical, 'nav-justified': justified}"
+							ng-transclude="">
+							<li ng-class="{active: active, disabled: disabled}"
+								heading="Tab 1" class="ng-isolate-scope"><a href=""
+								ng-click="select()" tab-heading-transclude="" class="ng-binding">Efectivo</a>
+							</li>
+							<li ng-class="{active: active, disabled: disabled}"
+								heading="Tab 2" class="ng-isolate-scope active"><a href=""
+								ng-click="select()" tab-heading-transclude="" class="ng-binding">Tarjeta</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="panel-body">
+					<div class="tab-content">
+						<div class="tab-pane ng-scope" ng-repeat="tab in tabs"
+							ng-class="{active: tab.active}" tab-content-transclude="tab">
+
+
+							<panel-controls class="ng-scope"> </panel-controls>
+							<div class="panel panel-primary ng-scope">
+								<div class="panel-body">
+									<div class="row">
+										<form action="" class="form-horizontal row-border2">
+											<div class="form-group">
+												<label class="col-sm-2 control-label">Efectivo</label>
+												<div class="col-sm-4">
+													<div class="input-group">
+														<span class="input-group-addon">$</span> <input
+															type="text" class="form-control" ng-model="montoEfectivo">
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					</panel>
+
+
+				</div>
+				<div class="tab-pane ng-scope active" ng-repeat="tab in tabs"
+					ng-class="{active: tab.active}" tab-content-transclude="tab">
+
+
+					<panel-controls class="ng-scope"> </panel-controls>
+					<div class="panel panel-primary ng-scope">
+						<div class="panel-body">
+							<div class="row">
+								<form action="" class="form-horizontal row-border2">
+									<div class="form-group">
+										<label class="col-sm-2 control-label">Tarjeta</label>
+										<div class="col-sm-8">
+											<select class="form-control" id="source"
+												ng-model="pagoTarjetaCredito">
+												<optgroup label="VISA">
+													<option value="1">VISA - Todos los Bancos</option>
+												</optgroup>
+												<optgroup label="American Express">
+													<option value="2">AMEX - Todos los Bancos</option>
+												</optgroup>
+												<optgroup label="Mastercard">
+													<option value="3">Mastercard - Todos los bancos</option>
+												</optgroup>
+											</select>
+										</div>
+									</div>
+									<div class="form-group col-md-7">
+										<label class="col-sm-4 control-label">Monto</label>
+										<div class="col-sm-8">
+											<div class="input-group">
+												<span class="input-group-addon">$</span> <input type="text"
+													class="form-control" ng-model="montoTC">
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-md-5">
+										<label class="col-sm-4 control-label">Cuotas</label>
+										<div class="col-sm-8">
+											<div class="input-group">
+												<select class="form-control" id="source" ng-model="cuotasTC">
+													<option value="1">1</option>
+													<option value="2">2</option>
+													<option value="3">3</option>
+													<option value="6">6</option>
+													<option value="9">9</option>
+													<option value="12">12</option>
+													<option value="18">18</option>
+													<option value="24">24</option>
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-md-5">
+										<label class="col-sm-4 control-label">Interes</label>
+										<div class="col-sm-8">
+											<div class="input-group">
+												<input type="text" class="form-control" ng-model="interesTC">
+												<span class="input-group-addon">%</span>
+											</div>
+										</div>
+									</div>
+									<div class="form-group col-md-7">
+										<label class="col-sm-4 control-label">Cupon</label>
+										<div class="col-sm-8">
+											<div class="input-group">
+												<span class="input-group-addon">$</span> <input type="text"
+													class="form-control" ng-model="cuponTC">
+											</div>
+										</div>
+									</div>
+
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			</panel>
+		</div>
+-->
+
+
+			<div class="col-xs-12 col-md-4">
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">Forma de Pago</h2>
+					</div>
+					<div class="panel-body" ng-transclude="">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<form action="" class="form-horizontal row-border2">
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Efectivo</label>
+											<div class="col-sm-4">
+												<div class="input-group">
+													<span class="input-group-addon">$</span> <input type="text"
+														class="form-control" ng-model="montoEfectivo">
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Tarjeta</label>
+											<div class="col-sm-8">
+												<select class="form-control" id="source"
+													ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()">
+													<optgroup label="VISA">
+														<option value="1">VISA - Todos los Bancos</option>
+													</optgroup>
+													<optgroup label="American Express">
+														<option value="2">AMEX - Todos los Bancos</option>
+													</optgroup>
+													<optgroup label="Mastercard">
+														<option value="3">Mastercard - Todos los bancos</option>
+													</optgroup>
+												</select>
+											</div>
+										</div>
+										<div class="form-group col-md-7">
+											<label class="col-sm-3 control-label">Monto</label>
+											<div class="col-sm-9">
+												<div class="input-group">
+													<span class="input-group-addon">$</span> <input type="text"
+														class="form-control" ng-model="montoTC" ng-change="calcularTC()" >
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-5">
+											<label class="col-sm-4 control-label">Cuotas</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<select class="form-control" id="source"
+														ng-model="cuotasTC" ng-change="obtenerAlicuotaTarjeta()">
+														<option value="1">1</option>
+														<option value="2">2</option>
+														<option value="3">3</option>
+														<option value="6">6</option>
+														<option value="9">9</option>
+														<option value="12">12</option>
+														<option value="18">18</option>
+														<option value="24">24</option>
+													</select>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-5">
+											<label class="col-sm-4 control-label">Interes</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">{{interesTC}} %</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-7">
+											<label class="col-sm-4 control-label">Cupon</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<input type="text" class="form-control" ng-model="cuponTC">
+												</div>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
+
+
+
+
+			<div class="col-xs-12 col-md-4">
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">
+							<!-- ngIf: panelIcon -->
+							Totales
+						</h2>
+					</div>
+					<div class="panel-body" ng-transclude="">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<form action=""
+										class="form-horizontal row-border2 ng-pristine ng-valid">
+
+										<div class="col-xs-3">
+											<a class="info-tiles tiles-green"
+												data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}">
+												<div class="tiles-heading">
+													<div class="text-center ng-binding">Sub Total</div>
+												</div>
+												<div class="tiles-body" style="font-size: 12px;">
+													<div class="text-center ng-binding">$ {{subTotal}}</div>
+												</div>
+											</a>
+										</div>
+
+										<div class="col-xs-3">
+											<a class="info-tiles tiles-green"
+												data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
+												<div class="tiles-heading">
+													<div class="text-center ng-binding">Iva Inscripto</div>
+												</div>
+												<div class="tiles-body" style="font-size: 12px;">
+													<div class="text-center ng-binding">{{ivaInscripto}}
+														%</div>
+												</div>
+											</a>
+										</div>
+
+										<div class="col-xs-3">
+											<a class="info-tiles tiles-green"
+												data="{ title: 'Iva No Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
+												<div class="tiles-heading">
+													<div class="text-center ng-binding">Iva No Inscripto</div>
+												</div>
+												<div class="tiles-body" style="font-size: 12px;">
+													<div class="text-center ng-binding">{{ivaNoInscripto}}	%</div>
+												</div>
+											</a>
+										</div>
+
+										<div class="col-xs-3">
+											<a class="info-tiles tiles-primary"
+												data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}">
+												<div class="tiles-heading">
+													<div class="text-center ng-binding">Total</div>
+												</div>
+												<div class="tiles-body" style="font-size: 12px;">
+													<div class="text-center ng-binding">$ {{TotalFact}}</div>
+												</div>
+											</a>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="pull-right">
+						<a class="btn btn-primary" ng-click=guardarFactura()>Guardar
+							Factura</a>
+					</div>
+				</div>
+				</panel>
+			</div>
+		</div>
+	</div>
+		<script type="text/ng-template" id="modalBuscadorCliente.html">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Busqueda de Clientes</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-xs-12 col-md-5">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-3 control-label">
+													<strong>Codigo:</strong>
+												</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control" placeholder="Placeholder" ng-model="codigoCliente"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-5">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-3 control-label">
+													<strong>Razón Social:</strong>
+												</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control" placeholder="Placeholder" ng-model="razonSocial"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-2">
+									<div class="row2">
+										<!-- <button class="btn btn-block" type="button" ng-click="busquedaCliente()" > -->
+										<button class="btn btn-block" type="button" ng-click="busquedaCliente()" >
+											<i class="fa fa-search"></i>
+											<span class="">Buscar</span>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row2">
+
+
+							<div class="row2">
+								<div class="table-responsive">
+									<div tabindex="0" 
+											ag-grid="gridOptionsCliente"
+											class="ag-fresh" style="height: 400px; ">
+									</div>
+								</div>
+							</div>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary">Guardar</button>
+						</div>
+					</div>
+				</div>
+
+
+
+    	    
+
+	</script>
+		<script type="text/ng-template" id="modalBuscadorArticulo.html">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+							<h4 class="modal-title" id="myModalLabel">Busqueda de Articulos</h4>
+						</div>						
+						<div class="col-xs-12 col-md-12">
+						  <div class="container-fluid" >
+							<div class="row">
+								<div class="col-xs-12 col-md-2">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-5 control-label">
+													<strong>CC1:</strong>
+												</label>
+												<div class="col-md-7">
+													<input type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-2">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-5 control-label">
+													<strong>CC2:</strong>
+												</label>
+												<div class="col-md-7">
+													<input type="text" class="form-control" placeholder="codigo" ng-model="data.codigo2"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-2">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-5 control-label">
+													<strong>CC3:</strong>
+												</label>
+												<div class="col-md-7">
+													<input type="text" class="form-control" placeholder="codigo" ng-model="data.codigo3"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-3">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-5 control-label">
+													<strong>Articulo:</strong>
+												</label>
+												<div class="col-md-7">
+													<input type="text" class="form-control" placeholder="Placeholder" ng-model="data.articulo"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-1">
+										<button type="button" class="btn btn-block btn-primary"
+											ng-click="externalFilterChanged()">
+											<i class="fa fa-search"></i>
+										</button>
+						    	</div>
+
+
+							</div>
+						  </div>
+							<div class="row2">
+								<div class="table-responsive">
+									<div tabindex="0" ng-focus=pruebaFocusProductos()
+											ag-grid="gridOptionsProductos" id="productoGrid" ng-keypress="onKeySelectArticulo()"
+											class="ag-fresh" style="height: 400px; ">
+									</div>
+								</div>
+							</div>
+						  
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary">Guardar</button>
+						</div>
+					</div>
+				</div>
+	</script>
+	</div>

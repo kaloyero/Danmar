@@ -7,10 +7,13 @@ import javax.annotation.Resource;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.danmar.dbf.dto.filtro.FiltroArticulo;
+import com.danmar.filtro.Paginacion;
 import com.facturador.danmar.dao.ArticuloDao;
 import com.facturador.danmar.model.Articulo;
 
@@ -39,6 +42,47 @@ public class ArticuloDaoImpl implements ArticuloDao {
 		return ct.list();
 	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Articulo> getAllFilterPaging(FiltroArticulo filtro){
+		Criteria ct = this.sessionFactory.getCurrentSession().createCriteria(Articulo.class);
+		ct.setFirstResult( (filtro.getPagina() -1 ) * filtro.getCantRegistros());
+		ct.setMaxResults(filtro.getCantRegistros());
+		ct.addOrder(Order.asc("articulo"));
+		setFiltros(ct, filtro);
+		
+		
+		
+		return ct.list();
+	}
+	
+	protected void setFiltros (Criteria ct, FiltroArticulo filtro){
+		
+		if (filtro.getArticulo() != null && ( ! filtro.getArticulo().trim().equals(""))){
+			ct.add(Restrictions.like("articulo", filtro.getArticulo() + "%"));
+		}
+		if (filtro.getCc1() != null && ( ! filtro.getCc1().trim().equals(""))){
+			ct.add(Restrictions.like("cc1", filtro.getCc1() + "%"));
+		}
+		if (filtro.getCc2() != null && ( ! filtro.getCc2().trim().equals(""))){
+			ct.add(Restrictions.like("cc2", filtro.getCc2() + "%"));
+		}
+		if (filtro.getCc3() != null && ( ! filtro.getCc3().trim().equals(""))){
+			ct.add(Restrictions.like("cc3", filtro.getCc3() + "%"));
+		}
+		
+	}
 
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public List<Articulo> getAllPaging(Paginacion pag){
+		Criteria ct = this.sessionFactory.getCurrentSession().createCriteria(Articulo.class);
+		ct.setFirstResult( (pag.getPagina() -1 ) * pag.getCantRegistros());
+		ct.setMaxResults(pag.getCantRegistros());
+		ct.addOrder(Order.asc("articulo"));
+		
+		return ct.list();
+	}
 
+	
 }

@@ -11,6 +11,8 @@ import com.danmar.filtro.Paginacion;
 
 public interface IPaginadoController<E> {
 
+	@RequestMapping(value = "/test/", method = RequestMethod.GET)
+	public @ResponseBody	List<E> findAll() ;
 	
 	@RequestMapping(value = "/findAll/", method = RequestMethod.POST)
 	public @ResponseBody	List<E> findAll(@RequestBody Paginacion pagina) ;

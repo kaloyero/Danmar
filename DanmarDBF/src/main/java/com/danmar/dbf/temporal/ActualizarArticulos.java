@@ -15,7 +15,7 @@ import com.danmar.dbf.dto.ArticuloDto;
 public class ActualizarArticulos {
 
     private static final String MYSQL_DRIVERS = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost:3308/DanMar";
+    private static final String DB_URL = "jdbc:mysql://localhost:3308/facturacion";
     private static final String PASSWORD = "";
     private static final String USER = "root";
     private Connection connect = null;
@@ -58,7 +58,7 @@ public class ActualizarArticulos {
     
     private void excecuteInsert(List<String> insertQry){
     	try {
-    		System.out.println("INSERT :" + insertQry.toString());
+    		//System.out.println("INSERT :" + insertQry.toString());
     		
             // this will load the MySQL driver, each DB has its own driver
             Class.forName(MYSQL_DRIVERS);
@@ -70,7 +70,7 @@ public class ActualizarArticulos {
 			}
     
     	} catch (Exception e) {
-    		System.out.println(e);
+    		System.out.println("ERROR INSERT "+ e + " insertQry: "+ insertQry);
     	} finally {
 
         if(resultSet != null) {
@@ -100,17 +100,17 @@ public class ActualizarArticulos {
     	
     	StringBuffer insertQry = new StringBuffer("") ;
     	
-    	insertQry.append("INSERT INTO `articulo` ( `cc1`, `cc2`, `cc3`, `cc4`, `cc5`, `articulo`, `tipo`, `precio`, `visible`) ");
+    	insertQry.append("INSERT INTO `articulo` ( `cc1`, `cc2`, `cc3`, `cc4`, `cc5`, `articulo`, `tipo`, `precio`) ");
     	insertQry.append("VALUES ( ");
     	insertQry.append( " '"+ articulo.getCc1() +"' ,");
-    	insertQry.append( " '"+ articulo.getCc1() +"' ,");
-    	insertQry.append( " '"+ articulo.getCc1() +"' ,");
-    	insertQry.append( " '"+ articulo.getCc1() +"' ,");
-    	insertQry.append( " '"+ articulo.getCc1() +"' ,");
+    	insertQry.append( " '"+ articulo.getCc2() +"' ,");
+    	insertQry.append( " '"+ articulo.getCc3() +"' ,");
+    	insertQry.append( " '"+ articulo.getCc4() +"' ,");
+    	insertQry.append( " '"+ articulo.getCc5() +"' ,");
     	insertQry.append( " '"+ articulo.getArticulo() +"' ,");
     	insertQry.append( " '"+ articulo.getTipo() +"' ,");
-    	insertQry.append( " "+ articulo.getPrecio() +" ,");
-    	insertQry.append( " "+ articulo.getVisible() +" ");
+    	insertQry.append( " "+ articulo.getPrecio() +" ");
+
     	insertQry.append("); ");
 
     	return  insertQry.toString();

@@ -5,6 +5,7 @@ import java.util.List;
 import com.danmar.dao.PaginacionDao;
 import com.danmar.dbf.dao.impl.ClienteDao;
 import com.danmar.dbf.dto.ClienteDto;
+import com.danmar.dbf.dto.filtro.FiltroCliente;
 import com.danmar.dbf.service.ClienteService;
 
 public class ClienteServiceImpl extends PaginacionServiceImpl<ClienteDto> implements ClienteService{
@@ -24,6 +25,8 @@ public class ClienteServiceImpl extends PaginacionServiceImpl<ClienteDto> implem
 		return dao.getById(numero);
 	}
 
-	
+	public List<ClienteDto> searchByFiltros(FiltroCliente filtro) {
+		return dao.searchByFiltros(filtro);
+	}
 	
 }

@@ -1,8 +1,11 @@
 package com.facturador.danmar.form;
 
+import java.util.ArrayList;
+import java.util.List;
 
+public class DocumentoEncabezadoForm implements Form{
 
-public class DocumentoEncabezadoForm {
+	private static final long serialVersionUID = 1L;
 
 	private int id;
 
@@ -18,6 +21,9 @@ public class DocumentoEncabezadoForm {
 	private String  usuarioActualizaId;
 	private String  tipoDocumentoId;
 	private String  clienteNro;
+	
+	private List<DocumentoLineaForm> lineas = new ArrayList<DocumentoLineaForm>();
+	private List<DocumentoPagoForm> pagos = new ArrayList<DocumentoPagoForm>();
 	
 	public int getId() {
 		return id;
@@ -97,6 +103,18 @@ public class DocumentoEncabezadoForm {
 	}
 	public void setClienteNro(String clienteNro) {
 		this.clienteNro = clienteNro;
+	}
+	public List<DocumentoLineaForm> getLineas() {
+		return lineas;
+	}
+	public void setLineas(List<DocumentoLineaForm> lineas) {
+		this.lineas = lineas;
+	}
+	public List<DocumentoPagoForm> getPagos() {
+		return pagos;
+	}
+	public void setPagos(List<DocumentoPagoForm> pagos) {
+		this.pagos = pagos;
 	}
 	
 	

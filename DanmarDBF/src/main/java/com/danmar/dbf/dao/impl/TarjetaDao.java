@@ -35,7 +35,16 @@ public class TarjetaDao extends GenericDao<TarjetaDto>{
        return super.getAll();
    }
 	        
-    @Override
+
+   public List<TarjetaDto> getAllByTarjeta(int tarjeta)
+   {
+	   List<TarjetaDto> list = super.getAll("tarjeta = "+tarjeta+" ");
+		
+	   return list;
+   }
+
+   
+   @Override
     protected TarjetaDto getDto(ResultSet res) throws SQLException{
         	TarjetaDto tarjeta = new TarjetaDto();
         	tarjeta.setCodigo( res.getInt(CAMPO_TARJETA));

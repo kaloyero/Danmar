@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.danmar.dbf.dto.filtro.FiltroArticulo;
 import com.danmar.error.ErrorRespuestaBean;
+import com.danmar.filtro.Paginacion;
 import com.facturador.danmar.dao.ArticuloDao;
 import com.facturador.danmar.model.Articulo;
 import com.facturador.danmar.service.ArticuloService;
@@ -26,10 +28,13 @@ public class ArticuloServiceImpl implements ArticuloService {
 	}
 
 	@Override
-	public List<Articulo> getAll(int pagina, int cantidadRegistros) {
-		
-		return articuloDao.getAll();
+	public List<Articulo> getAll(Paginacion paginacion) {
+		return articuloDao.getAllPaging(paginacion);
 	}
 
+	public List<Articulo> getAllFilter(FiltroArticulo filtro) {
+		return articuloDao.getAllFilterPaging(filtro);
+	}
 
+	
 }

@@ -1,11 +1,15 @@
 package com.facturador.danmar.model;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.print.Doc;
 
 @Entity(name="documentoencabezados")
 public class DocumentoEncabezado {
@@ -38,6 +42,11 @@ public class DocumentoEncabezado {
 	private int tipoDocumentoId;
 	@Column(name = "NumeroCliente")
 	private int clienteNro;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "documentoEncabezadoId")
+	public Set<DocumentoLinea > lineas ;
+	
+	
 	public int getId() {
 		return id;
 	}

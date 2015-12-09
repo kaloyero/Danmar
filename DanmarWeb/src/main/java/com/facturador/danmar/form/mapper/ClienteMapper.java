@@ -4,6 +4,7 @@ import com.danmar.dbf.dto.ClienteDto;
 import com.danmar.utils.ConvertionUtil;
 import com.danmar.utils.DateUtil;
 import com.danmar.utils.FormatUtil;
+import com.facturador.danmar.bean.CategoriaIvaEnum;
 import com.facturador.danmar.form.ClienteForm;
 
 
@@ -24,7 +25,7 @@ public class ClienteMapper extends MapperImpl<ClienteDto,ClienteForm>{
 		if (ent != null){
 			cliente.setCodigo(ent.getCodigo());
 			cliente.setaCargo(ent.getaCargo());
-			cliente.setCategoria(ent.getCategoria());
+			cliente.setCategoria(CategoriaIvaEnum.getCategoriaIvaByCodigo(ent.getCategoria()));
 			cliente.setCondicionPago(FormatUtil.format2DecimalsStr(ent.getCondicionPago()));
 			cliente.setContacto(ent.getContacto());
 			cliente.setCuit(ent.getCuit());

@@ -1,10 +1,9 @@
 package com.facturador.danmar.manager;
 
-import com.danmar.error.ErrorRespuestaBean;
 import com.facturador.danmar.form.DocumentoEncabezadoForm;
 
 
-public interface DocumentoEncabezadoManager  {
+public interface DocumentoEncabezadoManager extends GenericManager<DocumentoEncabezadoForm> {
 
-	ErrorRespuestaBean save(DocumentoEncabezadoForm form);
+	
 }

@@ -2,7 +2,7 @@ package com.facturador.danmar.form;
 
 public class ArticuloForm {
 
-//	private String codigo;
+	private String codigo;
 //	private String subcodigo;
 	private String cc1;
 	private String 	cc2;
@@ -23,7 +23,7 @@ public class ArticuloForm {
 	private String 	tiempo;
 	private String 	existentes;
 	private String 	reservados;
-	private String 	canMaxima;
+	private String 	canMaxima = "1";
 	private String 	canMinima;
 	private String 	descuentos;
 	private String 	ganancia;
@@ -44,6 +44,13 @@ public class ArticuloForm {
 	private String 	fVarmin	;
 	private String fVarmay;
 	private String 	visible;
+	
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 	public String getCc1() {
 		return cc1;
 	}

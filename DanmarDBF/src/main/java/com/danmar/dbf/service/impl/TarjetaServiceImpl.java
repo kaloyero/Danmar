@@ -23,6 +23,11 @@ public class TarjetaServiceImpl implements TarjetaService{
 	public List<TarjetaDto> getAll() {
 		return dao.getAll();
 	}   
+
+	public List<TarjetaDto> getCuotasByTarjeta(int tarjeta) {
+		return dao.getAllByTarjeta(tarjeta);
+	}   
+
 	
 	public TarjetaDto getById(int tarjeta,int cuotas) {
 		TarjetaDto dto = dao.getById(tarjeta, cuotas);

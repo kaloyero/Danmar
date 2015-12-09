@@ -4,8 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
 import com.danmar.dao.PaginacionDao;
 import com.danmar.dbf.dto.ClienteDto;
+import com.danmar.dbf.dto.TarjetaDto;
+import com.danmar.dbf.dto.filtro.FiltroCliente;
 
 public class ClienteDao extends GenericDao<ClienteDto> implements
 		PaginacionDao<ClienteDto> {
@@ -113,6 +117,31 @@ public class ClienteDao extends GenericDao<ClienteDto> implements
 	@Override
 	protected String getDefaultOrderBy() {
 		return DEFAULT_ORDER_BY;
+	}
+	
+	public List<ClienteDto> searchByFiltros(FiltroCliente filtro) {
+		StringBuffer whereClause = new StringBuffer(" 1 = 1");
+
+		if (filtro.getCodigo() > 0){
+			whereClause.append( " AND " + CAMPO_NUMERO + " = " + filtro.getCodigo() + " ");
+		}
+		if (StringUtils.isNotEmpty(filtro.getCuit())){
+			whereClause.append( " AND " + CAMPO_CUIT + " like '" + filtro.getCuit() +"%' ");
+		}
+		if (StringUtils.isNotEmpty(filtro.getRazonSocial())){
+			whereClause.append( " AND " + CAMPO_RAZON_SOC + " like '" + filtro.getRazonSocial() +"%' ");
+		}
+		if (StringUtils.isNotEmpty(filtro.getTipo())){
+			whereClause.append( " AND " + CAMPO_TIPO_CLIEN + " like '" + filtro.getTipo() +"%' ");
+		}
+		if (StringUtils.isNotEmpty(filtro.getNombre())){
+			whereClause.append( " AND " + CAMPO_NOMBRE + " like '" + filtro.getNombre() +"%' ");
+		}
+		
+		List<ClienteDto> list = super.getAll(whereClause.toString());
+		
+		return list;
+
 	}
 
 }

@@ -11,5 +11,6 @@ public interface TarjetaManager {
 	List<TarjetaForm> getAll(); 
 	
 	TarjetaForm getById(int tarjeta,int cuotas);
-	
+
+	public List<TarjetaForm> getCuotas(int tarjeta);
 }

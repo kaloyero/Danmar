@@ -1,6 +1,7 @@
 package com.facturador.danmar.form.mapper;
 
 import com.danmar.mapper.Mapper;
+import com.danmar.utils.ConvertionUtil;
 import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.ArticuloForm;
 import com.facturador.danmar.model.Articulo;
@@ -21,7 +22,8 @@ public class ArticuloMapper extends MapperImpl<Articulo,ArticuloForm> implements
 	public ArticuloForm getForm(Articulo ent) {
 		ArticuloForm articulo=new ArticuloForm();
 		if (ent != null){
-        	articulo.setArticulo(ent.getArticulo());
+			articulo.setCodigo(ConvertionUtil.StrValueOf(ent.getId()));
+			articulo.setArticulo(ent.getArticulo());
 //        	articulo.setCanMaxima(ConvertionUtil.StrValueOf(ent.getCanMaxima()));
 //        	articulo.setCanMinima(ConvertionUtil.StrValueOf(ent.getCanMinima()));
         	articulo.setCc1(ent.getCc1());

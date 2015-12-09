@@ -1,10 +1,9 @@
 package com.facturador.danmar.service;
 
-import com.danmar.error.ErrorRespuestaBean;
 import com.facturador.danmar.model.DocumentoEncabezado;
 
 
-public interface DocumentoEncabezadoService  {
+public interface DocumentoEncabezadoService extends GenericService<DocumentoEncabezado> {
 
-	ErrorRespuestaBean save(DocumentoEncabezado dto);
+	
 }
