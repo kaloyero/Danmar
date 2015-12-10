@@ -14,6 +14,7 @@ import com.facturador.danmar.bean.CategoriaIvaEnum;
 import com.facturador.danmar.form.CategoriaIvaForm;
 import com.facturador.danmar.form.DocumentoEncabezadoForm;
 import com.facturador.danmar.manager.CategoriaIvaManager;
+import com.facturador.danmar.manager.DocumentoEncabezadoManager;
 
 
 @Controller
@@ -21,17 +22,17 @@ public class DocumentoController {
 
 	@Autowired
 	CategoriaIvaManager categoriaIvaManager;
-
+	
+	@Autowired
+	DocumentoEncabezadoManager documentoEncabezadoManager;
 	
 
-	@RequestMapping(value = "/DocumentoEncabezado/save", method = RequestMethod.POST)
-//	public @ResponseBody  String guardar(@ModelAttribute(value = "Form") DocumentoEncabezadoForm form,
-//				BindingResult result, HttpServletRequest request) throws ParseException{
+	@RequestMapping(value = "/Documento/save", method = RequestMethod.POST)
 	public @ResponseBody  String guardar(@RequestBody DocumentoEncabezadoForm form) throws ParseException{
 		
+		String rta = documentoEncabezadoManager.saveDoc(form);
 		
-		
-		return "Todo Lapio";
+		return "NroFacturaGenerado";
 	}
 
 

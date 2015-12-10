@@ -46,6 +46,12 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 	@Transactional()
 	@Override
 	public ErrorRespuestaBean save(DocumentoEncabezadoForm form) {
+		return null;
+	}
+	
+	@Transactional()
+	@Override
+	public String saveDoc(DocumentoEncabezadoForm form) {
 		DocumentoEncabezado ent = new DocumentoEncabezado();
 
 		// Seteo la fecha actual
@@ -64,31 +70,36 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		//Pongo la Sucursal
 		ent.setSucursalId(1);
 		
-		//Busco el numero nuevo 
-		// @Todo
-		ent.setNumero(132);
-		
 		//Tipo Factura (FAC)
 		ent.setTipoDocumentoId(1);
 
 		//Letra
 		ent.setLetra(form.getLetra());
+
+		//Busco el numero nuevo 
+		ent.setNumero(documentoEncabezadoService.getUltimaFactura(ent.getLetra()));
 		
 		//Nro cliente
 		ent.setClienteNro(ConvertionUtil.IntValueOf(form.getClienteNro()));
 		
+		//Guardo el encabezado
 		getService().save(ent);
 		
+		//Guardo las líneas de la factura generada
 		for (DocumentoLineaForm linea : form.getLineas()) {
-			linea.setEncabezadoId(1);
-			documentoLineaManager.save(linea);
+			linea.setEncabezadoId(ent.getId());
+			//documentoLineaManager.save(linea);
 		}
+		//Guardo los pagos que se realizarón para la factura
 		for (DocumentoPagoForm pago : form.getPagos()) {
-			pago.setDocumentoEncabezado(1);
-			documentoPagoManager.save(pago);
+			pago.setDocumentoEncabezado(ent.getId());
+			//documentoPagoManager.save(pago);
 		}		
 		
-		return new ErrorRespuestaBean(true);
+		
+		String nuevaFactura = ent.getLetra() + ent.getNumero();
+		
+		return nuevaFactura ;
 
 	}
 

@@ -12,9 +12,12 @@ import com.facturador.danmar.service.GenericService;
 
 public abstract class GenericManagerImpl<F> implements GenericManager<F>, BaseService {
 
+	@SuppressWarnings("rawtypes")
 	protected abstract GenericService getService() ;
+	@SuppressWarnings("rawtypes")
 	protected abstract Mapper getMapper() ;
 
+	@SuppressWarnings("unchecked")
 	@Override
 	@Transactional
 	public ErrorRespuestaBean save(F form) {

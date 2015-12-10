@@ -28,10 +28,18 @@ public class TarjetaController {
 		return rta.getCoeficiente();
 	}
 
+
+	
+	/**
+	 * A este metodo se le pasa el Id de tarjeta y devuelve el listado de cuotas con su percentil disponibles para la tarjeta en cuestion.
+	 * 
+	 * @param filtro
+	 * @return
+	 * @throws ParseException
+	 */
 	@RequestMapping(value = "/tarjeta/getCuotas", method = RequestMethod.POST)
 	public @ResponseBody  List<TarjetaForm> getTipoFacturaCategoriaIva(@RequestBody TarjetaForm filtro) throws ParseException{
 		List<TarjetaForm> rta = tarjetaManager.getCuotas( ConvertionUtil.IntValueOf(filtro.getCodigo()));
-		
 		return rta;
 	}
 	

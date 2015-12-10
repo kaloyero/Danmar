@@ -21,6 +21,12 @@ public class DocumentoEncabezadoServiceImpl extends GenericServiceImpl<Documento
 		return documentoEncabezadoDao;
 	}
 
+	@Override
+	public int getUltimaFactura(String letra) {
+		int ultimaFactura = documentoEncabezadoDao.getUltimaFactura(letra);
+		
+		return ultimaFactura;
+	}
 
 
 }

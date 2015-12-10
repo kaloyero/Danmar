@@ -11,6 +11,17 @@ public class TarjetaServiceImpl implements TarjetaService{
     
 	TarjetaDao dao = new TarjetaDao();
 	
+	public static void main(String[] args) {
+		TarjetaDao dao1 = new TarjetaDao();
+		;
+		
+		for (TarjetaDto dto : dao1.getAllByTarjeta(1)) {
+			System.out.println("Cuotas: " + dto.getCuotas());
+			System.out.println("Coeficiente: " + dto.getCoeficiente());
+			System.out.println("Codigo: " + dto.getCodigo());
+		}
+	}
+	
 	/**
 	 * @param pagina Pagina a mostrar. Comienza en 1.
 	 * @param cantRegistros cantidad de registros que muestra
