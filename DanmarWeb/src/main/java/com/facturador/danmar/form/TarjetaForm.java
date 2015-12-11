@@ -6,8 +6,11 @@ public class TarjetaForm {
 	
 	private String cuotas;
 	
+	private String monto;
+	
 	private String coeficiente;
 
+	private String descripcion;
 
 
 	public String getCodigo() {
@@ -32,6 +35,22 @@ public class TarjetaForm {
 
 	public void setCoeficiente(String coeficiente) {
 		this.coeficiente = coeficiente;
+	}
+
+	public String getMonto() {
+		return monto;
+	}
+
+	public void setMonto(String monto) {
+		this.monto = monto;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 	
 	

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danmar.utils.ConvertionUtil;
+import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.TarjetaForm;
 import com.facturador.danmar.manager.TarjetaManager;
 
@@ -40,6 +41,18 @@ public class TarjetaController {
 	@RequestMapping(value = "/tarjeta/getCuotas", method = RequestMethod.POST)
 	public @ResponseBody  List<TarjetaForm> getTipoFacturaCategoriaIva(@RequestBody TarjetaForm filtro) throws ParseException{
 		List<TarjetaForm> rta = tarjetaManager.getCuotas( ConvertionUtil.IntValueOf(filtro.getCodigo()));
+		for (TarjetaForm form : rta) {
+			Double interes = ((ConvertionUtil.DouValueOf(form.getCoeficiente()) * ConvertionUtil.DouValueOf(form.getMonto()) )  / 100 ) ;
+			Double importeFinal = ConvertionUtil.DouValueOf(form.getMonto()) + interes;
+			Double importeCuota = importeFinal / Integer.parseInt(form.getCuotas());
+			
+			String descripcion = form.getCuotas() + " cuota(s) de $ " + FormatUtil.format2DecimalsStr(importeCuota) + " ( "+form.getCoeficiente()+"% - $ "+FormatUtil.format2DecimalsStr(importeFinal)+") " ;
+			
+			form.setDescripcion(descripcion);
+			form.setMonto(FormatUtil.format2DecimalsStr(importeFinal));
+
+		}
+		
 		return rta;
 	}
 	
