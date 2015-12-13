@@ -14,7 +14,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.danmar.dbf.dto.filtro.FiltroCliente;
 import com.facturador.danmar.form.ClienteForm;
-import com.facturador.danmar.form.EstadosForm;
 import com.facturador.danmar.manager.ClienteManager;
 import com.facturador.danmar.manager.EstadoManager;
 

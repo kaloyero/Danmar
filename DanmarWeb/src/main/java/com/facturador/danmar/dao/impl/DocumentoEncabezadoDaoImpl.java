@@ -1,6 +1,7 @@
 package com.facturador.danmar.dao.impl;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,8 @@ public class DocumentoEncabezadoDaoImpl extends GenericDaoImpl<DocumentoEncabeza
 		int ultimaFactura = 0;
 		Criteria ct = getSession().createCriteria(DocumentoEncabezado.class);
 		ct.add(Restrictions.like("letra", letra ));
-		
+		ct.setMaxResults(1);
+		ct.addOrder(Order.desc("numero"));
 		res= (DocumentoEncabezado) ct.uniqueResult();
 		if (res != null){
 			ultimaFactura = res.getNumero();

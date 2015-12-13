@@ -11,6 +11,7 @@ public class DocumentoLineaForm implements Form{
 	private String  descripcion;
 	private String  cantidad;
 	private String  precio;
+	private String  precioTC;
 	
 	
 	
@@ -55,6 +56,12 @@ public class DocumentoLineaForm implements Form{
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public String getPrecioTC() {
+		return precioTC;
+	}
+	public void setPrecioTC(String precioTC) {
+		this.precioTC = precioTC;
 	}
 	
 	

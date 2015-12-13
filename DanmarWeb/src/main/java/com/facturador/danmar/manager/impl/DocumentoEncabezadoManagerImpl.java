@@ -77,7 +77,9 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		ent.setLetra(form.getLetra());
 
 		//Busco el numero nuevo 
-		ent.setNumero(documentoEncabezadoService.getUltimaFactura(ent.getLetra()));
+		int ultimaNumeroFactura = documentoEncabezadoService.getUltimaFactura(ent.getLetra());
+		int nuevoNumeroFactura =  ultimaNumeroFactura + 1;
+		ent.setNumero(nuevoNumeroFactura);
 		
 		//Nro cliente
 		ent.setClienteNro(ConvertionUtil.IntValueOf(form.getClienteNro()));
@@ -88,12 +90,12 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		//Guardo las líneas de la factura generada
 		for (DocumentoLineaForm linea : form.getLineas()) {
 			linea.setEncabezadoId(ent.getId());
-			//documentoLineaManager.save(linea);
+			documentoLineaManager.save(linea);
 		}
 		//Guardo los pagos que se realizarón para la factura
 		for (DocumentoPagoForm pago : form.getPagos()) {
 			pago.setDocumentoEncabezado(ent.getId());
-			//documentoPagoManager.save(pago);
+			documentoPagoManager.save(pago);
 		}		
 		
 		

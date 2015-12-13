@@ -9,7 +9,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.print.Doc;
 
 @Entity(name="documentoencabezados")
 public class DocumentoEncabezado {

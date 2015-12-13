@@ -4,23 +4,26 @@ import org.apache.commons.lang.StringUtils;
 
 public enum CategoriaIvaEnum {
 
-	CONSUMIDOR_FINAL ("Consumidor Final","1"), 
-	RESPONSABLE_NO_INSCRIPTO ("Responsable No Inscripto","2"),
-	RESPONSABLE_INSCRIPTO("Responsable Inscripto","3"),
-	EXCENTO ("Excento","4"),
-	NO_RESPONSABLE ("No Responsable","5"),
-    MONOTRIBUTO ("Monotributo","6");
+	CONSUMIDOR_FINAL ("Consumidor Final","1","B"), 
+	RESPONSABLE_NO_INSCRIPTO ("Responsable No Inscripto","2","B"),
+	RESPONSABLE_INSCRIPTO("Responsable Inscripto","3","A"),
+	EXCENTO ("Excento","4","B"),
+	NO_RESPONSABLE ("No Responsable","5","B"),
+    MONOTRIBUTO ("Monotributo","6","B");
  
     private final String nombre; 
     private final String codigo; 
+    private final String letra; 
  
-    CategoriaIvaEnum (String nombre,String codigo) { 
+    CategoriaIvaEnum (String nombre,String codigo,String letra) { 
         this.nombre = nombre;
         this.codigo = codigo;
+        this.letra = letra;
     } 
  
     public String getNombre() { return nombre; }
     public String  getCodigo() { return codigo; }
+	public String getLetra() {	return letra; }        
     
      public static String getCategoriaIvaByCodigo(String codigo){
         return getCategoriaIvaObjByCodigo(codigo).getNombre();     
@@ -63,20 +66,20 @@ public enum CategoriaIvaEnum {
     }
     
     public static CategoriaIvaEnum getCategoriaIvaObjByNombre(String nombre){
-        String buscar = StringUtils.trim(nombre);
+        String buscar = StringUtils.trim(nombre).replace("\"", "");
         CategoriaIvaEnum categoria = CONSUMIDOR_FINAL; 
 
-        if (CategoriaIvaEnum.CONSUMIDOR_FINAL.getCodigo().equals(buscar)){
+        if (CategoriaIvaEnum.CONSUMIDOR_FINAL.getNombre().equalsIgnoreCase(buscar)){
         	categoria = CONSUMIDOR_FINAL;
-        } else if (CategoriaIvaEnum.RESPONSABLE_NO_INSCRIPTO.getCodigo().equals(buscar)){
+        } else if (CategoriaIvaEnum.RESPONSABLE_NO_INSCRIPTO.getNombre().equalsIgnoreCase(buscar)){
         	categoria = RESPONSABLE_NO_INSCRIPTO;
-        } else if (CategoriaIvaEnum.RESPONSABLE_INSCRIPTO.getCodigo().equals(buscar)){
+        } else if (CategoriaIvaEnum.RESPONSABLE_INSCRIPTO.getNombre().equalsIgnoreCase(buscar)){
         	categoria = RESPONSABLE_INSCRIPTO;
-        } else if (CategoriaIvaEnum.EXCENTO.getCodigo().equals(buscar)){
+        } else if (CategoriaIvaEnum.EXCENTO.getNombre().equalsIgnoreCase(buscar)){
         	categoria = EXCENTO;
-        } else if (CategoriaIvaEnum.NO_RESPONSABLE.getCodigo().equals(buscar)){
+        } else if (CategoriaIvaEnum.NO_RESPONSABLE.getNombre().equalsIgnoreCase(buscar)){
         	categoria = NO_RESPONSABLE;
-        } else if (CategoriaIvaEnum.MONOTRIBUTO.getCodigo().equals(buscar)){
+        } else if (CategoriaIvaEnum.MONOTRIBUTO.getNombre().equalsIgnoreCase(buscar)){
         	categoria = MONOTRIBUTO;
         } else {
         	System.out.println("Error Categoria IVA");
@@ -84,7 +87,10 @@ public enum CategoriaIvaEnum {
 
     	
         return categoria;     
-    }    
+    }
+
+
+    
     
     
 } 

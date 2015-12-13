@@ -97,7 +97,7 @@
 		}">
 		<div class="input-icon">
 			<i class="glyphicon glyphicon-search search"></i>
-			<input type="text" placeholder="Type to search..." class="form-control" tabindex="1">
+			<input type="text" placeholder="Type to search..." class="form-control" tabindex="-1">
 			<i class="glyphicon glyphicon-remove remove visible-xs-inline-block" ng-click="toggleSearchBar($event)"></i>
 		</div>
 	</div>
@@ -221,13 +221,13 @@
 					<div class="tabular-cell">
 						<label for="layoutFixedHeader">Fixed Header</label>
 						<div ng-click="$event.stopPropagation()">
-							<input type="checkbox" ng-model="layoutFixedHeader" class="js-switch" ui-switch="{color: '#E43B11', secondaryColor: '#F89279'}" />
+							<input tabindex="-1" type="checkbox" ng-model="layoutFixedHeader" class="js-switch" ui-switch="{color: '#E43B11', secondaryColor: '#F89279'}" />
 						</div>
 					</div>
 					<div class="tabular-cell">
 						  <label for="layoutLayoutBoxed"><a href="#/layout-fixed">Boxed Layout</a></label>
 						  <div ng-click="$event.stopPropagation()">
-							<input type="checkbox" ng-model="layoutLayoutBoxed" class="js-switch" ui-switch="{color: '#E43B11', secondaryColor: '#F89279'}" />
+							<input tabindex="-1" type="checkbox" ng-model="layoutLayoutBoxed" class="js-switch" ui-switch="{color: '#E43B11', secondaryColor: '#F89279'}" />
 						  </div>
 					</div>
 				</div>
@@ -235,7 +235,7 @@
 					<div class="tabular-cell">
 						<label for="layoutLayoutHorizontal">Horizontal Nav</label>
 						<div ng-click="$event.stopPropagation()">
-							<input type="checkbox" ng-model="layoutLayoutHorizontal" class="js-switch" ui-switch="{color: '#E43B11', secondaryColor: '#F89279'}" />
+							<input tabindex="-1" type="checkbox" ng-model="layoutLayoutHorizontal" class="js-switch" ui-switch="{color: '#E43B11', secondaryColor: '#F89279'}" />
 						</div>
 					</div>
 					<div class="tabular-cell">
@@ -245,7 +245,7 @@
 					<div class="tabular-cell pb0 pr10">
 					  <label for="layoutDropdownTransitionStyle">Dropdown Animation</label>
 					  <div ng-click="$event.stopPropagation()">
-						<select ng-model="layoutDropdownTransitionStyle" class="form-control">
+						<select tabindex="-1" ng-model="layoutDropdownTransitionStyle" class="form-control">
 							<option value="{{item}}"
 							ng-selected="item == layoutDropdownTransitionStyle"
 							ng-repeat="item in layoutPageTransitionStyleList">{{item}}</option>
@@ -255,7 +255,7 @@
 					<div class="tabular-cell pb0 pl10">
 						<label for="layoutPageTransitionStyle">Transition Animation</label>
 						  <div ng-click="$event.stopPropagation()">
-							<select ng-model="layoutPageTransitionStyle" class="form-control">
+							<select tabindex="-1" ng-model="layoutPageTransitionStyle" class="form-control">
 								<option value="{{item}}"
 								ng-selected="item == layoutPageTransitionStyle"
 								ng-repeat="item in layoutPageTransitionStyleList">{{item}}</option>

@@ -48,16 +48,16 @@
 													<span class="col-md-2"> <strong>Notas:</strong>
 													</span>
 													<div class="col-sm-10">
-														<textarea class="form-control"></textarea>
+														<textarea tabindex="1" class="form-control" ng-model="facturaNotas"></textarea>
 													</div>
 												</div>
 												<div class="row">
 													<span class="col-md-2"> <strong>Producto:</strong>
 													</span>
 													<div class="col-md-7">
-														<input type="text" class="form-control"
-															placeholder="Placeholder" ng-keypress="onKeyArticulo($event);"
-															ng-model="articuloSeleccionadoBuscar">
+														<input tabindex="2" type="text" class="form-control" id="busquedaProd"
+															placeholder="Busqueda..." ng-keypress="onKeyArticulo($event);"
+															ng-model="articuloSeleccionadoBuscar" autofocus>
 													</div>
 
 												</div>
@@ -67,9 +67,9 @@
 									</div>
 									<div class="col-md-4"></div>
 								</div>
-								<div tabindex="0" ng-focus=pruebaFocusFactura()
+								<div tabindex="-1" ng-focus="pruebaFocusFactura()"
 									ag-grid="gridOptionsFactura" id="facturaGrid" class="ag-fresh"
-									style="height: 400px; margin-top: 24px;"></div>
+									style="height: 400px; margin-top: 24px;     border-style: outset;"></div>
 
 							</div>
 						</div>
@@ -78,223 +78,7 @@
 				</panel>
 			</div>
 			<!-- CLIENTE -->
-			<div class="col-xs-12 col-md-4">
-				<panel data-heading="Totales" panel-class="panel-midnightblue"
-					class="ng-isolate-scope">
-				<div class="panel panel-midnightblue">
-					<div class="panel-heading">
-						<h2 class="ng-binding">
-							<!-- ngIf: panelIcon -->
-							Cliente
-						</h2>
-					</div>
-					<div class="panel-body" ng-transclude="">
-						<panel-controls class="ng-scope"> </panel-controls>
-						<div class="panel panel-primary ng-scope">
-							<div class="panel-body">
-								<div class="row">
-									<form action="" class="form-horizontal row-border2">
-										<div class="form-group">
-											<label class="col-md-2 control-label"> <strong>Cliente:</strong>
-											</label>
-											<div class="col-md-7">
-												<input type="text" class="form-control"
-													placeholder="Placeholder" ng-keypress=onKeyCliente()
-													ng-model="clienteSeleccionadoRazon">
-											</div>
-											<div class="col-md-2">
-												<button type="button" class="btn btn-block btn-primary"
-													data-toggle="modal" data-target="#myModal">
-													<i class="fa fa-search"></i>
-												</button>
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<label class="col-md-4 control-label"> <strong>CUIT:</strong>
-											</label>
-											<div class="col-md-8">
-												<span class="label label-default form-control">{{clienteSeleccionadoCuit}}</span>
-											</div>
-										</div>
-										<div class="form-group col-md-6">
-											<label class="col-md-4 control-label"> <strong>Categoria:</strong>
-											</label>
-											<div class="col-md-8">
-												<span class="label label-default form-control">{{clienteSeleccionadoCategoria}}</span>
-											</div>
-										</div>
-
-																			<div class="form-group  col-md-6" >
-																				<label for="checkbox" class="col-sm-2 control-label"></label>
-																				<div class="col-sm-9">
-																					<div class="checkbox block">
-																						<label class="checkbox-inline"> <input icheck
-																							type="checkbox" checked>Consumidor Final
-																						</label>
-																					</div>
-																				</div>
-																			</div>
-
-<!-- 										<div class="form-group  col-md-6"> -->
-<!-- 											<label class="col-sm-6 control-label">Consumidor -->
-<!-- 												Final</label> -->
-<!-- 											<div class="col-sm-6"> -->
-<!-- 												<input type="checkbox" ng-model="consumidorFinalCheck" -->
-<!-- 													class="js-switch ng-pristine ng-untouched ng-valid ng-isolate-scope" -->
-<!-- 													ui-switch="{color: '#7dcc93', secondaryColor: '#c5cbd1'}" -->
-<!-- 													data-switchery="true" style="display: none;"> <span -->
-<!-- 													class="switchery" -->
-<!-- 													style="border-color: rgb(197, 203, 209); box-shadow: rgb(197, 203, 209) 0px 0px 0px 0px inset; transition: border 0.4s, box-shadow 0.4s; background-color: rgb(197, 203, 209);"> -->
-<!-- 													<small -->
-<!-- 													style="left: 0px; transition: left 0.2s; background-color: rgb(255, 255, 255);"> -->
-<!-- 												</small> -->
-<!-- 												</span> -->
-<!-- 											</div> -->
-<!-- 										</div> -->
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				</panel>
-			</div>
-
-
-			<!-- PAGO 
-			<div class="panel panel-inverse" panel-tabs="true"
-				panel-class="panel-inverse" heading="Tabbed Panel Heading"
-				ng-drag="true" draggable="false">
-				<div class="panel-heading" ng-attr-ng-drag-handle="{{draggable}}"
-					ng-drag-handle="true">
-					<h2 class="ng-binding">
-						Pago
-					</h2>
-					<div class="panel-ctrls">
-						<ul class="nav nav-tabs"
-							ng-class="{'nav-stacked': vertical, 'nav-justified': justified}"
-							ng-transclude="">
-							<li ng-class="{active: active, disabled: disabled}"
-								heading="Tab 1" class="ng-isolate-scope"><a href=""
-								ng-click="select()" tab-heading-transclude="" class="ng-binding">Efectivo</a>
-							</li>
-							<li ng-class="{active: active, disabled: disabled}"
-								heading="Tab 2" class="ng-isolate-scope active"><a href=""
-								ng-click="select()" tab-heading-transclude="" class="ng-binding">Tarjeta</a>
-							</li>
-						</ul>
-					</div>
-				</div>
-				<div class="panel-body">
-					<div class="tab-content">
-						<div class="tab-pane ng-scope" ng-repeat="tab in tabs"
-							ng-class="{active: tab.active}" tab-content-transclude="tab">
-
-
-							<panel-controls class="ng-scope"> </panel-controls>
-							<div class="panel panel-primary ng-scope">
-								<div class="panel-body">
-									<div class="row">
-										<form action="" class="form-horizontal row-border2">
-											<div class="form-group">
-												<label class="col-sm-2 control-label">Efectivo</label>
-												<div class="col-sm-4">
-													<div class="input-group">
-														<span class="input-group-addon">$</span> <input
-															type="text" class="form-control" ng-model="montoEfectivo">
-													</div>
-												</div>
-											</div>
-										</form>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					</panel>
-
-
-				</div>
-				<div class="tab-pane ng-scope active" ng-repeat="tab in tabs"
-					ng-class="{active: tab.active}" tab-content-transclude="tab">
-
-
-					<panel-controls class="ng-scope"> </panel-controls>
-					<div class="panel panel-primary ng-scope">
-						<div class="panel-body">
-							<div class="row">
-								<form action="" class="form-horizontal row-border2">
-									<div class="form-group">
-										<label class="col-sm-2 control-label">Tarjeta</label>
-										<div class="col-sm-8">
-											<select class="form-control" id="source"
-												ng-model="pagoTarjetaCredito">
-												<optgroup label="VISA">
-													<option value="1">VISA - Todos los Bancos</option>
-												</optgroup>
-												<optgroup label="American Express">
-													<option value="2">AMEX - Todos los Bancos</option>
-												</optgroup>
-												<optgroup label="Mastercard">
-													<option value="3">Mastercard - Todos los bancos</option>
-												</optgroup>
-											</select>
-										</div>
-									</div>
-									<div class="form-group col-md-7">
-										<label class="col-sm-4 control-label">Monto</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<span class="input-group-addon">$</span> <input type="text"
-													class="form-control" ng-model="montoTC">
-											</div>
-										</div>
-									</div>
-									<div class="form-group col-md-5">
-										<label class="col-sm-4 control-label">Cuotas</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<select class="form-control" id="source" ng-model="cuotasTC">
-													<option value="1">1</option>
-													<option value="2">2</option>
-													<option value="3">3</option>
-													<option value="6">6</option>
-													<option value="9">9</option>
-													<option value="12">12</option>
-													<option value="18">18</option>
-													<option value="24">24</option>
-												</select>
-											</div>
-										</div>
-									</div>
-									<div class="form-group col-md-5">
-										<label class="col-sm-4 control-label">Interes</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<input type="text" class="form-control" ng-model="interesTC">
-												<span class="input-group-addon">%</span>
-											</div>
-										</div>
-									</div>
-									<div class="form-group col-md-7">
-										<label class="col-sm-4 control-label">Cupon</label>
-										<div class="col-sm-8">
-											<div class="input-group">
-												<span class="input-group-addon">$</span> <input type="text"
-													class="form-control" ng-model="cuponTC">
-											</div>
-										</div>
-									</div>
-
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-			</panel>
-		</div>
--->
+			
 
 
 			<div class="col-xs-12 col-md-4">
@@ -314,16 +98,16 @@
 											<label class="col-sm-2 control-label">Efectivo</label>
 											<div class="col-sm-4">
 												<div class="input-group">
-													<span class="input-group-addon">$</span> <input type="text"
-														class="form-control" ng-model="montoEfectivo">
+													<span class="input-group-addon">$</span> <input tabindex="3" type="text" ng-disabled="subTotal==0"
+														class="form-control" ng-model="montoEfectivo" ng-change="changeEfectivo()">
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-2 control-label">Tarjeta</label>
 											<div class="col-sm-8">
-												<select class="form-control" id="source"
-													ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()">
+												<select tabindex="4" class="form-control" id="source"
+													ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()" ng-disabled="!montoTC>0">
 													<optgroup label="VISA">
 														<option value="1">VISA - Todos los Bancos</option>
 													</optgroup>
@@ -340,8 +124,8 @@
 											<label class="col-sm-3 control-label">Monto</label>
 											<div class="col-sm-9">
 												<div class="input-group">
-													<span class="input-group-addon">$</span> <input type="text"
-														class="form-control" ng-model="montoTC" ng-change="calcularTC()" >
+													<span class="input-group-addon">$</span> <input type="text" disabled=true
+														class="form-control" ng-model="montoTC"  >
 												</div>
 											</div>
 										</div>
@@ -349,25 +133,17 @@
 											<label class="col-sm-4 control-label">Cuotas</label>
 											<div class="col-sm-8">
 												<div class="input-group">
-													<select class="form-control" id="source"
-														ng-model="cuotasTC" ng-change="obtenerAlicuotaTarjeta()">
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="6">6</option>
-														<option value="9">9</option>
-														<option value="12">12</option>
-														<option value="18">18</option>
-														<option value="24">24</option>
-													</select>
+												    <select tabindex="5" ng-disabled="selectTarjetaCredito==0" ng-model="cuotaSeleccionada" ng-init="cuotaSeleccionada = cuotas[1]"  ng-change="cuotaChange()" class="form-control"  ng-options="cuota.cuotas  for cuota in cuotas" ></select>
+												
+											
 												</div>
 											</div>
 										</div>
 										<div class="form-group col-md-5">
-											<label class="col-sm-4 control-label">Interes</label>
+											<label class="col-sm-4 control-label">Total con Interes</label>
 											<div class="col-sm-8">
 												<div class="input-group">
-													<span class="input-group-addon">{{interesTC}} %</span>
+													<span class="input-group-addon">{{interesTC}}</span>
 												</div>
 											</div>
 										</div>
@@ -375,7 +151,7 @@
 											<label class="col-sm-4 control-label">Cupon</label>
 											<div class="col-sm-8">
 												<div class="input-group">
-													<input type="text" class="form-control" ng-model="cuponTC">
+													<input tabindex="6" type="text" class="form-control" ng-model="cuponTC">
 												</div>
 											</div>
 										</div>
@@ -465,8 +241,74 @@
 						</div>
 					</div>
 					<div class="pull-right">
-						<a class="btn btn-primary" ng-click=guardarFactura()>Guardar
-							Factura</a>
+						<button tabindex="6" class="btn btn-primary" ng-click="guardarFactura()" ng-disabled="estaDeshabilitado()">Guardar
+							Factura</button>
+					</div>
+				</div>
+				</panel>
+			</div>
+			
+			<div class="col-xs-12 col-md-4" >
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">
+							<!-- ngIf: panelIcon -->
+							Cliente
+						</h2>
+					</div>
+					<div class="panel-body" ng-transclude="">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<form action="" class="form-horizontal row-border2">
+										<div class="form-group">
+											<label class="col-md-2 control-label"> <strong>Cliente:</strong>
+											</label>
+											<div class="col-md-7">
+												<input type="text" class="form-control" tabindex="-1"
+													placeholder="" ng-keypress=onKeyCliente($event)
+													ng-model="clienteSeleccionadoRazon" id="busquedaCliente" ng-focus="clienteFocus()">
+											</div>
+											<div class="col-md-2">
+												<button type="button" class="btn btn-block btn-primary"
+													data-toggle="modal" data-target="#myModal" tabindex="-1">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="col-md-4 control-label"> <strong>CUIT:</strong>
+											</label>
+											<div class="col-md-8">
+												<span class="label label-default form-control">{{clienteSeleccionadoCuit}}</span>
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="col-md-4 control-label"> <strong>Categoria:</strong>
+											</label>
+											<div class="col-md-8">
+												<span class="label label-default form-control">{{clienteSeleccionadoCategoria}}</span>
+											</div>
+										</div>
+
+																			<div class="form-group  col-md-6" >
+																				<label for="checkbox" class="col-sm-2 control-label"></label>
+																				<div class="col-sm-9">
+																					<div class="checkbox block">
+																						<label class="checkbox-inline"> <input icheck 
+																							type="checkbox" tabindex="-1" checked>Consumidor Final
+																						</label>
+																					</div>
+																				</div>
+																			</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 				</panel>
@@ -477,9 +319,7 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+				
 							<h4 class="modal-title" id="myModalLabel">Busqueda de Clientes</h4>
 						</div>
 						<div class="modal-body">
@@ -492,7 +332,7 @@
 													<strong>Codigo:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="Placeholder" ng-model="codigoCliente"></div>
+													<input type="text" class="form-control" placeholder="" ng-model="codigoCliente"></div>
 											</div>
 										</form>
 									</div>
@@ -505,7 +345,7 @@
 													<strong>Razón Social:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="Placeholder" ng-model="razonSocial"></div>
+													<input type="text" class="form-control" placeholder="" ng-model="razonSocial"></div>
 											</div>
 										</form>
 									</div>
@@ -535,8 +375,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary">Guardar</button>
+
 						</div>
 					</div>
 				</div>
@@ -550,9 +389,7 @@
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span>
-							</button>
+						
 							<h4 class="modal-title" id="myModalLabel">Busqueda de Articulos</h4>
 						</div>						
 						<div class="col-xs-12 col-md-12">
@@ -566,7 +403,7 @@
 													<strong>CC1:</strong>
 												</label>
 												<div class="col-md-7">
-													<input type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1"></div>
+													<input  tabindex="9" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1"></div>
 											</div>
 										</form>
 									</div>
@@ -579,7 +416,7 @@
 													<strong>CC2:</strong>
 												</label>
 												<div class="col-md-7">
-													<input type="text" class="form-control" placeholder="codigo" ng-model="data.codigo2"></div>
+													<input  tabindex="10" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo2"></div>
 											</div>
 										</form>
 									</div>
@@ -592,7 +429,7 @@
 													<strong>CC3:</strong>
 												</label>
 												<div class="col-md-7">
-													<input type="text" class="form-control" placeholder="codigo" ng-model="data.codigo3"></div>
+													<input  tabindex="11" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo3"></div>
 											</div>
 										</form>
 									</div>
@@ -605,13 +442,13 @@
 													<strong>Articulo:</strong>
 												</label>
 												<div class="col-md-7">
-													<input type="text" class="form-control" placeholder="Placeholder" ng-model="data.articulo"></div>
+													<input  tabindex="12" id="busquedaArticulo" type="text" class="form-control" placeholder="" ng-model="data.articulo"></div>
 											</div>
 										</form>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-1">
-										<button type="button" class="btn btn-block btn-primary"
+										<button  tabindex="-1" type="button" class="btn btn-block btn-primary"
 											ng-click="externalFilterChanged()">
 											<i class="fa fa-search"></i>
 										</button>
@@ -622,7 +459,7 @@
 						  </div>
 							<div class="row2">
 								<div class="table-responsive">
-									<div tabindex="0" ng-focus=pruebaFocusProductos()
+									<div tabindex="0" ng-focus=pruebaFocusProductos() ng-blur=pruebaLostFocusProductos()
 											ag-grid="gridOptionsProductos" id="productoGrid" ng-keypress="onKeySelectArticulo()"
 											class="ag-fresh" style="height: 400px; ">
 									</div>
@@ -631,8 +468,7 @@
 						  
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary">Guardar</button>
+							
 						</div>
 					</div>
 				</div>

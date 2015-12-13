@@ -13,6 +13,12 @@ public class ClienteServiceImpl extends PaginacionServiceImpl<ClienteDto> implem
     
 	ClienteDao dao = new ClienteDao();
 
+	public static void main(String[] args) {
+		ClienteDao dao = new ClienteDao();
+		dao.getAll();
+	}
+	
+	
 	protected PaginacionDao<ClienteDto> getDao() {
 		return dao;
 	}   

@@ -5,6 +5,27 @@ angular
     .controller('FacturaController', ['$modal', '$scope', '$http', 'ArticuloService', 'ArticuloServiceFiltro', function($modal, $scope, $http, ArticuloService, ArticuloServiceFiltro) {
         'use strict';
 
+        $scope.estaDeshabilitado=function(e){  
+        	console.log("CUOTA SEL",$scope.cuotaSeleccionada,$scope.montoTC!=0,$scope.cuotaSeleccionada!=undefined)
+        	 if ($scope.montoEfectivo> 0 ){
+        		  if ($scope.montoTC!=0) {
+        			  if ($scope.cuotaSeleccionada!=undefined){
+        				  return false
+        			  }else{
+        				  return true
+        			  }
+        		  }else{
+        			  return false
+        		  }
+        	 }else if ($scope.montoTC!=0 && $scope.cuotaSeleccionada!=undefined) {
+        		 return false
+        	 }else{
+        		 return true
+        	 }
+
+    }
+        
+        
         var borraProducto = true;
         var dataSource;
         var dataSourceCliente;
@@ -73,30 +94,51 @@ angular
                 field: "total",
                 width: 100,
                 cellRenderer: function(params) {
-                    return '<button ng-click="borrarFila(' + params.rowIndex + ')">X</button>';
+                	return '<img ng-click="borrarFila(' + params.rowIndex + ')" src="https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/128x128/DeleteRed.png" height="22" width="22">'
+                   //return '<button tabindex="-1"   ng-click="borrarFila(' + params.rowIndex + ')">X</button>';
                 }
             },
 
 
         ];
 
-        
+        $scope.$on('$viewContentLoaded', function(){
+            console.log("termino de cargar")
+          });
         init();
 
         function pruebaFocusFactura(event) {
-        	$("#productoGrid").css("border-style","none")
+        	console.log("ENRAFOC")
+        	//$("#productoGrid").css("border-style","none")
         	$("#facturaGrid").css("border-style","dotted")
-        	console.log("FOCUS",event)
+        	//Le hago foco a algun elemento como para que pueda empezar a ir para abajo directamente con la flecha de abajo
+        	 angular.element(angular.element('.cell-col-0')[0]).trigger('focus');
+        	//console.log("FOCUS",event)
         }
         function pruebaFocusProductos(event) {
+        	//$("#productoGrid").css("border-style","none")
+        	//$("#productoGrid").css("border-style","double")
+        	console.log("TIENE")
+        	//console.log("LEMENT",angular.element('#productoGrid .cell-col-0')[0]))
+        	//Le hago foco a algun elemento como para que pueda empezar a ir para abajo directamente con la flecha de abajo
         	
-        	var valor=false
-        	$("#productoGrid").css("border-style","dotted")
-        	$("#facturaGrid").css("border-style","none")
-        		//Le hago foco a algun elemento como para que pueda empezar a ir para abajo directamente con la flecha de abajo
-        	   angular.element(angular.element('.cell-col-0')[0]).trigger('focus');
-     
+          //angular.element(angular.element('#productoGrid .cell-col-0')[0]).parent().addClass("ag-row-selected")
+        	angular.element(angular.element('#productoGrid .cell-col-0')[0]).removeClass("ag-cell-no-focus")
+        	angular.element(angular.element('#productoGrid .cell-col-0')[0]).addClass("ag-cell-focus")
+        	 angular.element(angular.element('#productoGrid .cell-col-0')[0]).trigger('focus');
+        	//console.log("FOCUS",event)
         }
+        function pruebaLostFocusProductos(event) {
+        	console.log("PIEDERE")
+        	//$("#productoGrid").css("border-style","none")
+        	$("#productoGrid").css("border-style","none")
+
+        }
+        
+        function clienteFocus(event) {
+        	$("#facturaGrid").css("border-style","none")
+        }
+      
         /*Arranque del controlador*/
         function init() {
 
@@ -105,8 +147,16 @@ angular
             $scope.onKeySelectArticulo= showSelectArticuloPopup;
             $scope.guardarFactura = guardarFactura;
             $scope.borrarFila = borrarFila;
-            $scope.pruebaFocusProductos = pruebaFocusProductos;
+            $scope.changeEfectivo = changeEfectivo;
+            $scope.clienteFocus = clienteFocus;
             $scope.pruebaFocusFactura = pruebaFocusFactura;
+            $scope.pruebaFocusProductos = pruebaFocusProductos;
+            $scope.pruebaLostFocusProductos = pruebaLostFocusProductos;
+            $scope.obtenerAlicuotaTarjeta = obtenerAlicuotaTarjeta;
+            $scope.obtenerCuotasTarjeta = obtenerCuotasTarjeta;
+            $scope.cuotaChange = cuotaChange;
+            $scope.calcularTC=calcularTC;
+            $scope.cuotaSeleccionada;
 
             $scope.articuloSeleccionadoBuscar = "";
             $scope.data = {
@@ -122,6 +172,7 @@ angular
             $scope.clienteSeleccionadoCategoria;
             $scope.clienteSeleccionadoCuit;
             $scope.clienteSeleccionadoId;
+
             $scope.fechaFactura = new Date();
             $scope.tipoFactura ="B";
             $scope.subTotal =0;
@@ -131,7 +182,7 @@ angular
 
             //pago
             $scope.montoEfectivo = 0;
-            $scope.interesTarjeta = 0;
+            //$scope.interesTarjeta = 0;
             $scope.selectTarjetaCredito = 0;
             $scope.montoTC = 0;
             $scope.cuotasTC = 0;
@@ -168,13 +219,11 @@ angular
                 maxConcurrentRequests: 2,
                 maxPagesInCache: 2,
                 getRows: function(params) {
-//                    $scope.openDemoModal('lg');
- //                   console.log('asking for ' + params.startRow + ' to ' + params.endRow);
 
                     var start = params.startRow + 1;
-                    console.log('params.endRow ' + params.endRow + ' pageSize ' + pageSize);
+                    //console.log('params.endRow ' + params.endRow + ' pageSize ' + pageSize);
                     var pagina = (params.endRow / pageSize);
-                    console.log('Pagina ' + pagina + ' Tamanio ' + pageSize);
+                    //console.log('Pagina ' + pagina + ' Tamanio ' + pageSize);
                     $.ajax({
                         type: 'POST',
                         url:'http://localhost:8080/DanmarWeb/articulo/searchByFiltros',
@@ -185,12 +234,15 @@ angular
                        // url: 'http://localhost:8080/DanmarWeb/articulo/findAll/' + start + '/' + params.endRow,
 
                         success: function(data) {
+                        	//Se posiciona en el INPUT de Busqueda
+                        	//focus($("#busquedaArticulo"))
+
                             resultadoBusqueda = JSON.parse(angular.toJson(data))
-                            //modalInstance.close();
                             var rowsThisPage = resultadoBusqueda.slice(params.startRow, params.endRow);
                             var lastRow = -1;
 
                             params.successCallback(rowsThisPage, lastRow);
+                            pruebaFocusProductos()
 
                         }
                     });
@@ -204,13 +256,9 @@ angular
                 maxConcurrentRequests: 2,
                 maxPagesInCache: 2,
                 getRows: function(params) {
-                    //$scope.openDemoModal('lg');
-                    console.log('asking for ' + params.startRow + ' to ' + params.endRow);
                     
                     var start = params.startRow + 1;
-                    console.log('params.endRow ' + params.endRow + ' pageSize ' + pageSize);
                     var pagina = (params.endRow / pageSize);
-                    console.log('Pagina ' + pagina + ' Tamanio ' + pageSize);
                     
                     $.ajax({
                         type: 'POST',
@@ -260,6 +308,12 @@ angular
                     },
                     size: size,
                 });
+                modalInstanceCliente.result.then(function (selectedItem) {
+                    
+                }, function () {
+                	//Se ejecuta esto cuando se presiona Escape en el dialogo
+                	focus($("#busquedaCliente"))
+                });
             }
             $scope.openDemoModalArticulo = function(size) {
 
@@ -274,7 +328,20 @@ angular
                     },
                     size: size,
                 });
-            }            
+                modalInstanceArticulo.result.then(function (selectedItem) {
+                	
+                }, function () {
+                	//Se ejecuta esto cuando se presiona Escape en el dialogo
+                	focus($("#busquedaProd"))
+                });
+              //Add a function for when the dialog is opened
+                modalInstanceArticulo.opened.then(function () {
+                	             
+                	})
+            }       
+            
+            
+            
         }
 
         /*Inicializar las grillas*/
@@ -289,7 +356,6 @@ angular
                 virtualPaging: true, // this is important, if not set, normal paging will be done
                 //onSelectionChanged: seleccionCambiada,
                 ready: function(api) {
-                    console.log("LISTO")
                     $scope.gridOptionsProductos.api.setDatasource(dataSource);
                 }
             };
@@ -326,28 +392,81 @@ angular
         }
 
         function valorCeldaCambiado() {
-            // after a value changes, get the volatile cells to update
-        	obtenerTotales();
+           console.log("CeldaCambiada")
+        	cleanTotales();
+           calculateTotales()
+           $scope.$apply() //Averiguar que hace
         }
+        function calculateTotales(){
+        	 calculateSubtotal()
+             setEfectivo()
+             calculateTotalFact()
+        }
+        function cleanTotales(){
+        	
+        	$scope.TotalFact=0
+        	$scope.subTotal=0
+        	$scope.montoTC=0;
+        	$scope.interesTC=0
+        	$scope.selectTarjetaCredito=0;
+        	setEfectivo();
+        	$scope.cuotas={}
+        	$scope.cuotaSeleccionada=undefined
 
+        }
         /*function rowSelectedFunc(event) {
                 	  	$scope.seleccionados=$scope.gridOptionsProductos.api.getSelectedRows()
                   }*/
+        function clone(obj) {
+            if (null == obj || "object" != typeof obj) return obj;
+            var copy = obj.constructor();
+            for (var attr in obj) {
+                if (obj.hasOwnProperty(attr)) copy[attr] = clone(obj[attr]);
+            }
+            return copy;
+        }
+        //Chequea si ya existe un elemento en la tabla de factura,para no agregarlo nuevamente
+        function existe(arrayABuscar,codigo){
+        	console.log("arrayabuscar",arrayABuscar)
+        	var x;
+        	 for (x in arrayABuscar) {
+           	  
+        		 if (arrayABuscar[x].codigo==codigo){
+            		 return true
+
+        		 }
+      	}
+        	 return false
+        }
         function seleccionCambiada(event) {
-            if (borraProducto == true) {
 
                 var clonedArray = JSON.parse(JSON.stringify($scope.gridOptionsProductos.api.getSelectedRows()))
-                //console.log("YA HAY",$scope.gridOptionsFactura.api,$scope.gridOptionsFactura.rowData)
-                 var arrayViejo = JSON.parse(jQuery.extend({}, $scope.gridOptionsFactura.rowData));
-                console.log("ArrayViejo",arrayViejo)
-                console.log("ClonedArray",clonedArray)
-                var concatenada = 	 arrayViejo.concat(clonedArray);
-                console.log("Clonado",concatenada)
-                $scope.gridOptionsFactura.api.setRowData(clonedArray);
-                obtenerTotales()
+                var arrayViejo= clone($scope.gridOptionsFactura.rowData);
+   
+               var x;
+               if (arrayViejo!=null){
+               for (x in clonedArray) {
+            	     if (!existe(arrayViejo,clonedArray[x].codigo))
+            		   arrayViejo.push(clonedArray[x]);
+            	}
+               
+                $scope.gridOptionsFactura.api.setRowData(arrayViejo);
+            }else{
+            	console.log("SALE",clonedArray)
+            	$scope.gridOptionsFactura.api.setRowData(clonedArray);
             }
-            borraProducto = true
+        
+               modalInstanceArticulo.close();
+               cleanTotales()
+               calculateSubtotal()
+               setEfectivo()
+               calculateTotalFact()
+              
 
+               focus($("#busquedaProd"))
+        }
+        function focus(element){
+        	element.focus();
         }
         function seleccionClienteCambiada(event) {
             console.log("event",event)
@@ -362,8 +481,11 @@ angular
             //actualizo el Iva Inscripto
             obtenerAlicuotaCategoriaIva();
             
+            //Actualizo la letra del tipo de Factura
+            obtenerLetraCategoriaIva();
             
-            //obtengo 
+            
+            focus($("#busquedaCliente"))
             
         }
 
@@ -396,28 +518,32 @@ angular
 
             var newArray = $scope.gridOptionsFactura.rowData
             $scope.gridOptionsFactura.api.setRowData(newArray); //Investigar refrescar y no hacer esto
-            obtenerTotales()
+            cleanTotales()
+            calculateTotales()
         }
 
         /*****FIN Eventos Grillas*******/
 
         /*****Calculos*******/
         function obtenerTotales() {
+        	console.log("OBTENER TOTA")
             calculateSubtotal()
             calculateTotalFact()
         }
-
-        
+        function setEfectivo() {
+        	$scope.montoEfectivo=$scope.subTotal;
+        }
         
         function calculateSubtotal() {
             var producto;
             var subTotal = 0;
-            console.log("DATA", $scope.gridOptionsFactura)
+            
             for (producto in $scope.gridOptionsFactura.rowData) {
                 subTotal = subTotal + (parseInt($scope.gridOptionsFactura.rowData[producto].canMaxima) * parseInt($scope.gridOptionsFactura.rowData[producto].precio));
             }
-            $scope.subTotal = subTotal
-            $scope.$apply();
+            $scope.subTotal = subTotal 
+            console.log("DATA", $scope.subTotal)
+           // $scope.$apply();
         }
         
         function calculateTotalFact() {
@@ -425,25 +551,27 @@ angular
 //            var totalFact = 0;
             console.log("DATA", $scope.gridOptionsFactura)
 
-            var totalFact = $scope.subTotal;
+            var totalFact = $scope.montoEfectivo;
             if( $scope.ivaInscripto > 0 ){
+            	console.log("ENTRA IVA")
             	totalFact = totalFact + (totalFact * ($scope.ivaInscripto / 100));
             }
-            if( $scope.interesTarjeta > 0 ){
-            	totalFact = totalFact + ( ($scope.interesTarjeta * $scope.montoTC *  $scope.cuotasTC) - $scope.montoTC) ;
+            if( $scope.interesTC > 0 ){
+            	//totalFact = totalFact + ( ($scope.interesTarjeta * $scope.montoTC *  $scope.cuotasTC) - $scope.montoTC) ;
+            	console.log("ENTRA Interes",$scope.interesTC,totalFact);
+
+            	totalFact=parseInt(totalFact)+$scope.interesTC
+            	console.log("TOTAL FAc",totalFact)
             }
             
             		
             
             $scope.TotalFact = totalFact
-            $scope.$apply();
+           // $scope.$apply();
         }        
         
         function calcularTC() {
-	// Revisar calcula totales cuando se elije tarjeta de credito
-//            if (($scope.selectTarjetaCredito = 0) && ($scope.montoTC != 00) && ($scope.cuotasTC != 00)){
-//            	obtenerTotales();	
-//            }
+	     obtenerCuotasTarjeta();
 
         }
 
@@ -452,19 +580,17 @@ angular
         /*****Otros*******/
 
         function showClientePopup(event) {
+        	if (event.which == 13){
             $scope.openDemoModalCliente('lg');
+        	}
         }
 
         function showArticuloPopup(event) {
-        	console.log("TECLA",event.which )
         	$scope.data.articulo=$scope.articuloSeleccionadoBuscar;
         	if (event.which == 13){
         		$scope.openDemoModalArticulo('lg');     		
         	}
-        	
-//        	$scope.articulo = $scope.articuloSeleccionadoBuscar;
-//        	$scope.articuloSeleccionadoBuscar = "";
-        	
+
             
         }
         function showSelectArticuloPopup(event) {
@@ -480,7 +606,6 @@ angular
             filtro.pagina = start;
             filtro.cantRegistros = end;
             
-            console.log ("Ale yo mando esto:" + filtro);
             return filtro;
         }
         
@@ -502,12 +627,13 @@ angular
 
     	$.ajax({
                         type: 'POST',
-                        url:'http://localhost:8080/DanmarWeb/DocumentoEncabezado/save',
+                        url:'http://localhost:8080/DanmarWeb/Documento/save',
                         contentType : "application/json",
             			data :  JSON.stringify(factura),
             		    dataType: 'json',
 
                         success: function(data) {
+                        	alert("LISTO CAMBIAR ALERTA")
                             console.log("RESULETOADO",data)
                         }
                     });
@@ -528,7 +654,32 @@ angular
                         }
                     });
     }
+    function obtenerLetraCategoriaIva(){
+    	$.ajax({
+            type: 'POST',
+            url:'http://localhost:8080/DanmarWeb/documento/getLetraCategoriaIva',
+            contentType : "application/json",
+			data :  JSON.stringify($scope.clienteSeleccionadoCategoria),
+		    dataType: 'json',
+
+            success: function(data) {
+            	resultadoBusqueda = JSON.parse(angular.toJson(data))
+            	$scope.tipoFactura = data;
+            }
+        });
+
+    }    
     
+    function cuotaChange(){
+
+    	calculateInteresTotalCuotas()
+    }
+    function calculateInteresTotalCuotas(){
+    	console.log("CUOTACHANGE", $scope.cuotaSeleccionada)
+    	$scope.interesTC = $scope.montoTC +(parseInt($scope.cuotaSeleccionada.coeficiente) *$scope.montoTC)/100;
+    	calculateSubtotal()
+        calculateTotalFact()
+    }
     function obtenerTipoFacturaCategoriaIva(){
 
     	$.ajax({
@@ -546,24 +697,30 @@ angular
     }    
     
     function obtenerCuotasTarjeta(){
-    			$scope.interesTarjeta=0;
+    			//$scope.interesTarjeta=0;
+    			var tarjeta =new Object()
+    			tarjeta.codigo=$scope.selectTarjetaCredito
+    			var codigoTarjeta = $scope.selectTarjetaCredito;
+    			
     			$.ajax({
                         type: 'POST',
                         url:'http://localhost:8080/DanmarWeb/tarjeta/getCuotas',
                         contentType : "application/json",
-            			data :  JSON.stringify($scope.selectTarjetaCredito),
+            			data :  JSON.stringify(codigoTarjeta),
             		    dataType: 'json',
 
                         success: function(data) {
                         	resultadoBusqueda = JSON.parse(angular.toJson(data))
                         	//selecciono la cuotra 1
                         	$scope.cuotasTC = 1;
+                        	$scope.cuotas=resultadoBusqueda;
                         	//$scope.tipoFactura = data;
                         }
                     });
     }  
     
     function obtenerAlicuotaTarjeta(){
+    	console.log("PASSS")
     	var tarjeta=new Object();
     	tarjeta.codigo=$scope.selectTarjetaCredito;
 	   	tarjeta.cuotas=$scope.cuotasTC;
@@ -591,7 +748,7 @@ angular
     	header.letra=$scope.tipoFactura;
     	
     	 //header.clienteNro="1";
-    	 header.descripcion=$scope.descripcion;
+    	 header.descripcion=$scope.facturaNotas;
     	 return header;
     }
    function getLineas(){
@@ -622,9 +779,11 @@ angular
 //    	   pagoFacturar.importe=$scope.montoEfectivo;
 //    	   arrayPagoss.push(pagoFacturar)
 //       }
-       if (($scope.selectTarjetaCredito > 0)){
+
+       if (($scope.montoTC > 0)){
     	   var pagoFacturar=new Object()
-    	   pagoFacturar.tipoPago = 1;	
+
+    	   pagoFacturar.tipoPago = "TC";	
     	   pagoFacturar.importe=$scope.montoTC;
     	   pagoFacturar.cuotas = $scope.cuotasTC;
     	   pagoFacturar.coeficiente = $scope.interesTC;
@@ -632,8 +791,14 @@ angular
     	   pagoFacturar.tarjeta=$scope.selectTarjetaCredito;
     	   arrayPagoss.push(pagoFacturar)
        }
+       if (($scope.montoEfectivo > 0)) {
 
-       
+	    	   var pagoFacturar=new Object()
+	    	   pagoFacturar.tipoPago = "EF";	
+	    	   pagoFacturar.importe=$scope.montoEfectivo;
+	    	   arrayPagoss.push(pagoFacturar)    	   
+       	}
+
 	   return arrayPagoss;
    }   
         //ArticuloService.query(null,function(data) {
@@ -645,7 +810,19 @@ angular
 
         // } );
 
-
+   function changeEfectivo() {
+	   $scope.montoTC=$scope.subTotal -$scope.montoEfectivo;
+	   console.log("ChangeEfec",$scope.montoTC)
+	   if ($scope.montoTC>0){
+		   cuotaChange()
+		   //obtenerCuotasTarjeta()
+		  
+	   }
+   }
+   function estaHabilitadoGuardar(){
+	  
+	  
+   }
 
 
     }]);

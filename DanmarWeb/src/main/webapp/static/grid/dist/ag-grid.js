@@ -8132,14 +8132,14 @@ var ag;
                 var userProvidedTemplate = this.gridOptionsWrapper.getOverlayLoadingTemplate();
                 var templateNotLocalised = this.createOverlayTemplate('loading', defaultLoadingOverlayTemplate, userProvidedTemplate);
                 var localeTextFunc = this.gridOptionsWrapper.getLocaleTextFunc();
-                var templateLocalised = templateNotLocalised.replace('[LOADING...]', localeTextFunc('loadingOoo', 'Loading...'));
+                var templateLocalised = templateNotLocalised.replace('[LOADING...]', localeTextFunc('loadingOoo', 'Cargando...'));
                 return templateLocalised;
             };
             GridPanel.prototype.createNoRowsOverlayTemplate = function () {
                 var userProvidedTemplate = this.gridOptionsWrapper.getOverlayNoRowsTemplate();
                 var templateNotLocalised = this.createOverlayTemplate('no-rows', defaultNoRowsOverlayTemplate, userProvidedTemplate);
                 var localeTextFunc = this.gridOptionsWrapper.getLocaleTextFunc();
-                var templateLocalised = templateNotLocalised.replace('[NO_ROWS_TO_SHOW]', localeTextFunc('noRowsToShow', 'No Rows To Show'));
+                var templateLocalised = templateNotLocalised.replace('[NO_ROWS_TO_SHOW]', localeTextFunc('noRowsToShow', 'No hay datos para mostrar'));
                 return templateLocalised;
             };
             GridPanel.prototype.ensureIndexVisible = function (index) {

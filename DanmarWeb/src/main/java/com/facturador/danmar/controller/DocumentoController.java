@@ -27,6 +27,7 @@ public class DocumentoController {
 	DocumentoEncabezadoManager documentoEncabezadoManager;
 	
 
+
 	@RequestMapping(value = "/Documento/save", method = RequestMethod.POST)
 	public @ResponseBody  String guardar(@RequestBody DocumentoEncabezadoForm form) throws ParseException{
 		
@@ -49,6 +50,18 @@ public class DocumentoController {
 		return form.getAlicuota();
 	}
 
+	@RequestMapping(value = "/documento/getLetraCategoriaIva", method = RequestMethod.POST)
+	public @ResponseBody  String getLetraCategoriaIva(@RequestBody String categoria) throws ParseException{
+		String letra = "B";
+		CategoriaIvaEnum codigoCategoria = CategoriaIvaEnum.getCategoriaIvaObjByNombre(categoria);
+		if (codigoCategoria != null){
+			letra = codigoCategoria.getLetra();
+		}
+		
+		return letra;
+	}
+	
+	
 	@RequestMapping(value = "/documento/getTipoFacturaCategoriaIva", method = RequestMethod.POST)
 //	public @ResponseBody  String guardar(@ModelAttribute(value = "Form") DocumentoEncabezadoForm form,
 //				BindingResult result, HttpServletRequest request) throws ParseException{
