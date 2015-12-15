@@ -6,7 +6,7 @@ angular
         'use strict';
 
         $scope.estaDeshabilitado=function(e){  
-        	console.log("CUOTA SEL",$scope.cuotaSeleccionada,$scope.montoTC!=0,$scope.cuotaSeleccionada!=undefined)
+        	//console.log("CUOTA SEL",$scope.cuotaSeleccionada,$scope.montoTC!=0,$scope.cuotaSeleccionada!=undefined)
         	 if ($scope.montoEfectivo> 0 ){
         		  if ($scope.montoTC!=0) {
         			  if ($scope.cuotaSeleccionada!=undefined){
@@ -68,7 +68,6 @@ angular
                 width: 90
             }
 
-
         ];
         var columnsFactura = [{
                 headerName: "Articulo",
@@ -87,7 +86,19 @@ angular
                 field: "canMaxima",
                 width: 90,
                 editable: true
+            }, 
+            {
+                headerName: "Iva",
+                valueGetter: '(getValue("canMaxima") * getValue("precio")*21/100)',
+                width: 90,
+                editable: true
             },
+            {
+                headerName: "Total",
+                valueGetter: 'ctx.totalReal(getValue("precio"),getValue("canMaxima"))',
+                width: 90
+            },
+
 
             {
                 headerName: "Acciones",
@@ -115,6 +126,8 @@ angular
         	 angular.element(angular.element('.cell-col-0')[0]).trigger('focus');
         	//console.log("FOCUS",event)
         }
+  
+
         function pruebaFocusProductos(event) {
         	//$("#productoGrid").css("border-style","none")
         	//$("#productoGrid").css("border-style","double")
@@ -176,7 +189,7 @@ angular
             $scope.fechaFactura = new Date();
             $scope.tipoFactura ="B";
             $scope.subTotal =0;
-            $scope.ivaInscripto =0;
+            $scope.ivaInscripto =21;
             $scope.ivaNoInscripto =0;
             $scope.TotalFact =0;
 
@@ -375,16 +388,48 @@ angular
             };
 
             $scope.gridOptionsFactura = {
+                    enableCellExpressions: true,
+
                 columnDefs: columnsFactura,
                 rowSelection: 'single',
                 rowData: null,
                 enableFilter: true,
+                context:{},
                 onCellValueChanged: valorCeldaCambiado,
                 angularCompileRows: true
             };
+            console.log("GRID",$scope.gridOptionsFactura)
+            $scope.gridOptionsFactura.context.totalReal = function(precio,cantidad) {
+            	var coeficienteTarjeta=0;
+            	var coeficienteEfectivo=0;
+            	var totalEfectivoConCoeficiente=0;
+            	var totalTarjetaConCoeficiente=0;
+            	var totalRealProducto=0
+            	 var totalProducto=(cantidad *precio +(cantidad * precio*21/100));
+            	 if ($scope.montoEfectivo!=0){
+            		coeficienteEfectivo=$scope.montoEfectivo/getResultadoConIva($scope.subTotal)
+            		totalEfectivoConCoeficiente=totalProducto*coeficienteEfectivo
+            	 }
+               debugger
+                if (coeficienteEfectivo>0 && coeficienteEfectivo<1){
+                	console.log("ENTRA coeficienteEfectivo!=1 ")
+                	coeficienteTarjeta=1-coeficienteEfectivo;
+                	console.log("")
+                	totalTarjetaConCoeficiente=(totalProducto-totalEfectivoConCoeficiente)*1.3;
+                }
+                totalRealProducto=totalEfectivoConCoeficiente+totalTarjetaConCoeficiente
+                
+            	// interesTC
+                console.log("TOTALEs COEF,",totalEfectivoConCoeficiente,totalTarjetaConCoeficiente)
+                return totalRealProducto;
+            };
+
         }
 
+        function recalculateGridProductos(){
+            $scope.gridOptionsFactura.api.refreshView();
 
+        }
         /*****Eventos Grillas*******/
 
         function rowDeselectedFunc(event) {
@@ -393,6 +438,8 @@ angular
 
         function valorCeldaCambiado() {
            console.log("CeldaCambiada")
+            $scope.gridOptionsFactura.api.refreshView();
+
         	cleanTotales();
            calculateTotales()
            $scope.$apply() //Averiguar que hace
@@ -401,6 +448,7 @@ angular
         	 calculateSubtotal()
              setEfectivo()
              calculateTotalFact()
+             
         }
         function cleanTotales(){
         	
@@ -455,13 +503,14 @@ angular
             	console.log("SALE",clonedArray)
             	$scope.gridOptionsFactura.api.setRowData(clonedArray);
             }
-        
                modalInstanceArticulo.close();
                cleanTotales()
                calculateSubtotal()
                setEfectivo()
                calculateTotalFact()
-              
+               
+               
+              $scope.gridOptionsFactura.api.refreshView();
 
                focus($("#busquedaProd"))
         }
@@ -480,9 +529,6 @@ angular
             
             //actualizo el Iva Inscripto
             obtenerAlicuotaCategoriaIva();
-            
-            //Actualizo la letra del tipo de Factura
-            obtenerLetraCategoriaIva();
             
             
             focus($("#busquedaCliente"))
@@ -520,6 +566,7 @@ angular
             $scope.gridOptionsFactura.api.setRowData(newArray); //Investigar refrescar y no hacer esto
             cleanTotales()
             calculateTotales()
+            recalculateGridProductos()
         }
 
         /*****FIN Eventos Grillas*******/
@@ -531,7 +578,10 @@ angular
             calculateTotalFact()
         }
         function setEfectivo() {
-        	$scope.montoEfectivo=$scope.subTotal;
+        	$scope.montoEfectivo=getResultadoConIva($scope.subTotal);
+        }
+        function getResultadoConIva(valor){
+        	return valor +valor *21/100;
         }
         
         function calculateSubtotal() {
@@ -549,12 +599,13 @@ angular
         function calculateTotalFact() {
             var producto;
 //            var totalFact = 0;
+            debugger
             console.log("DATA", $scope.gridOptionsFactura)
 
             var totalFact = $scope.montoEfectivo;
             if( $scope.ivaInscripto > 0 ){
-            	console.log("ENTRA IVA")
-            	totalFact = totalFact + (totalFact * ($scope.ivaInscripto / 100));
+            	console.log("Comento porque el total en efectivo ya tiene el iva")
+            	//totalFact = totalFact + (totalFact * ($scope.ivaInscripto / 100));
             }
             if( $scope.interesTC > 0 ){
             	//totalFact = totalFact + ( ($scope.interesTarjeta * $scope.montoTC *  $scope.cuotasTC) - $scope.montoTC) ;
@@ -563,8 +614,7 @@ angular
             	totalFact=parseInt(totalFact)+$scope.interesTC
             	console.log("TOTAL FAc",totalFact)
             }
-            
-            		
+         
             
             $scope.TotalFact = totalFact
            // $scope.$apply();
@@ -627,7 +677,7 @@ angular
 
     	$.ajax({
                         type: 'POST',
-                        url:'http://localhost:8080/DanmarWeb/Documento/save',
+                        url:'http://localhost:8080/DanmarWeb/DocumentoEncabezado/save',
                         contentType : "application/json",
             			data :  JSON.stringify(factura),
             		    dataType: 'json',
@@ -654,30 +704,18 @@ angular
                         }
                     });
     }
-    function obtenerLetraCategoriaIva(){
-    	$.ajax({
-            type: 'POST',
-            url:'http://localhost:8080/DanmarWeb/documento/getLetraCategoriaIva',
-            contentType : "application/json",
-			data :  JSON.stringify($scope.clienteSeleccionadoCategoria),
-		    dataType: 'json',
-
-            success: function(data) {
-            	resultadoBusqueda = JSON.parse(angular.toJson(data))
-            	$scope.tipoFactura = data;
-            }
-        });
-
-    }    
-    
     function cuotaChange(){
 
     	calculateInteresTotalCuotas()
+ 	   recalculateGridProductos()
+
     }
     function calculateInteresTotalCuotas(){
     	console.log("CUOTACHANGE", $scope.cuotaSeleccionada)
-    	$scope.interesTC = $scope.montoTC +(parseInt($scope.cuotaSeleccionada.coeficiente) *$scope.montoTC)/100;
-    	calculateSubtotal()
+    	var test=1.3;
+    	$scope.interesTC = $scope.montoTC *test;
+    	console.log("INTEREs",$scope.interesTC)
+    	calculateSubtotal();
         calculateTotalFact()
     }
     function obtenerTipoFacturaCategoriaIva(){
@@ -748,7 +786,7 @@ angular
     	header.letra=$scope.tipoFactura;
     	
     	 //header.clienteNro="1";
-    	 header.descripcion=$scope.facturaNotas;
+    	 header.descripcion=$scope.descripcion;
     	 return header;
     }
    function getLineas(){
@@ -779,11 +817,9 @@ angular
 //    	   pagoFacturar.importe=$scope.montoEfectivo;
 //    	   arrayPagoss.push(pagoFacturar)
 //       }
-
-       if (($scope.montoTC > 0)){
+       if (($scope.selectTarjetaCredito > 0)){
     	   var pagoFacturar=new Object()
-
-    	   pagoFacturar.tipoPago = "TC";	
+    	   pagoFacturar.tipoPago = 1;	
     	   pagoFacturar.importe=$scope.montoTC;
     	   pagoFacturar.cuotas = $scope.cuotasTC;
     	   pagoFacturar.coeficiente = $scope.interesTC;
@@ -791,14 +827,8 @@ angular
     	   pagoFacturar.tarjeta=$scope.selectTarjetaCredito;
     	   arrayPagoss.push(pagoFacturar)
        }
-       if (($scope.montoEfectivo > 0)) {
 
-	    	   var pagoFacturar=new Object()
-	    	   pagoFacturar.tipoPago = "EF";	
-	    	   pagoFacturar.importe=$scope.montoEfectivo;
-	    	   arrayPagoss.push(pagoFacturar)    	   
-       	}
-
+       
 	   return arrayPagoss;
    }   
         //ArticuloService.query(null,function(data) {
@@ -811,13 +841,15 @@ angular
         // } );
 
    function changeEfectivo() {
-	   $scope.montoTC=$scope.subTotal -$scope.montoEfectivo;
+	  // $scope.montoTC=$scope.TotalFact -$scope.montoEfectivo;
+	   $scope.montoTC=getResultadoConIva($scope.subTotal)-$scope.montoEfectivo;
 	   console.log("ChangeEfec",$scope.montoTC)
 	   if ($scope.montoTC>0){
 		   cuotaChange()
 		   //obtenerCuotasTarjeta()
 		  
 	   }
+	   recalculateGridProductos()
    }
    function estaHabilitadoGuardar(){
 	  
