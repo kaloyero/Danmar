@@ -1,0 +1,63 @@
+<div ng-controller="ConsultaFacturaController">
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-md-8">
+				<panel data-heading="Factura" panel-class="panel-midnightblue">
+				<div class="panel panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">
+							<!-- ngIf: panelIcon -->
+							Factura Busqueda
+						</h2>
+					</div>
+					<div class="panel-body">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+								
+
+									<div class="col-md-8">
+										<div class="form-horizontal row-border ng-scope">
+											<div class="form-group">
+											
+												<div class="row">
+													<span class="col-md-2"> <strong>Codigo Factura:</strong>
+													</span>
+													<div class="col-md-7">
+														<input tabindex="2" type="text" class="form-control" id="busquedaProd"
+															placeholder="Busqueda..." ng-keypress="onKeyArticulo($event);"
+															ng-model="articuloSeleccionadoBuscar" autofocus>
+													</div>
+													<div class="col-md-2">
+												<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal" tabindex="-1">
+													<i class="fa fa-search"></i>
+												</button>
+											</div>
+
+												</div>
+											</div>
+										</div>
+
+									</div>
+									<div class="col-md-4"></div>
+								</div>
+								<div tabindex="-1"
+									ag-grid="gridOptionsFacturas" id="facturaGrid" class="ag-fresh"
+									style="height: 400px; margin-top: 24px;"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
+			<!-- CLIENTE -->
+			
+
+		</div>
+	</div>
+		
+	</div>

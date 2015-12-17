@@ -33,7 +33,7 @@ public class DocumentoController {
 		
 		String rta = documentoEncabezadoManager.saveDoc(form);
 		
-		return "NroFacturaGenerado";
+		return rta;
 	}
 
 

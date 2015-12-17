@@ -13,6 +13,12 @@ public class TarjetaForm {
 	private String descripcion;
 
 
+	public TarjetaForm(String codigo, String cuotas, String coeficiente) {
+		super();
+		this.codigo = codigo;
+		this.cuotas = cuotas;
+		this.coeficiente = coeficiente;
+	}
 	public String getCodigo() {
 		return codigo;
 	}

@@ -4,7 +4,8 @@ angular
     
    
    
-    'theme.demos.ng_grid'
+    'theme.demos.ng_grid',
+    'theme.demos.busquedaFactura'
   ])
   .directive('img', ['$timeout', function ($t) {
       // NOTE: this affects all <img> tags
