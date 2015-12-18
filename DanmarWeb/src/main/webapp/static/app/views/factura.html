@@ -1,3 +1,4 @@
+
 <div ng-controller="FacturaController">
 
 
@@ -28,7 +29,7 @@
 											</div>
 										</a>
 										<div class="pull-right text-center">
-											<span class="badge ng-binding">00000000000016</span>
+											<span class="badge ng-binding">{{numeroFactura}}</span>
 										</div>
 									</div>
 
@@ -48,14 +49,14 @@
 													<span class="col-md-2"> <strong>Notas:</strong>
 													</span>
 													<div class="col-sm-10">
-														<textarea tabindex="1" class="form-control"></textarea>
+														<textarea tabindex="1" class="form-control" ng-class="{botonFocus: focusedNotas}" ng-init="focusedNotas = false" ng-focus="focusedNotas = true" ng-blur="focusedNotas = false"></textarea>
 													</div>
 												</div>
 												<div class="row">
 													<span class="col-md-2"> <strong>Producto:</strong>
 													</span>
 													<div class="col-md-7">
-														<input tabindex="2" type="text" class="form-control" id="busquedaProd"
+														<input ng-class="{botonFocus: focusedBusqueda}" ng-init="focusedBusqueda = false" ng-focus="focusedBusqueda = true" ng-blur="focusedBusqueda = false" tabindex="2" type="text" class="form-control" id="busquedaProd"
 															placeholder="Busqueda..." ng-keypress="onKeyArticulo($event);"
 															ng-model="articuloSeleccionadoBuscar" autofocus>
 													</div>
@@ -99,14 +100,14 @@
 											<div class="col-sm-4">
 												<div class="input-group">
 													<span class="input-group-addon">$</span> <input tabindex="3" type="text" ng-disabled="subTotal==0"
-														class="form-control" ng-model="montoEfectivo" ng-change="changeEfectivo()">
+														class="form-control" ng-model="montoEfectivo" ng-change="changeEfectivo()" ng-class="{botonFocus: focusedEfectivo}" ng-init="focusedEfectivo = false" ng-focus="focusedEfectivo = true" ng-blur="focusedEfectivo = false">
 												</div>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-2 control-label">Tarjeta</label>
 											<div class="col-sm-8">
-												<select tabindex="4" class="form-control" id="source"
+												<select tabindex="4" class="form-control" id="source" ng-class="{botonFocus: focusedTarjeta}" ng-init="focusedTarjeta = false" ng-focus="focusedTarjeta = true" ng-blur="focusedTarjeta = false"
 													ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()" ng-disabled="!montoTC>0">
 													<optgroup label="VISA">
 														<option value="1">VISA - Todos los Bancos</option>
@@ -133,7 +134,7 @@
 											<label class="col-sm-4 control-label">Cuotas</label>
 											<div class="col-sm-8">
 												<div class="input-group">
-												    <select tabindex="5" ng-disabled="selectTarjetaCredito==0" ng-model="cuotaSeleccionada" ng-init="cuotaSeleccionada = cuotas[1]"  ng-change="cuotaChange()" class="form-control"  ng-options="cuota.cuotas  for cuota in cuotas" ></select>
+												    <select ng-class="{botonFocus: focusedCuotas}" ng-init="focusedCuotas = false" ng-focus="focusedCuotas = true" ng-blur="focusedCuotas = false" tabindex="5" ng-disabled="selectTarjetaCredito==0" ng-model="cuotaSeleccionada" ng-init="cuotaSeleccionada = cuotas[1]"  ng-change="cuotaChange()" class="form-control"  ng-options="cuota.cuotas  for cuota in cuotas" ></select>
 												
 											
 												</div>
@@ -151,7 +152,7 @@
 											<label class="col-sm-4 control-label">Cupon</label>
 											<div class="col-sm-8">
 												<div class="input-group">
-													<input tabindex="6" type="text" class="form-control" ng-model="cuponTC">
+													<input ng-class="{botonFocus: focusedCupon}" ng-init="focusedCupon = false" ng-focus="focusedCupon = true" ng-blur="focusedCupon = false" tabindex="6" type="text" class="form-control" ng-model="cuponTC">
 												</div>
 											</div>
 										</div>
@@ -241,7 +242,7 @@
 						</div>
 					</div>
 					<div class="pull-right">
-						<button tabindex="6" class="btn btn-primary" ng-click="guardarFactura()" ng-disabled="estaDeshabilitado()">Guardar
+						<button ng-class="{botonFocus: focused}" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" tabindex="6" class="btn btn-primary" ng-click="guardarFactura()" ng-disabled="estaDeshabilitado()">Guardar
 							Factura</button>
 					</div>
 				</div>
@@ -467,6 +468,20 @@
 							</div>
 						  
 						</div>
+						<div class="modal-footer">
+							
+						</div>
+					</div>
+				</div>
+	</script>
+	<script type="text/ng-template" id="modalFacturaGenerada.html">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+						
+							<h4 class="modal-title" id="myModalLabel">Factura Generada! {{numeroFactura}}</h4>
+						</div>						
+						
 						<div class="modal-footer">
 							
 						</div>

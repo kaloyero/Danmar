@@ -81,13 +81,13 @@
 	ng-controller="MainController"
 	role="banner"
 	ng-show="!layoutLoading"
-	ng-cloak>
+	ng-cloak tabindex="-1">
 	<a id="leftmenu-trigger" ng-click="toggleLeftBar()"></a>
 	<a id="rightmenu-trigger" ng-click="toggleRightBar()"></a>
 
 
-	<div class="navbar-header pull-left">
-		<a class="navbar-brand" href="#/">Maverick</a>
+	<div class="navbar-header pull-left" tabindex="-1">
+		<a class="navbar-brand" href="#/" tabindex="-1">Maverick</a>
 	</div>
 
 	<div id="search-inline"
@@ -95,8 +95,8 @@
 		ng-class="{
 		  active: getLayoutOption('showSmallSearchBar')
 		}">
-		<div class="input-icon">
-			<i class="glyphicon glyphicon-search search"></i>
+		<div class="input-icon" tabindex="-1">
+			<i class="glyphicon glyphicon-search search" ></i>
 			<input type="text" placeholder="Type to search..." class="form-control" tabindex="-1">
 			<i class="glyphicon glyphicon-remove remove visible-xs-inline-block" ng-click="toggleSearchBar($event)"></i>
 		</div>

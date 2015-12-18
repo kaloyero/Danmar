@@ -2,7 +2,7 @@ angular
     .module('theme.demos.ng_grid', [
         'agGrid', 'theme.core.servicesFactura'
     ])
-    .controller('FacturaController', ['$modal', '$scope', '$http', 'ArticuloService', 'ArticuloServiceFiltro', function($modal, $scope, $http, ArticuloService, ArticuloServiceFiltro) {
+    .controller('FacturaController', ['$modal', '$scope', '$http', 'ArticuloService', 'ArticuloServiceFiltro','$route', function($modal, $scope, $http, ArticuloService, ArticuloServiceFiltro,$route) {
         'use strict';
 
         $scope.estaDeshabilitado=function(e){  
@@ -34,6 +34,7 @@ angular
         var modalInstance;
         var modalInstanceCliente ;
         var modalInstanceArticulo ;
+		var modalInstanceSuccessFactura;
 
 
         var columnCliente = [{
@@ -188,6 +189,7 @@ angular
 
             $scope.fechaFactura = new Date();
             $scope.tipoFactura ="B";
+			$scope.numeroFactura="Xxxxxxxxxxx"
             $scope.subTotal =0;
             $scope.ivaInscripto =21;
             $scope.ivaNoInscripto =0;
@@ -297,6 +299,36 @@ angular
         /*Setear Modals*/
 
         function setModals() {
+			
+			$scope.openDemoModalSuccessFactura = function(size) {
+
+                modalInstanceSuccessFactura = $modal.open({
+                    templateUrl: 'modalFacturaGenerada.html',
+                    backdrop: 'static',
+                    scope: $scope,
+                    controller: function($scope, $modalInstance) {
+                        $scope.cancel = function() {
+                            $modalInstance.dismiss('cancel');
+                        };
+                    },
+                    size: size,
+                });
+				
+				
+				modalInstanceSuccessFactura.result.then(function (selectedItem) {
+                    
+                }, function () {
+                	//Se ejecuta esto cuando se presiona Escape en el dialogo
+                	$route.reload();
+
+                });
+				}
+				
+				
+				
+				
+				
+			
             $scope.openDemoModal = function(size) {
                 modalInstance = $modal.open({
                     templateUrl: 'modalTardanza.html',
@@ -622,7 +654,6 @@ angular
         function calculateTotalFact() {
             var producto;
 //            var totalFact = 0;
-            debugger
             console.log("DATA", $scope.gridOptionsFactura)
 
             var totalFact = $scope.montoEfectivo;
@@ -705,9 +736,13 @@ angular
             			data :  JSON.stringify(factura),
             		    dataType: 'json',
 
-                        success: function(data) {
-                        	alert("LISTO CAMBIAR ALERTA")
-                            console.log("RESULETOADO",data)
+                        complete: function(data) {
+							if (data.status=200){
+								console.log("RES",data)
+								$scope.numeroFactura=data.responseText;
+								$scope.openDemoModalSuccessFactura('lg');
+							}
+                        	
                         }
                     });
     }
