@@ -6,20 +6,29 @@ angular
         'use strict';
 
         $scope.estaDeshabilitado=function(e){  
-        	//console.log("CUOTA SEL",$scope.cuotaSeleccionada,$scope.montoTC!=0,$scope.cuotaSeleccionada!=undefined)
         	 if ($scope.montoEfectivo> 0 ){
         		  if ($scope.montoTC!=0) {
         			  if ($scope.cuotaSeleccionada!=undefined){
         				  return false
         			  }else{
-        				  return true
-        			  }
+						  return true
+					  }
+					  if ($scope.cuponTC!=undefined){
+
+        				  return false;
+        			  }else{
+						  return true;
+					  }
+
+					  return false;
         		  }else{
         			  return false
         		  }
-        	 }else if ($scope.montoTC!=0 && $scope.cuotaSeleccionada!=undefined) {
+        	 }else if ($scope.montoTC!=0 && $scope.cuotaSeleccionada!=undefined && $scope.cuponTC!=undefined) {
+
         		 return false
         	 }else{
+
         		 return true
         	 }
 
@@ -120,32 +129,24 @@ angular
         init();
 
         function pruebaFocusFactura(event) {
-        	console.log("ENRAFOC")
+        	//console.log("ENRAFOC")
         	//$("#productoGrid").css("border-style","none")
-        	$("#facturaGrid").css("border-style","dotted")
+        	//$("#facturaGrid").css("border-style","dotted")
         	//Le hago foco a algun elemento como para que pueda empezar a ir para abajo directamente con la flecha de abajo
-        	 angular.element(angular.element('.cell-col-0')[0]).trigger('focus');
+        	// angular.element(angular.element('.cell-col-0')[0]).trigger('focus');
         	//console.log("FOCUS",event)
         }
   
 
         function pruebaFocusProductos(event) {
-        	//$("#productoGrid").css("border-style","none")
-        	//$("#productoGrid").css("border-style","double")
-        	console.log("TIENE")
-        	//console.log("LEMENT",angular.element('#productoGrid .cell-col-0')[0]))
-        	//Le hago foco a algun elemento como para que pueda empezar a ir para abajo directamente con la flecha de abajo
-        	
-          //angular.element(angular.element('#productoGrid .cell-col-0')[0]).parent().addClass("ag-row-selected")
-        	angular.element(angular.element('#productoGrid .cell-col-0')[0]).removeClass("ag-cell-no-focus")
-        	angular.element(angular.element('#productoGrid .cell-col-0')[0]).addClass("ag-cell-focus")
-        	 angular.element(angular.element('#productoGrid .cell-col-0')[0]).trigger('focus');
-        	//console.log("FOCUS",event)
+
+			 			$scope.gridOptionsProductos.api.setFocusedCell(0, 0)
+
         }
         function pruebaLostFocusProductos(event) {
         	console.log("PIEDERE")
         	//$("#productoGrid").css("border-style","none")
-        	$("#productoGrid").css("border-style","none")
+        	//$("#productoGrid").css("border-style","none")
 
         }
         
@@ -192,6 +193,7 @@ angular
 			$scope.numeroFactura="Xxxxxxxxxxx"
             $scope.subTotal =0;
             $scope.ivaInscripto =21;
+			$scope.ivaInscriptoTotal=0;
             $scope.ivaNoInscripto =0;
             $scope.TotalFact =0;
 
@@ -215,7 +217,7 @@ angular
 
         function setGridEvents() {
             $scope.externalFilterChanged = function() {
-                $scope.gridOptionsProductos.api.onFilterChanged();
+            $scope.gridOptionsProductos.api.onFilterChanged();
             };
             $scope.busquedaCliente = function() {
                 $scope.gridOptionsCliente.api.onFilterChanged();
@@ -310,12 +312,15 @@ angular
                         $scope.cancel = function() {
                             $modalInstance.dismiss('cancel');
                         };
+						$scope.opened = function() {
+                           console.log("AABABAA")
+                        };
                     },
                     size: size,
                 });
-				
-				
+
 				modalInstanceSuccessFactura.result.then(function (selectedItem) {
+					console.log("ABRIOOO")
                     
                 }, function () {
                 	//Se ejecuta esto cuando se presiona Escape en el dialogo
@@ -370,18 +375,22 @@ angular
                         $scope.cancel = function() {
                             $modalInstance.dismiss('cancel');
                         };
+						$scope.open = function() {
+                            console.log("OPENARTI")
+                        };
                     },
                     size: size,
                 });
                 modalInstanceArticulo.result.then(function (selectedItem) {
-                	
+                	console.log("ABRIOERER")
                 }, function () {
                 	//Se ejecuta esto cuando se presiona Escape en el dialogo
                 	focus($("#busquedaProd"))
                 });
               //Add a function for when the dialog is opened
                 modalInstanceArticulo.opened.then(function () {
-                	             
+                	                   	console.log("ABRIOEREROPENEd")
+          
                 	})
             }       
             
@@ -398,9 +407,13 @@ angular
                 rowData: null,
                 enableFilter: true,
                 enableServerSideFilter: true,
+				cellFocused:function(){
+					console.log("CELFOC")
+				},
                 virtualPaging: true, // this is important, if not set, normal paging will be done
                 //onSelectionChanged: seleccionCambiada,
                 ready: function(api) {
+					console.log("READY")
                     $scope.gridOptionsProductos.api.setDatasource(dataSource);
                 }
             };
@@ -444,7 +457,6 @@ angular
             	 }
                
                 if (coeficienteEfectivo>0 && coeficienteEfectivo<1){
-                	console.log("ENTRA coeficienteEfectivo!=1 ")
                 	coeficienteTarjeta=1-coeficienteEfectivo;
                 	console.log("")
                 	totalTarjetaConCoeficiente=(totalProducto-totalEfectivoConCoeficiente)*1.3;
@@ -453,6 +465,7 @@ angular
                 
             	// interesTC
                 console.log("TOTALEs COEF,",totalEfectivoConCoeficiente,totalTarjetaConCoeficiente)
+				console.log("TOTAL REl",totalRealProducto.toFixed(2) ,precio)
                 return totalRealProducto.toFixed(2);
             };
 
@@ -469,7 +482,6 @@ angular
         }
 
         function valorCeldaCambiado() {
-           console.log("CeldaCambiada")
            
 
         	cleanTotales();
@@ -479,6 +491,7 @@ angular
         }
         function calculateTotales(){
         	 calculateSubtotal()
+			 calculateIvaTotal()
              setEfectivo()
              calculateTotalFact()
              
@@ -533,12 +546,12 @@ angular
                
                 $scope.gridOptionsFactura.api.setRowData(arrayViejo);
             }else{
-            	console.log("SALE",clonedArray)
             	$scope.gridOptionsFactura.api.setRowData(clonedArray);
             }
                modalInstanceArticulo.close();
                cleanTotales()
                calculateSubtotal()
+			   calculateIvaTotal()
                setEfectivo()
                calculateTotalFact()
                
@@ -630,6 +643,7 @@ angular
         function obtenerTotales() {
         	console.log("OBTENER TOTA")
             calculateSubtotal()
+			calculateIvaTotal()
             calculateTotalFact()
         }
         function setEfectivo() {
@@ -647,14 +661,15 @@ angular
                 subTotal = subTotal + (parseInt($scope.gridOptionsFactura.rowData[producto].canMaxima) * parseInt($scope.gridOptionsFactura.rowData[producto].precio));
             }
             $scope.subTotal = subTotal
-            console.log("DATA", $scope.subTotal)
            // $scope.$apply();
         }
+		function calculateIvaTotal(){
+			$scope.ivaInscriptoTotal=($scope.subTotal *21)/100
+		}
         
         function calculateTotalFact() {
             var producto;
 //            var totalFact = 0;
-            console.log("DATA", $scope.gridOptionsFactura)
 
             var totalFact = $scope.montoEfectivo;
             if( $scope.ivaInscripto > 0 ){
@@ -692,7 +707,7 @@ angular
         function showArticuloPopup(event) {
         	$scope.data.articulo=$scope.articuloSeleccionadoBuscar;
         	if (event.which == 13){
-        		$scope.openDemoModalArticulo('lg');     		
+        		$scope.openDemoModalArticulo('lg');
         	}
 
             
@@ -774,6 +789,7 @@ angular
     	$scope.interesTC = ($scope.montoTC *test).toFixed(2);
     	console.log("INTEREs",$scope.interesTC)
     	calculateSubtotal();
+		calculateIvaTotal();
         calculateTotalFact()
     }
     function obtenerTipoFacturaCategoriaIva(){
