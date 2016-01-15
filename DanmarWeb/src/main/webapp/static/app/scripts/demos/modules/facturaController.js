@@ -605,38 +605,37 @@ angular
 									var totalRealProducto = 0;
 									// elimino las comas para hacer la cuenta
 									precio = getNumber(precio);
-
-									var totalProducto = (cantidad * precio + (cantidad	* precio * (getIva() / 100) ));
-
-									if ($scope.montoEfectivo != 0) {
-										coeficienteEfectivo = $scope.montoEfectivo
-												/ getResultadoConIva($scope.subTotal)
-										totalEfectivoConCoeficiente = totalProducto
-												* coeficienteEfectivo
+									/* Se bloquea el uso de IVA para calculo de articulo
+									var totalProducto = (cantidad * precio + (cantidad	* precio * (getIva() / 100) )); */
+									var totalProducto = (cantidad * precio); 
+									
+									
+									//Caso Monto tarjeta de credito con monto > 0  y cuotas no seleccionadas
+									if ($scope.montoEfectivo != 0 && $scope.montoTC != 0 && $scope.cuotaSeleccionada == undefined) {
+										coeficienteEfectivo = (parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)) / getSubTotalConIva();
+										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
+									} else if ($scope.montoEfectivo != 0) {
+										coeficienteEfectivo = $scope.montoEfectivo / getSubTotalConIva();
+										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
 									}
-console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
+
 									if (coeficienteEfectivo > 0
 											&& coeficienteEfectivo < 1 &&  $scope.cuotaSeleccionada != undefined) {
 										coeficienteTarjeta = 1 - coeficienteEfectivo;
 										var coeficienteTC = $scope.cuotaSeleccionada.coeficiente
 										totalTarjetaConCoeficiente = (totalProducto - totalEfectivoConCoeficiente) * coeficienteTC;
-									}
-									totalRealProducto = totalEfectivoConCoeficiente
-											+ totalTarjetaConCoeficiente
+									} else {
 
-									// interesTC
-									console.log("TOTALEs COEF,",
-											totalEfectivoConCoeficiente,
-											totalTarjetaConCoeficiente)
-									console.log("TOTAL REl", totalRealProducto
-											.toFixed(2), precio)
+									}
+									totalRealProducto = totalEfectivoConCoeficiente + totalTarjetaConCoeficiente
+
+									console.log("TOTAL REl", totalRealProducto.toFixed(2), precio)
 									return totalRealProducto.toFixed(2);
 
 							}
 							
 							function recalculateGridProductos() {
 								$scope.gridOptionsFactura.api.refreshView();
-
 							}
 							/** ***Eventos Grillas****** */
 
@@ -648,7 +647,7 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 							function valorCeldaCambiado() {
 
 								cleanTotales();
-								calculateTotales()
+								
 								recalculateGridProductos()
 								$scope.$apply() // Averiguar que hace
 							}
@@ -661,10 +660,8 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 							}
 
 							function calculateTotales() {
-								calculateSubtotal()
-								calculateIvaTotal()
+								obtenerTotales();
 								setEfectivo()
-								calculateTotalFact()
 
 							}
 							function cleanTotales() {
@@ -731,12 +728,8 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 								}
 								modalInstanceArticulo.close();
 								cleanTotales()
-								calculateSubtotal()
-								calculateIvaTotal()
 
-								setEfectivo()
-								calculateTotalFact()
-
+								calculateTotales()
 								recalculateGridProductos()
 
 								focus($("#busquedaProd"))
@@ -847,32 +840,89 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 
 							/** ***Calculos****** */
 							function obtenerTotales() {
-								console.log("OBTENER TOTA")
-								calculateSubtotal()
-								calculateIvaTotal()
-								calculateTotalFact()
+								console.log("Calcula Totales")
+								calculateSaldosTotales();
 							}
 							function setEfectivo() {
-								$scope.montoEfectivo = getResultadoConIva($scope.subTotal);
+								console.log("Actualiza el monto de efectivo")
+								$scope.montoEfectivo = getTotal();
 							}
+							/* Se bloquea el uso de IVA para calculo de articulo
 							function getResultadoConIva(valor) {
-								
 								return valor + valor * getIva() / 100;
-							}
+							}*/
 
-							function calculateSubtotal() {
+							function calculateSaldosTotales() {
 								var producto;
-								var subTotal = 0;
+								var total = 0;
 
 								for (producto in $scope.gridOptionsFactura.rowData) {
-									subTotal = subTotal
+									total = total
 											+ (parseInt($scope.gridOptionsFactura.rowData[producto].canMaxima) * parseInt(getNumber($scope.gridOptionsFactura.rowData[producto].precio)));
 								}
-								$scope.subTotal = subTotal
-								// $scope.$apply();
+								//Agrego que el subtotal sea el total menos el IVA
+								var ivaTotal = calculaIva(total);
+								setIvaInscriptoTotal(ivaTotal)
+
+								//Calculo el sub total
+								var subTotal = (total - ivaTotal);
+								setSubTotal(subTotal);
+
+								//Calculo el Total
+								var subTotal = (total - ivaTotal);
+								setSubTotal(subTotal);
+								
+								//Sumo los intereses al subtotal para obtener el total
+								var totalFact = sumoInteresTarjetaAlTotalFactura(total);
+								setTotal(totalFact);
+								
 							}
-							function calculateIvaTotal() {
-								$scope.ivaInscriptoTotal = ($scope.subTotal * getIva()) / 100
+							
+							function sumoInteresTarjetaAlTotalFactura(totalSinTarjeta) {
+								var totalFact = totalSinTarjeta;
+								
+								if ($scope.montoTC > 0 && $scope.interesTC > 0) {
+									// totalFact = totalFact + (
+									// ($scope.interesTarjeta * $scope.montoTC *
+									// $scope.cuotasTC) - $scope.montoTC) ;
+									totalFact = parseFloat(totalFact) + (parseFloat($scope.interesTC) - $scope.montoTC)
+								}
+								
+								return totalFact;
+							}
+							
+							
+							function setIvaInscriptoTotal(ivaTotal) {
+								$scope.ivaInscriptoTotal = parseFloat(ivaTotal).toFixed(2);
+							}
+
+							function getIvaInscriptoTotal() {
+								return parseFloat($scope.ivaInscriptoTotal);
+							}
+							
+							function setSubTotal(subTotal) {
+								$scope.subTotal = parseFloat(subTotal).toFixed(2);
+							}
+							function getSubTotal() {
+								return parseFloat($scope.subTotal);
+							}
+
+
+							function setTotal(total) {
+								$scope.TotalFact = parseFloat(total).toFixed(2);
+							}
+				
+							function getTotal() {
+								return parseFloat($scope.TotalFact);
+							}
+
+							function getSubTotalConIva() {
+								return parseFloat(getSubTotal() + getIvaInscriptoTotal() );
+							}
+
+							
+							function calculaIva(valor) {
+								return valor * getIva() / 100;
 							}
 
 							function getNumber(strNumber) {
@@ -898,10 +948,13 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 											$scope.interesTC, totalFact);
 
 									totalFact = parseFloat(totalFact)
-											+ parseFloat($scope.interesTC)
+											+ parseFloat($scope.interesTC) 
 									console.log("TOTAL FAc", totalFact)
 								}
 
+								//Sumo los intereses al total
+								totalFact = totalFact + $scope.ivaInscriptoTotal;
+								
 								$scope.TotalFact = parseFloat(totalFact)
 										.toFixed(2)
 								// $scope.$apply();
@@ -1028,9 +1081,7 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 											.toFixed(2);
 								}
 									console.log("INTEREs", $scope.interesTC)
-									calculateSubtotal();
-									calculateIvaTotal();
-									calculateTotalFact()
+									obtenerTotales();
 								
 							}
 
@@ -1193,10 +1244,8 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 							function changeEfectivo() {
 								// $scope.montoTC=$scope.TotalFact
 								// -$scope.montoEfectivo;
-								var nuevoMonto = parseFloat(
-										getResultadoConIva($scope.subTotal)
-												- $scope.montoEfectivo)
-										.toFixed(2);
+								var nuevoMonto = parseFloat(getTotal() - $scope.montoEfectivo).toFixed(2); ;
+										
 								if (nuevoMonto >= 0){
 									$scope.montoTC = nuevoMonto;
 								} else {
@@ -1210,7 +1259,6 @@ console.log("QUSADASDASDDADS",$scope.cuotaSeleccionada);
 								if ($scope.montoTC > 0) {
 									cuotaChange()
 									// obtenerCuotasTarjeta()
-
 								}
 								recalculateGridProductos()
 							}

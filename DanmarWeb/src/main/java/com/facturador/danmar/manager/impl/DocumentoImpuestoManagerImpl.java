@@ -28,4 +28,4 @@ public class DocumentoImpuestoManagerImpl extends GenericManagerImpl<DocumentoIm
 		return new DocumentoImpuestoMapper();
 	}
 
-}
+} 
