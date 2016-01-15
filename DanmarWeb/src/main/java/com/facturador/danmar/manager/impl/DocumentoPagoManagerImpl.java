@@ -68,4 +68,5 @@ public class DocumentoPagoManagerImpl extends GenericManagerImpl<DocumentoPagoFo
 
 	}
 
+
 }

@@ -26,6 +26,12 @@
 			<artifactId>DanmarBeans</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<!-- DBF beans Project-->
+		<dependency>
+			<groupId>com.danmar.beans</groupId>
+			<artifactId>DanmarBeansDbf</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	
 		<!-- JUnit -->
 		<dependency>

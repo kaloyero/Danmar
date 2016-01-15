@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.danmar.utils.ConvertionUtil;
 import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.TarjetaForm;
+import com.facturador.danmar.manager.TarjetaCoeficienteManager;
 import com.facturador.danmar.manager.TarjetaManager;
 
 
@@ -20,12 +21,23 @@ import com.facturador.danmar.manager.TarjetaManager;
 public class TarjetaController {
 
 	@Autowired
+	TarjetaCoeficienteManager tarjetaCoeficienteManager;
+
+	@Autowired
 	TarjetaManager tarjetaManager;
 
 	
+	@RequestMapping(value = "/tarjeta/getTarjetas", method = RequestMethod.POST)
+	public @ResponseBody  List<TarjetaForm> getTarjetas() throws ParseException{
+		List<TarjetaForm> rta = tarjetaManager.getAll();
+		return rta;
+	}
+	
+	
 	@RequestMapping(value = "/tarjeta/getAlicuota", method = RequestMethod.POST)
 	public @ResponseBody  String getAlicuotaCategoriaIva(@RequestBody TarjetaForm filtro) throws ParseException{
-		TarjetaForm rta = tarjetaManager.getById( ConvertionUtil.IntValueOf(filtro.getCodigo()), ConvertionUtil.IntValueOf(filtro.getCuotas()));
+		
+		TarjetaForm rta = tarjetaCoeficienteManager.getById( ConvertionUtil.IntValueOf(filtro.getCodigo().replace("\"", "")), ConvertionUtil.IntValueOf(filtro.getCuotas()));
 		return rta.getCoeficiente();
 	}
 
@@ -39,11 +51,12 @@ public class TarjetaController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(value = "/tarjeta/getCuotas", method = RequestMethod.POST)
-	public @ResponseBody  List<TarjetaForm> getTipoFacturaCategoriaIva(@RequestBody TarjetaForm filtro) throws ParseException{
-		List<TarjetaForm> rta = tarjetaManager.getCuotas( ConvertionUtil.IntValueOf(filtro.getCodigo()));
+	public @ResponseBody  List<TarjetaForm> getTipoFacturaCategoriaIva(@RequestBody  TarjetaForm filtro) throws ParseException{
+		List<TarjetaForm> rta = tarjetaCoeficienteManager.getCuotas( ConvertionUtil.IntValueOf(filtro.getCodigo()));
 		for (TarjetaForm form : rta) {
-			Double interes = ((ConvertionUtil.DouValueOf(form.getCoeficiente()) * ConvertionUtil.DouValueOf(form.getMonto()) )  / 100 ) ;
-			Double importeFinal = ConvertionUtil.DouValueOf(form.getMonto()) + interes;
+//			Double interes = ((ConvertionUtil.DouValueOf(form.getCoeficiente()) * ConvertionUtil.DouValueOf(filtro.getMonto()) )  ) ;
+//			Double importeFinal = ConvertionUtil.DouValueOf(filtro.getMonto()) + interes;
+			Double importeFinal = ((ConvertionUtil.DouValueOf(form.getCoeficiente()) * ConvertionUtil.DouValueOf(filtro.getMonto()) )  ) ;
 			Double importeCuota = importeFinal / Integer.parseInt(form.getCuotas());
 			
 			String descripcion = form.getCuotas() + " cuota(s) de $ " + FormatUtil.format2DecimalsStr(importeCuota) + " ( "+form.getCoeficiente()+"% - $ "+FormatUtil.format2DecimalsStr(importeFinal)+") " ;

@@ -2,39 +2,31 @@ package com.facturador.danmar.manager.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.danmar.dbf.service.TarjetaService;
-import com.danmar.dbf.service.impl.TarjetaServiceImpl;
 import com.facturador.danmar.form.TarjetaForm;
 import com.facturador.danmar.form.mapper.TarjetaMapper;
 import com.facturador.danmar.manager.TarjetaManager;
+import com.facturador.danmar.service.TarjetaService;
 
-@Service("tarjetaService")
-public class TarjetaManagerImpl implements TarjetaManager{
+@Service("tarjetaManager")
+public class TarjetaManagerImpl extends GenericManagerImpl<TarjetaForm> implements TarjetaManager{
 
+	@Autowired
+	TarjetaService tarjetaService;
+	
 	protected TarjetaService getService(){
-		return new TarjetaServiceImpl();
+		return tarjetaService;
 	}
 
 	protected TarjetaMapper getMapper(){
 		return new TarjetaMapper();
 	}
 	
-	public List<TarjetaForm> getAll(int pagina, int cantRegistros) {
-		return getMapper().getFormList(getService().getAll(pagina, cantRegistros));
-	}   
-
+	@Override
 	public List<TarjetaForm> getAll() {
 		return getMapper().getFormList(getService().getAll());
-	}   
-
-	public List<TarjetaForm> getCuotas(int tarjeta) {
-		return getMapper().getFormList(getService().getCuotasByTarjeta(tarjeta));
-	}   
-	
-	public TarjetaForm getById(int tarjeta,int cuotas) {
-		return getMapper().getForm(getService().getById(tarjeta,cuotas));
 	}   
 	
 }

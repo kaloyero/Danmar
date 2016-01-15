@@ -1,0 +1,201 @@
+
+<div ng-controller="FacturaListadoController">
+
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12 col-md-8">
+				<panel data-heading="Factura" panel-class="panel-midnightblue">
+				<div class="panel  panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">
+							<!-- ngIf: panelIcon -->
+							Lista de Facturas
+						</h2>
+					</div>
+					<div class="panel-body">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel  panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+
+									<div class="col-md-4"></div>
+								</div>
+								<div tabindex="-1" ng-focus="pruebaFocusFactura()"
+									ag-grid="gridOptionsFactura" id="facturaGrid" class="ag-fresh"
+									style="height: 400px; margin-top: 24px;"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
+			<!-- CLIENTE -->
+
+
+
+			<div class="col-xs-12 col-md-4">
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel  panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">Filtros</h2>
+					</div>
+					<div class="panel-body" ng-transclude="">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel  panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-10">
+										<div class="form-horizontal row-border ng-scope">
+											<div class="form-group">
+												<div class="row col-md-4">
+													<span class="col-md-2"> <strong>Nº Factura:</strong>
+													</span>
+													<div class="col-md-10">
+														<input ng-class="{botonFocus: focusedBusqueda}"
+															ng-init="focusedBusqueda = false"
+															ng-focus="focusedBusqueda = true"
+															ng-blur="focusedBusqueda = false" tabindex="2"
+															type="text" class="form-control" id="busquedaFact"
+															placeholder="Busqueda..."
+															ng-keypress="onKeyArticulo($event);"
+															ng-model="facturaBusquedaFact" autofocus>
+													</div>
+												</div>
+												<div class="row col-md-4">
+													<span class="col-md-2"> <strong>Fecha
+															mayor:</strong>
+													</span>
+													<div class="col-md-10">
+														<input ng-class="{botonFocus: focusedBusqueda}"
+															ng-init="focusedBusqueda = false"
+															ng-focus="focusedBusqueda = true"
+															ng-blur="focusedBusqueda = false" tabindex="2"
+															type="text" class="form-control" id="busquedaFechaMay"
+															placeholder="Busqueda..."
+															ng-keypress="onKeyArticulo($event);"
+															ng-model="facturaBusquedaFechaMay" autofocus>
+													</div>
+
+												</div>
+												<div class="row col-md-4">
+													<span class="col-md-2"> <strong>menor:</strong>
+													</span>
+													<div class="col-md-10">
+														<input ng-class="{botonFocus: focusedBusqueda}"
+															ng-init="focusedBusqueda = false"
+															ng-focus="focusedBusqueda = true"
+															ng-blur="focusedBusqueda = false" tabindex="2"
+															type="text" class="form-control" id="busquedaFechaMen"
+															placeholder="Busqueda..."
+															ng-keypress="onKeyArticulo($event);"
+															ng-model="facturaBusquedaFechaMen" autofocus>
+													</div>
+
+												</div>
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
+
+
+
+
+		</div>
+	</div>
+	<script type="text/ng-template" id="modalBuscadorCliente.html">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+				
+							<h4 class="modal-title" id="myModalLabel">Busqueda de Clientes</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-xs-12 col-md-5">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-3 control-label">
+													<strong>Codigo:</strong>
+												</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control" placeholder="" ng-model="codigoCliente"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-5">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-3 control-label">
+													<strong>Razón Social:</strong>
+												</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control" placeholder="" ng-model="razonSocial"></div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<div class="col-xs-12 col-md-2">
+									<div class="row2">
+										<!-- <button class="btn btn-block" type="button" ng-click="busquedaCliente()" > -->
+										<button class="btn btn-block" type="button" ng-click="busquedaCliente()" >
+											<i class="fa fa-search"></i>
+											<span class="">Buscar</span>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="row2">
+
+
+							<div class="row2">
+								<div class="table-responsive">
+									<div tabindex="0" 
+											ag-grid="gridOptionsCliente"
+											class="ag-fresh" style="height: 400px; ">
+									</div>
+								</div>
+							</div>
+
+							</div>
+						</div>
+						<div class="modal-footer">
+
+						</div>
+					</div>
+				</div>
+
+
+
+    	    
+
+	</script>
+	
+	<script type="text/ng-template" id="modalFacturaGenerada.html">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+						
+							<h4 class="modal-title" id="myModalLabel">Factura Generada! {{numeroFactura}}</h4>
+						</div>						
+						
+						<div class="modal-footer">
+							
+						</div>
+					</div>
+				</div>
+	</script>
+</div>

@@ -16,6 +16,8 @@ public class DocumentoLinea {
 	private int cantidad	;
 	@Column(name = "precio")
 	private Double precio;
+	@Column(name = "precioUnitario")
+	private Double precioUnitario;
 	@Column(name = "IdDocumentoEncabezado")
 	private int documentoEncabezadoId;
 	@Column(name = "Descripcion")
@@ -109,6 +111,12 @@ public class DocumentoLinea {
 	}
 	public void setArticuloId(int articuloId) {
 		this.articuloId = articuloId;
+	}
+	public Double getPrecioUnitario() {
+		return precioUnitario;
+	}
+	public void setPrecioUnitario(Double precioUnitario) {
+		this.precioUnitario = precioUnitario;
 	}
 
 	

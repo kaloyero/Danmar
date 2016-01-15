@@ -37,7 +37,27 @@ public class DateUtil {
 		return returnDate;
 		
 	}
-	
+
+	public synchronized static Date convertStringToDate (String d, String formato){
+		
+		Date returnDate = null;
+		
+		try {
+			if (StringUtils.isNotBlank(formato) && StringUtils.isNotBlank(d)){
+				SimpleDateFormat f1= new SimpleDateFormat(formato);
+				returnDate = f1.parse(d);
+			} else {
+				convertStringToDate(d);
+			}
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+			System.out.println("ERROR (DateFormater.java) Error en el parseo de formato ");
+		}
+
+		return returnDate;
+		
+	}
 	
 	/**
 	 * Recibe un date y devuelve un String formateado

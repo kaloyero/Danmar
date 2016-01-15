@@ -6,16 +6,16 @@
 		<div class="row">
 			<div class="col-xs-12 col-md-8">
 				<panel data-heading="Factura" panel-class="panel-midnightblue">
-				<div class="panel panel-midnightblue">
+				<div class="panel  panel-midnightblue">
 					<div class="panel-heading">
-						<h2 class="ng-binding">
-							<!-- ngIf: panelIcon -->
-							Factura
-						</h2>
+						<select class="ng-binding">
+							<option><h2 class="ng-binding">Factura</h2>
+							</option>
+						</select>
 					</div>
 					<div class="panel-body">
 						<panel-controls class="ng-scope"> </panel-controls>
-						<div class="panel panel-primary ng-scope">
+						<div class="panel  panel-primary ng-scope">
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-xs-2">
@@ -49,15 +49,24 @@
 													<span class="col-md-2"> <strong>Notas:</strong>
 													</span>
 													<div class="col-sm-10">
-														<textarea tabindex="1" class="form-control" ng-class="{botonFocus: focusedNotas}" ng-init="focusedNotas = false" ng-focus="focusedNotas = true" ng-blur="focusedNotas = false"></textarea>
+														<textarea tabindex="1" class="form-control"
+															ng-class="{botonFocus: focusedNotas}"
+															ng-init="focusedNotas = false"
+															ng-focus="focusedNotas = true"
+															ng-blur="focusedNotas = false"></textarea>
 													</div>
 												</div>
 												<div class="row">
 													<span class="col-md-2"> <strong>Producto:</strong>
 													</span>
-													<div class="col-md-7">
-														<input ng-class="{botonFocus: focusedBusqueda}" ng-init="focusedBusqueda = false" ng-focus="focusedBusqueda = true" ng-blur="focusedBusqueda = false" tabindex="2" type="text" class="form-control" id="busquedaProd"
-															placeholder="Busqueda..." ng-keypress="onKeyArticulo($event);"
+													<div class="col-md-10">
+														<input ng-class="{botonFocus: focusedBusqueda}"
+															ng-init="focusedBusqueda = false"
+															ng-focus="focusedBusqueda = true"
+															ng-blur="focusedBusqueda = false" tabindex="2"
+															type="text" class="form-control" id="busquedaProd"
+															placeholder="Busqueda..."
+															ng-keypress="onKeyArticulo($event);"
 															ng-model="articuloSeleccionadoBuscar" autofocus>
 													</div>
 
@@ -79,180 +88,10 @@
 				</panel>
 			</div>
 			<!-- CLIENTE -->
-			
-
-
 			<div class="col-xs-12 col-md-4">
 				<panel data-heading="Totales" panel-class="panel-midnightblue"
 					class="ng-isolate-scope">
-				<div class="panel panel-midnightblue">
-					<div class="panel-heading">
-						<h2 class="ng-binding">Forma de Pago</h2>
-					</div>
-					<div class="panel-body" ng-transclude="">
-						<panel-controls class="ng-scope"> </panel-controls>
-						<div class="panel panel-primary ng-scope">
-							<div class="panel-body">
-								<div class="row">
-									<form action="" class="form-horizontal row-border2">
-										<div class="form-group">
-											<label class="col-sm-2 control-label">Efectivo</label>
-											<div class="col-sm-4">
-												<div class="input-group">
-													<span class="input-group-addon">$</span> <input tabindex="3" type="text" ng-disabled="subTotal==0"
-														class="form-control" ng-model="montoEfectivo" ng-change="changeEfectivo()" ng-class="{botonFocus: focusedEfectivo}" ng-init="focusedEfectivo = false" ng-focus="focusedEfectivo = true" ng-blur="focusedEfectivo = false">
-												</div>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-2 control-label">Tarjeta</label>
-											<div class="col-sm-8">
-												<select tabindex="4" class="form-control" id="source" ng-class="{botonFocus: focusedTarjeta}" ng-init="focusedTarjeta = false" ng-focus="focusedTarjeta = true" ng-blur="focusedTarjeta = false"
-													ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()" ng-disabled="!montoTC>0">
-													<optgroup label="VISA">
-														<option value="1">VISA - Todos los Bancos</option>
-													</optgroup>
-													<optgroup label="American Express">
-														<option value="2">AMEX - Todos los Bancos</option>
-													</optgroup>
-													<optgroup label="Mastercard">
-														<option value="3">Mastercard - Todos los bancos</option>
-													</optgroup>
-												</select>
-											</div>
-										</div>
-										<div class="form-group col-md-7">
-											<label class="col-sm-3 control-label">Monto</label>
-											<div class="col-sm-9">
-												<div class="input-group">
-													<span class="input-group-addon">$</span> <input type="text" disabled=true
-														class="form-control" ng-model="montoTC"  >
-												</div>
-											</div>
-										</div>
-										<div class="form-group col-md-5">
-											<label class="col-sm-4 control-label">Cuotas</label>
-											<div class="col-sm-8">
-												<div class="input-group">
-												    <select ng-class="{botonFocus: focusedCuotas}" ng-init="focusedCuotas = false" ng-focus="focusedCuotas = true" ng-blur="focusedCuotas = false" tabindex="5" ng-disabled="selectTarjetaCredito==0" ng-model="cuotaSeleccionada" ng-init="cuotaSeleccionada = cuotas[1]"  ng-change="cuotaChange()" class="form-control"  ng-options="cuota.cuotas  for cuota in cuotas" ></select>
-												
-											
-												</div>
-											</div>
-										</div>
-										<div class="form-group col-md-5">
-											<label class="col-sm-4 control-label">Total con Interes</label>
-											<div class="col-sm-8">
-												<div class="input-group">
-													<span class="input-group-addon">{{interesTC}}</span>
-												</div>
-											</div>
-										</div>
-										<div class="form-group col-md-7">
-											<label class="col-sm-4 control-label">Cupon</label>
-											<div class="col-sm-8">
-												<div class="input-group">
-													<input ng-class="{botonFocus: focusedCupon}" ng-init="focusedCupon = false" ng-focus="focusedCupon = true" ng-blur="focusedCupon = false" tabindex="6" type="text" class="form-control" ng-model="cuponTC">
-												</div>
-											</div>
-										</div>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				</panel>
-			</div>
-
-
-
-
-			<div class="col-xs-12 col-md-4">
-				<panel data-heading="Totales" panel-class="panel-midnightblue"
-					class="ng-isolate-scope">
-				<div class="panel panel-midnightblue">
-					<div class="panel-heading">
-						<h2 class="ng-binding">
-							<!-- ngIf: panelIcon -->
-							Totales
-						</h2>
-					</div>
-					<div class="panel-body" ng-transclude="">
-						<panel-controls class="ng-scope"> </panel-controls>
-						<div class="panel panel-primary ng-scope">
-							<div class="panel-body">
-								<div class="row">
-									<form action=""
-										class="form-horizontal row-border2 ng-pristine ng-valid">
-
-										<div class="col-xs-3">
-											<a class="info-tiles tiles-green"
-												data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}">
-												<div class="tiles-heading">
-													<div class="text-center ng-binding">Sub Total</div>
-												</div>
-												<div class="tiles-body" style="font-size: 12px;">
-													<div class="text-center ng-binding">$ {{subTotal}}</div>
-												</div>
-											</a>
-										</div>
-
-										<div class="col-xs-3">
-											<a class="info-tiles tiles-green"
-												data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
-												<div class="tiles-heading">
-													<div class="text-center ng-binding">Iva Inscripto</div>
-												</div>
-												<div class="tiles-body" style="font-size: 12px;">
-													<div class="text-center ng-binding">{{ivaInscriptoTotal}}
-														%</div>
-												</div>
-											</a>
-										</div>
-
-										<div class="col-xs-3">
-											<a class="info-tiles tiles-green"
-												data="{ title: 'Iva No Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
-												<div class="tiles-heading">
-													<div class="text-center ng-binding">Iva No Inscripto</div>
-												</div>
-												<div class="tiles-body" style="font-size: 12px;">
-													<div class="text-center ng-binding">{{ivaNoInscripto}}	%</div>
-												</div>
-											</a>
-										</div>
-
-										<div class="col-xs-3">
-											<a class="info-tiles tiles-primary"
-												data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}">
-												<div class="tiles-heading">
-													<div class="text-center ng-binding">Total</div>
-												</div>
-												<div class="tiles-body" style="font-size: 12px;">
-													<div class="text-center ng-binding">$ {{TotalFact}}</div>
-												</div>
-											</a>
-										</div>
-
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="pull-right">
-						<button ng-class="{botonFocus: focused}" ng-init="focused = false" ng-focus="focused = true" ng-blur="focused = false" tabindex="6" class="btn btn-primary" ng-click="guardarFactura()" ng-disabled="estaDeshabilitado()">Guardar
-							Factura</button>
-					</div>
-				</div>
-				</panel>
-			</div>
-			
-			<div class="col-xs-12 col-md-4" >
-				<panel data-heading="Totales" panel-class="panel-midnightblue"
-					class="ng-isolate-scope">
-				<div class="panel panel-midnightblue">
+				<div class="panel  panel-midnightblue">
 					<div class="panel-heading">
 						<h2 class="ng-binding">
 							<!-- ngIf: panelIcon -->
@@ -261,7 +100,7 @@
 					</div>
 					<div class="panel-body" ng-transclude="">
 						<panel-controls class="ng-scope"> </panel-controls>
-						<div class="panel panel-primary ng-scope">
+						<div class="panel  panel-primary ng-scope">
 							<div class="panel-body">
 								<div class="row">
 									<form action="" class="form-horizontal row-border2">
@@ -271,7 +110,8 @@
 											<div class="col-md-7">
 												<input type="text" class="form-control" tabindex="-1"
 													placeholder="" ng-keypress=onKeyCliente($event)
-													ng-model="clienteSeleccionadoRazon" id="busquedaCliente" ng-focus="clienteFocus()">
+													ng-model="clienteSeleccionadoRazon" id="busquedaCliente"
+													ng-focus="clienteFocus()">
 											</div>
 											<div class="col-md-2">
 												<button type="button" class="btn btn-block btn-primary"
@@ -295,16 +135,19 @@
 											</div>
 										</div>
 
-																			<div class="form-group  col-md-6" >
-																				<label for="checkbox" class="col-sm-2 control-label"></label>
-																				<div class="col-sm-9">
-																					<div class="checkbox block">
-																						<label class="checkbox-inline"> <input icheck 
-																							type="checkbox" tabindex="-1" checked>Consumidor Final
-																						</label>
-																					</div>
-																				</div>
-																			</div>
+										<div class="form-group  col-md-10">
+											<label for="checkbox" class="col-sm-2 control-label"></label>
+											<div class="col-sm-10">
+												<div class="block">
+													<!-- 																					<div class="checkbox block"> -->
+													<label class="checkbox-inline"> <input
+														type="checkbox" ng-model="chkConsumidorFinal"
+														tabindex="-1" ng-change="seleccionConsumidorFinal()">Consumidor
+														Final</input> <!-- 														<input icheck id="chkConsumidorFinal" type="checkbox" tabindex="-1" checked> -->
+													</label>
+												</div>
+											</div>
+										</div>
 
 									</form>
 								</div>
@@ -314,9 +157,241 @@
 				</div>
 				</panel>
 			</div>
+
+
+			<div class="col-xs-12 col-md-4">
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel  panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">Forma de Pago</h2>
+					</div>
+					<div class="panel-body" ng-transclude="">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel  panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<form action="" class="form-horizontal row-border2">
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Efectivo</label>
+											<div class="col-sm-4">
+												<div class="input-group">
+													<span class="input-group-addon">$</span> <input
+														tabindex="3" type="number" ng-disabled="subTotal==0"
+														class="form-control" ng-model="montoEfectivo"
+														ng-change="changeEfectivo()"
+														ng-class="{botonFocus: focusedEfectivo}"
+														ng-init="focusedEfectivo = false"
+														ng-focus="focusedEfectivo = true"
+														ng-blur="focusedEfectivo = false" min="0">
+												</div>
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-sm-2 control-label">Tarjeta</label>
+											<div class="col-sm-8">
+													<select  tabindex="4" class="form-control" id="source" ng-class="{botonFocus: focusedTarjeta}" ng-init="focusedTarjeta = false" ng-focus="focusedTarjeta = true" ng-blur="focusedTarjeta = false"
+																ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()" ng-disabled="!montoTC>0" ng-options="item as item.nombre for item in tarjetasList " >
+													</select> 
+											</div>
+										</div>
+										<div class="form-group col-md-7">
+											<label class="col-sm-3 control-label">Monto</label>
+											<div class="col-sm-9">
+												<div class="input-group">
+													<span class="input-group-addon">$</span> <input type="text"
+														disabled=true class="form-control" ng-model="montoTC">
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-6">
+											<label class="col-sm-4 control-label">Cuotas</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<select ng-class="{botonFocus: focusedCuotas}"
+														ng-init="focusedCuotas = false"
+														ng-focus="focusedCuotas = true"
+														ng-blur="focusedCuotas = false" tabindex="5"
+														ng-disabled="selectTarjetaCredito==0 || selectTarjetaCredito==undefined || !montoTC>0"
+														ng-model="cuotaSeleccionada"
+														ng-init="cuotaSeleccionada = cuotas[1]"
+														ng-change="cuotaChange()" class="form-control"
+														ng-options="cuota.descripcion  for cuota in cuotas track by cuota.coeficiente"></select>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-5">
+											<label class="col-sm-4 control-label">Total con
+												Interes</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">{{interesTC}}</span>
+												</div>
+											</div>
+										</div>
+										<div class="form-group col-md-8">
+											<label class="col-sm-4 control-label">Cupon</label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<input ng-class="{botonFocus: focusedCupon}"
+														ng-init="focusedCupon = false"
+														ng-focus="focusedCupon = true"
+														ng-blur="focusedCupon = false" tabindex="6" type="text"
+														class="form-control" ng-model="cuponTC">
+												</div>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
+
+
+
+
+			<div class="col-xs-12 col-md-4">
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel  panel-midnightblue">
+					<!-- 					<div class="panel-heading"> -->
+					<!-- 						<h2 class="ng-binding"> -->
+					<!-- 							ngIf: panelIcon -->
+					<!-- 							Totales -->
+					<!-- 						</h2> -->
+					<!-- 					</div> -->
+					<div class="panel-body" ng-transclude="">
+						<div class="col-xs-3">
+							<a class="info-tiles tiles-green"
+								data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}">
+								<div class="tiles-heading">
+									<div class="text-center ng-binding">Sub Total</div>
+								</div>
+								<div class="tiles-body" style="font-size: 12px;">
+									<div class="text-center ng-binding">$ {{subTotal}}</div>
+								</div>
+							</a>
+						</div>
+
+						<div class="col-xs-5">
+							<a class="info-tiles tiles-green"
+								data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
+								<div class="tiles-heading">
+									<div class="text-center ng-binding">Iva Inscripto</div>
+								</div>
+								<div class="tiles-body" style="font-size: 12px;">
+									<div class="text-center ng-binding">$ {{ivaInscriptoTotal}} ({{ivaInscripto}}%)</div>
+								</div>
+							</a>
+						</div>
+
+<!--						<div class="col-xs-3">
+							<a class="info-tiles tiles-green"
+								data="{ title: 'Iva No Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
+								<div class="tiles-heading">
+									<div class="text-center ng-binding">Iva No Inscripto</div>
+								</div>
+								<div class="tiles-body" style="font-size: 12px;">
+									<div class="text-center ng-binding">{{ivaNoInscripto}} %</div>
+								</div>
+							</a>
+						</div>
+-->
+						<div class="col-xs-4">
+							<a class="info-tiles tiles-primary"
+								data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}">
+								<div class="tiles-heading">
+									<div class="text-center ng-binding">Total</div>
+								</div>
+								<div class="tiles-body" style="font-size: 12px;">
+									<div class="text-center ng-binding">$ {{TotalFact}}</div>
+								</div>
+							</a>
+						</div>
+
+
+						<!-- 						<panel-controls class="ng-scope"> </panel-controls> -->
+						<!-- 						<div class="panel  panel-primary ng-scope"> -->
+						<!-- 							<div class="panel-body"> -->
+						<!-- 								<div class="row"> -->
+						<!-- 									<form action="" -->
+						<!-- 										class="form-horizontal row-border2 ng-pristine ng-valid"> -->
+
+						<!-- 										<div class="col-xs-3"> -->
+						<!-- 											<a class="info-tiles tiles-green" -->
+						<!-- 												data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}"> -->
+						<!-- 												<div class="tiles-heading"> -->
+						<!-- 													<div class="text-center ng-binding">Sub Total</div> -->
+						<!-- 												</div> -->
+						<!-- 												<div class="tiles-body" style="font-size: 12px;"> -->
+						<!-- 													<div class="text-center ng-binding">$ {{subTotal}}</div> -->
+						<!-- 												</div> -->
+						<!-- 											</a> -->
+						<!-- 										</div> -->
+
+						<!-- 										<div class="col-xs-3"> -->
+						<!-- 											<a class="info-tiles tiles-green" -->
+						<!-- 												data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}"> -->
+						<!-- 												<div class="tiles-heading"> -->
+						<!-- 													<div class="text-center ng-binding">Iva Inscripto</div> -->
+						<!-- 												</div> -->
+						<!-- 												<div class="tiles-body" style="font-size: 12px;"> -->
+						<!-- 													<div class="text-center ng-binding">{{ivaInscriptoTotal}} -->
+						<!-- 														%</div> -->
+						<!-- 												</div> -->
+						<!-- 											</a> -->
+						<!-- 										</div> -->
+
+						<!-- 										<div class="col-xs-3"> -->
+						<!-- 											<a class="info-tiles tiles-green" -->
+						<!-- 												data="{ title: 'Iva No Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}"> -->
+						<!-- 												<div class="tiles-heading"> -->
+						<!-- 													<div class="text-center ng-binding">Iva No Inscripto</div> -->
+						<!-- 												</div> -->
+						<!-- 												<div class="tiles-body" style="font-size: 12px;"> -->
+						<!-- 													<div class="text-center ng-binding">{{ivaNoInscripto}}	%</div> -->
+						<!-- 												</div> -->
+						<!-- 											</a> -->
+						<!-- 										</div> -->
+
+						<!-- 										<div class="col-xs-3"> -->
+						<!-- 											<a class="info-tiles tiles-primary" -->
+						<!-- 												data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}"> -->
+						<!-- 												<div class="tiles-heading"> -->
+						<!-- 													<div class="text-center ng-binding">Total</div> -->
+						<!-- 												</div> -->
+						<!-- 												<div class="tiles-body" style="font-size: 12px;"> -->
+						<!-- 													<div class="text-center ng-binding">$ {{TotalFact}}</div> -->
+						<!-- 												</div> -->
+						<!-- 											</a> -->
+						<!-- 										</div> -->
+
+						<!-- 									</form> -->
+						<!-- 								</div> -->
+						<!-- 							</div> -->
+						<!-- 						</div> -->
+					</div>
+					<div class="pull-right">
+						<button ng-class="{botonFocus: focused}" ng-init="focused = false"
+							ng-focus="focused = true" ng-blur="focused = false" tabindex="6"
+							class="btn btn-primary" ng-click="guardarFactura()"
+							ng-disabled="estaDeshabilitado()"
+							style="margin: 0px 30px 5px 0px !important;">Guardar
+							Factura</button>
+					</div>
+				</div>
+				</panel>
+			</div>
+
+
 		</div>
 	</div>
-		<script type="text/ng-template" id="modalBuscadorCliente.html">
+	<script type="text/ng-template" id="modalBuscadorCliente.html">
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -386,7 +461,7 @@
     	    
 
 	</script>
-		<script type="text/ng-template" id="modalBuscadorArticulo.html">
+	<script type="text/ng-template" id="modalBuscadorArticulo.html">
 				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
@@ -460,7 +535,7 @@
 						  </div>
 							<div class="row2">
 								<div class="table-responsive">
-									<div tabindex="0" ng-focus=pruebaFocusProductos() ng-blur=pruebaLostFocusProductos()
+									<div tabindex="0" 
 											ag-grid="gridOptionsProductos" id="productoGrid" ng-keypress="onKeySelectArticulo()"
 											class="ag-fresh" style="height: 400px; ">
 									</div>
@@ -488,4 +563,4 @@
 					</div>
 				</div>
 	</script>
-	</div>
+</div>

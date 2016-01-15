@@ -2,6 +2,8 @@ package com.facturador.danmar.form;
 
 public class TarjetaForm {
 
+	private String nombre;
+	
 	private String codigo;
 	
 	private String cuotas;
@@ -12,12 +14,21 @@ public class TarjetaForm {
 
 	private String descripcion;
 
-
+	public TarjetaForm() {
+		super();
+	}
 	public TarjetaForm(String codigo, String cuotas, String coeficiente) {
 		super();
 		this.codigo = codigo;
 		this.cuotas = cuotas;
 		this.coeficiente = coeficiente;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	public String getCodigo() {
 		return codigo;

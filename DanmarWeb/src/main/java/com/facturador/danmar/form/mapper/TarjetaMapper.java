@@ -1,16 +1,15 @@
 package com.facturador.danmar.form.mapper;
 
-import com.danmar.dbf.dto.TarjetaDto;
 import com.danmar.utils.ConvertionUtil;
-import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.TarjetaForm;
+import com.facturador.danmar.model.Tarjeta;
 
 
-public class TarjetaMapper extends MapperImpl<TarjetaDto,TarjetaForm>{
+public class TarjetaMapper extends MapperImpl<Tarjeta,TarjetaForm>{
 
 
-	public TarjetaDto getEntidad(TarjetaForm form) {
-		TarjetaDto ent = new TarjetaDto();
+	public Tarjeta getEntidad(TarjetaForm form) {
+		Tarjeta ent = new Tarjeta();
 		if (form != null){		
 
 			
@@ -18,16 +17,15 @@ public class TarjetaMapper extends MapperImpl<TarjetaDto,TarjetaForm>{
 		return ent;
 	}
 
-	public TarjetaForm getForm(TarjetaDto ent) {
+	public TarjetaForm getForm(Tarjeta ent) {
 		TarjetaForm tarjeta=new TarjetaForm();
 		if (ent != null){
-        	tarjeta.setCodigo( ConvertionUtil.StrValueOf(ent.getCodigo()));
-        	tarjeta.setCuotas( ConvertionUtil.StrValueOf(ent.getCuotas()));
-        	tarjeta.setCoeficiente(FormatUtil.format2DecimalsStr(ent.getCoeficiente()));
-
+        	tarjeta.setNombre(ent.getNombre());
+        	tarjeta.setCodigo(ConvertionUtil.StrValueOf(ent.getId()));
 		}
 		return tarjeta;
 	}
+
 
 
 }

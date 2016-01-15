@@ -15,12 +15,30 @@ public class DocumentoEncabezadoForm implements Form{
 	private String  numero;
 	private String  descripcion;
 	private String  estadoId;
+	private String  estadoCodigo;
+	private String  estadoNombre;
 	private String  fechaCreacion;
 	private String  fechaActualiza;
 	private String  usuarioCreadorId;
 	private String  usuarioActualizaId;
 	private String  tipoDocumentoId;
+	private String  tipoDocumentoCodigo;
+	private String  tipoDocumentoNombre;
 	private String  clienteNro;
+	private String  clienteNombre;
+	private String  clienteCategoria;
+	private String  clienteCuit;
+	private String totalArticulos;
+	private String totalImpuestos;
+	private String totalDocumento;	
+	private String pagoEfectivoMonto;
+	private String pagoTarjetaNombre;
+	private String pagoTarjetaMonto;
+	private String pagoTarjetaMontoConInteres;
+	private String pagoTarjetaCupon;
+	private String pagoTarjetaCuotas;
+
+	
 	
 	private List<DocumentoLineaForm> lineas = new ArrayList<DocumentoLineaForm>();
 	private List<DocumentoPagoForm> pagos = new ArrayList<DocumentoPagoForm>();
@@ -116,7 +134,102 @@ public class DocumentoEncabezadoForm implements Form{
 	public void setPagos(List<DocumentoPagoForm> pagos) {
 		this.pagos = pagos;
 	}
-	
+	public String getEstadoCodigo() {
+		return estadoCodigo;
+	}
+	public void setEstadoCodigo(String estadoCodigo) {
+		this.estadoCodigo = estadoCodigo;
+	}
+	public String getEstadoNombre() {
+		return estadoNombre;
+	}
+	public void setEstadoNombre(String estadoNombre) {
+		this.estadoNombre = estadoNombre;
+	}
+	public String getTotalArticulos() {
+		return totalArticulos;
+	}
+	public void setTotalArticulos(String totalArticulos) {
+		this.totalArticulos = totalArticulos;
+	}
+	public String getTotalImpuestos() {
+		return totalImpuestos;
+	}
+	public void setTotalImpuestos(String totalImpuestos) {
+		this.totalImpuestos = totalImpuestos;
+	}
+	public String getTotalDocumento() {
+		return totalDocumento;
+	}
+	public void setTotalDocumento(String totalDocumento) {
+		this.totalDocumento = totalDocumento;
+	}
+	public String getTipoDocumentoCodigo() {
+		return tipoDocumentoCodigo;
+	}
+	public void setTipoDocumentoCodigo(String tipoDocumentoCodigo) {
+		this.tipoDocumentoCodigo = tipoDocumentoCodigo;
+	}
+	public String getTipoDocumentoNombre() {
+		return tipoDocumentoNombre;
+	}
+	public void setTipoDocumentoNombre(String tipoDocumentoNombre) {
+		this.tipoDocumentoNombre = tipoDocumentoNombre;
+	}
+	public String getClienteNombre() {
+		return clienteNombre;
+	}
+	public void setClienteNombre(String clienteNombre) {
+		this.clienteNombre = clienteNombre;
+	}
+	public String getClienteCategoria() {
+		return clienteCategoria;
+	}
+	public void setClienteCategoria(String clienteCategoria) {
+		this.clienteCategoria = clienteCategoria;
+	}
+	public String getClienteCuit() {
+		return clienteCuit;
+	}
+	public void setClienteCuit(String clienteCuit) {
+		this.clienteCuit = clienteCuit;
+	}
+	public String getPagoEfectivoMonto() {
+		return pagoEfectivoMonto;
+	}
+	public void setPagoEfectivoMonto(String pagoEfectivoMonto) {
+		this.pagoEfectivoMonto = pagoEfectivoMonto;
+	}
+	public String getPagoTarjetaNombre() {
+		return pagoTarjetaNombre;
+	}
+	public void setPagoTarjetaNombre(String pagoTarjetaNombre) {
+		this.pagoTarjetaNombre = pagoTarjetaNombre;
+	}
+	public String getPagoTarjetaMonto() {
+		return pagoTarjetaMonto;
+	}
+	public void setPagoTarjetaMonto(String pagoTarjetaMonto) {
+		this.pagoTarjetaMonto = pagoTarjetaMonto;
+	}
+	public String getPagoTarjetaMontoConInteres() {
+		return pagoTarjetaMontoConInteres;
+	}
+	public void setPagoTarjetaMontoConInteres(String pagoTarjetaMontoConInteres) {
+		this.pagoTarjetaMontoConInteres = pagoTarjetaMontoConInteres;
+	}
+	public String getPagoTarjetaCupon() {
+		return pagoTarjetaCupon;
+	}
+	public void setPagoTarjetaCupon(String pagoTarjetaCupon) {
+		this.pagoTarjetaCupon = pagoTarjetaCupon;
+	}
+	public String getPagoTarjetaCuotas() {
+		return pagoTarjetaCuotas;
+	}
+	public void setPagoTarjetaCuotas(String pagoTarjetaCuotas) {
+		this.pagoTarjetaCuotas = pagoTarjetaCuotas;
+	}
 	
 
 }

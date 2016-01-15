@@ -1,6 +1,5 @@
 <div ng-controller="ConsultaFacturaController">
 
-
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-xs-12 col-md-8">
@@ -9,43 +8,16 @@
 					<div class="panel-heading">
 						<h2 class="ng-binding">
 							<!-- ngIf: panelIcon -->
-							Factura Busqueda
+							Busqueda de Facturas
 						</h2>
 					</div>
 					<div class="panel-body">
 						<panel-controls class="ng-scope"> </panel-controls>
 						<div class="panel panel-primary ng-scope">
 							<div class="panel-body">
-								<div class="row">
-								
 
-									<div class="col-md-8">
-										<div class="form-horizontal row-border ng-scope">
-											<div class="form-group">
-											
-												<div class="row">
-													<span class="col-md-2"> <strong>Codigo Factura:</strong>
-													</span>
-													<div class="col-md-7">
-														<input tabindex="2" type="text" class="form-control" id="busquedaProd"
-															placeholder="Busqueda..." ng-keypress="onKeyArticulo($event);"
-															ng-model="articuloSeleccionadoBuscar" autofocus>
-													</div>
-													<div class="col-md-2">
-												<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#myModal" tabindex="-1">
-													<i class="fa fa-search"></i>
-												</button>
-											</div>
-
-												</div>
-											</div>
-										</div>
-
-									</div>
-									<div class="col-md-4"></div>
-								</div>
-								<div tabindex="-1"
-									ag-grid="gridOptionsFacturas" id="facturaGrid" class="ag-fresh"
+								<div tabindex="-1" ag-grid="gridOptionsFacturas"
+									id="facturaGrid" class="ag-fresh"
 									style="height: 400px; margin-top: 24px;"></div>
 
 							</div>
@@ -55,9 +27,349 @@
 				</panel>
 			</div>
 			<!-- CLIENTE -->
-			
+			<div class="col-xs-12 col-md-4">
+				<panel data-heading="Totales" panel-class="panel-midnightblue"
+					class="ng-isolate-scope">
+				<div class="panel  panel-midnightblue">
+					<div class="panel-heading">
+						<h2 class="ng-binding">Filtros de busqueda</h2>
+					</div>
+					<div class="panel-body" ng-transclude="">
+						<panel-controls class="ng-scope"> </panel-controls>
+						<div class="panel  panel-primary ng-scope">
+							<div class="panel-body">
+								<div class="row">
+									<div class="col-md-10">
+										<div class="form-horizontal row-border ng-scope">
+											<div class="form-group">
+												<div class="form-group">
+													<span class="col-md-3"> <strong>Codigo
+															Factura:</strong>
+													</span>
+													<div class="col-md-7">
+														<input tabindex="2" type="text" class="form-control"
+															id="busquedaProd" placeholder="Busqueda..."
+															ng-keypress="onBusquedaFactura($event);"
+															ng-model="facturaBusquedaCodigo" autofocus>
+													</div>
+													<div class="col-md-2">
+															<button  tabindex="-1" type="button" class="btn btn-block btn-primary"
+																ng-click="externalFilterChanged()">
+																<i class="fa fa-search"></i>
+															</button>
+													</div>
+												</div>
+
+												<div class="row">
+													<span class="col-md-3"> <strong>Nro
+															Factura:</strong>
+													</span>
+													<div class="col-md-9">
+														<input ng-class="{botonFocus: focusedBusquedaFact}"
+															ng-init="focusedBusquedaFact = false"
+															ng-focus="focusedBusquedaFact = true"
+															ng-blur="focusedBusquedaFact = false" tabindex="2"
+															type="text" class="form-control" id="busquedaFact"
+															placeholder="Busqueda..."
+															ng-keypress="onBusquedaFactura($event);"
+															ng-model="facturaBusquedaFact" autofocus>
+													</div>
+												</div>
+												<div class="form-group">
+													<span class="col-md-3"> <strong>Fecha mayor a:</strong>
+													</span>
+													<div class="col-md-9">
+														<input ng-class="{botonFocus: focusedBusquedaFechaMay}"
+															ng-init="focusedBusquedaFechaMay = false"
+															ng-focus="focusedBusquedaFechaMay = true"
+															ng-blur="focusedBusquedaFechaMay = false" tabindex="3"
+															type="date" class="form-control" id="busquedaFechaMay" date-parser="short" 
+															placeholder="Busqueda..."
+															ng-keypress="onBusquedaFactura($event);"
+															ng-model="facturaBusquedaFechaMay" autofocus>
+													</div>
+
+												</div>
+												<div class="row">
+													<span class="col-md-3"> <strong>Fecha menor a:</strong>
+													</span>
+													<div class="col-md-9">
+														<input ng-class="{botonFocus: focusedBusquedaFechaMen}"
+															ng-init="focusedBusquedaFechaMen = false"
+															ng-focus="focusedBusquedaFechaMen = true"
+															ng-blur="focusedBusquedaFechaMen = false" tabindex="4"
+															type="date" class="form-control" id="busquedaFechaMen" date-parser="short" 
+															placeholder="Busqueda..."
+															ng-keypress="onBusquedaFactura($event);"
+															ng-model="facturaBusquedaFechaMen" autofocus>
+													</div>
+
+												</div>
+
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				</panel>
+			</div>
 
 		</div>
 	</div>
-		
+	<script type="text/ng-template" id="modalFacturaVer.html">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">{{viewTipoFactura}}	</h4>
+			</div>
+			<div class="col-xs-12 col-md-12">
+				<div class="container-fluid">
+
+					<!-- FACTURA -->
+					<div class="col-xs-12 col-md-8">
+						<panel data-heading="Factura" panel-class="panel-midnightblue">
+						<div class="panel  panel-midnightblue">
+							<div class="panel-body">
+								<panel-controls class="ng-scope"> </panel-controls>
+								<div class="panel  panel-primary ng-scope">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-xs-2">
+												<a class="info-tiles tiles-midnightblue"
+													data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
+													<div class="tiles-heading">
+														<div class="text-center ng-binding">Factura</div>
+													</div>
+													<div class="tiles-body">
+														<div class="text-center ng-binding">{{viewLetra}}</div>
+													</div>
+												</a>
+												<div class="pull-right text-center">
+													<span class="badge ng-binding">{{viewNumeroFactura}}</span>
+												</div>
+											</div>
+
+											<div class="col-md-8">
+												<div class="form-horizontal row-border ng-scope">
+													<div class="form-group">
+														<div class="row">
+															<label for="#" class="col-md-2 control-label"
+																style="text-align: left !important;"> <strong>Fecha:</strong>
+															</label>
+															<div class="col-md-10">
+																{{viewFechaFactura}}
+															</div>
+														</div>
+														<div class="row">
+															<span class="col-md-2"> <strong>Notas:</strong>
+															</span>
+															<div class="col-sm-10">
+																{{viewDescripcion}}
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+											<div class="col-md-4"></div>
+										</div>
+
+										<div class="table-responsive ng-scope">
+											<table st-table="viewLineasProductos" class="table">
+												<thead>
+													<tr>
+														<th>Codigo</th>
+														<th>CC1</th>
+														<th>CC2</th>
+														<th>CC3</th>
+														<th>CC4</th>
+														<th>CC5</th>
+														<th>Articulo</th>
+														<th>Qt</th>
+														<th>Precio</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr ng-repeat="row in viewLineasProductos">
+														<td align="left">{{row.codigo}}</td>
+														<td>{{row.cc1}}</td>
+														<td>{{row.cc2}}</td>
+														<td>{{row.cc3}}</td>
+														<td>{{row.cc4}}</td>
+														<td>{{row.cc5}}</td>
+														<td>{{row.articulo}}</td>
+														<td>{{row.cantidad}}</td>
+														<td>{{row.precio}}</td>
+													</tr>
+
+												</tbody>
+												<caption>Articulos seleccionados</caption>
+											</table>
+										</div>
+										
+										
+									</div>
+								</div>
+							</div>
+						</div>
+						</panel>
+					</div>
+
+					<div class="col-xs-12 col-md-4">
+						<panel data-heading="Totales" panel-class="panel-midnightblue"
+							class="ng-isolate-scope">
+						<div class="panel  panel-midnightblue">
+							<div class="panel-heading">
+								<h2 class="ng-binding">Forma de Pago</h2>
+							</div>
+							<div class="panel-body" ng-transclude="">
+								<panel-controls class="ng-scope"> </panel-controls>
+								<div class="panel  panel-primary ng-scope">
+									<div class="panel-body">
+										<div class="row">
+											<form action="" class="form-horizontal row-border2">
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Efectivo</label>
+													<div class="col-sm-4">
+														$ {{viewMontoEfectivo}}
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Tarjeta</label>
+													<div class="col-sm-9">
+														{{viewTarjetaNombre}}
+													</div>
+												</div>
+												<div class="form-group col-md-7">
+													<label class="col-sm-3 control-label">Monto</label>
+													<div class="col-sm-9">
+														$ {{viewTarjetaMonto}}
+													</div>
+												</div>
+												<div class="form-group col-md-6">
+													<div class="col-sm-12">
+														{{viewTarjetaCuotas}}
+													</div>
+												</div>
+												<div class="form-group col-md-5">
+													<label class="col-sm-4 control-label">Total con Interes</label>
+													<div class="col-sm-8">
+															<span class="input-group-addon">$ {{tarjetaMontoInteres}}</span>
+													</div>
+												</div>
+												<div class="form-group col-md-8">
+													<label class="col-sm-4 control-label">Cupon</label>
+													<div class="col-sm-8">
+														{{viewTarjetaCupon}}
+													</div>
+												</div>
+
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</panel>
+					</div>
+
+
+
+
+					<div class="col-xs-12 col-md-4">
+						<panel data-heading="Totales" panel-class="panel-midnightblue"
+							class="ng-isolate-scope">
+						<div class="panel  panel-midnightblue">
+							<!-- 					<div class="panel-heading"> -->
+							<!-- 						<h2 class="ng-binding"> -->
+							<!-- 							ngIf: panelIcon -->
+							<!-- 							Totales -->
+							<!-- 						</h2> -->
+							<!-- 					</div> -->
+							<div class="panel-body" ng-transclude="">
+								<div class="col-xs-6">
+									<a class="info-tiles tiles-green"
+										data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}">
+										<div class="tiles-heading">
+											<div class="text-center ng-binding">Sub Total</div>
+										</div>
+										<div class="tiles-body" style="font-size: 12px;">
+											<div class="text-center ng-binding">$ {{viewSubTotal}}</div>
+										</div>
+									</a>
+								</div>
+
+								<div class="col-xs-6">
+									<a class="info-tiles tiles-primary"
+										data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}">
+										<div class="tiles-heading">
+											<div class="text-center ng-binding">Total</div>
+										</div>
+										<div class="tiles-body" style="font-size: 12px;">
+											<div class="text-center ng-binding">$ {{viewTotalFact}}</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+						</panel>
+					</div>
+
+					<div class="col-xs-12 col-md-4">
+						<panel data-heading="Totales" panel-class="panel-midnightblue"
+							class="ng-isolate-scope">
+						<div class="panel  panel-midnightblue">
+							<div class="panel-heading">
+								<h2 class="ng-binding">
+									<!-- ngIf: panelIcon -->
+									Cliente
+								</h2>
+							</div>
+							<div class="panel-body" ng-transclude="">
+								<panel-controls class="ng-scope"> </panel-controls>
+								<div class="panel  panel-primary ng-scope">
+									<div class="panel-body">
+										<div class="row">
+											<form action="" class="form-horizontal row-border2">
+												<div class="form-group">
+													<label class="col-md-2 control-label"> <strong>Cliente:</strong></label>
+													<div class="col-md-7">
+														{{viewClienteNombre}}
+													</div>
+												</div>
+												<div class="form-group col-md-6">
+													<label class="col-md-4 control-label"> <strong>CUIT:</strong>
+													</label>
+													<div class="col-md-8">
+														<span class="label label-default form-control">{{viewClienteCuit}}</span>
+													</div>
+												</div>
+												<div class="form-group col-md-6">
+													<label class="col-md-4 control-label"> <strong>Categoria:</strong>
+													</label>
+													<div class="col-md-8">
+														<span class="label label-default form-control">{{viewClienteCategoria}}</span>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</panel>
+					</div>
+
+
+
+				</div>
+			</div>
+			<div class="modal-footer"></div>
+		</div>
 	</div>
+		</script>
+</div>

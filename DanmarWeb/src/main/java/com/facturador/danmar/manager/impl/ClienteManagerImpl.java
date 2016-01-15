@@ -2,20 +2,22 @@ package com.facturador.danmar.manager.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.danmar.dbf.dto.ClienteDto;
 import com.danmar.dbf.dto.filtro.FiltroCliente;
-import com.danmar.dbf.service.ClienteService;
-import com.danmar.dbf.service.impl.ClienteServiceImpl;
 import com.facturador.danmar.form.ClienteForm;
 import com.facturador.danmar.form.mapper.ClienteMapper;
 import com.facturador.danmar.manager.ClienteManager;
+import com.facturador.danmar.model.Cliente;
+import com.facturador.danmar.service.ClienteService;
+import com.facturador.danmar.service.impl.ClienteServiceImpl;
 
 @Service("clienteManager")
 public class ClienteManagerImpl implements ClienteManager{
 
-	ClienteService clienteService = new ClienteServiceImpl();
+	@Autowired
+	ClienteService clienteService;
 	
 	protected ClienteService getService(){
 		return new ClienteServiceImpl();
@@ -27,12 +29,12 @@ public class ClienteManagerImpl implements ClienteManager{
 
 	@Override
 	public ClienteForm getById(int numero) {
-		return getMapper().getForm(clienteService.getById(numero));
+		return getMapper().getForm(clienteService.findById(numero));
 	}
 
 	@Override
 	public List<ClienteForm> getAll(FiltroCliente filtro) {
-		List<ClienteDto> lista = clienteService.searchByFiltros(filtro);
+		List<Cliente> lista = clienteService.searchByFiltros(filtro);
 		return getMapper().getFormList(lista);
 	}
 

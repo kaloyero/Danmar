@@ -24,6 +24,11 @@ public class ArticuloServiceImpl extends PaginacionServiceImpl<ArticuloDto> impl
 		return dao.searchByFiltros(filtro,pagina,cantRegistros);
 	}
 
+	public List<ArticuloDto> getAll() {
+		
+		return dao.getAll();
+	}
+
 	    
 	
 	

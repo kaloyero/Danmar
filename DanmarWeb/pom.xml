@@ -32,10 +32,10 @@
 			<scope>test</scope>
 		</dependency>
 	
-		<!-- DBF Project-->
+		<!-- Bean DBF Project-->
 		<dependency>
-			<groupId>com.danmar.dbf</groupId>
-			<artifactId>DanmarDBF</artifactId>
+			<groupId>com.danmar.beans</groupId>
+			<artifactId>DanmarBeansDbf</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- Bean Project-->

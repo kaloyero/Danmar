@@ -25,7 +25,7 @@ public enum CategoriaIvaEnum {
     public String  getCodigo() { return codigo; }
 	public String getLetra() {	return letra; }        
     
-     public static String getCategoriaIvaByCodigo(String codigo){
+     public static String getCategoriaIvaByCodigo(int codigo){
         return getCategoriaIvaObjByCodigo(codigo).getNombre();     
     }
 
@@ -33,8 +33,8 @@ public enum CategoriaIvaEnum {
         return getCategoriaIvaObjByNombre(nombre).getCodigo();     
     }
     
-    public static CategoriaIvaEnum getCategoriaIvaObjByCodigo(String codigo){
-        String buscar = StringUtils.trim(codigo);
+    public static CategoriaIvaEnum getCategoriaIvaObjByCodigo(int codigo){
+        String buscar = String.valueOf(codigo);
         CategoriaIvaEnum categoria = CONSUMIDOR_FINAL; 
         
         

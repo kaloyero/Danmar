@@ -17,8 +17,10 @@ import com.facturador.danmar.manager.DocumentoEncabezadoManager;
 import com.facturador.danmar.manager.DocumentoLineaManager;
 import com.facturador.danmar.manager.DocumentoPagoManager;
 import com.facturador.danmar.model.DocumentoEncabezado;
+import com.facturador.danmar.model.DocumentoLinea;
 import com.facturador.danmar.service.DocumentoEncabezadoService;
 import com.facturador.danmar.service.GenericService;
+import com.facturador.danmar.util.CalculosUtil;
 
 @Service("documentoEncabezadoManager")
 public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<DocumentoEncabezadoForm>
@@ -82,21 +84,32 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		ent.setNumero(nuevoNumeroFactura);
 		
 		//Nro cliente
-		ent.setClienteNro(ConvertionUtil.IntValueOf(form.getClienteNro()));
+		if (ConvertionUtil.IntValueOf(form.getClienteNro()) != null && ConvertionUtil.IntValueOf(form.getClienteNro()) >= 1){
+			ent.setClienteNro(ConvertionUtil.IntValueOf(form.getClienteNro()));
+		}
 		
 		//Guardo el encabezado
 		getService().save(ent);
+
+		//Guardo los pagos que se realizarón para la factura
+//		Double coeficioenteInteresTc = 0.00;
+//		Double totalAbonadoTc = 0.00;
+		for (DocumentoPagoForm pago : form.getPagos()) {
+			pago.setDocumentoEncabezado(ent.getId());
+			//En el caso de que sea tarjeta de credito voy a necesitar los valores para calcular por producto
+//			if (pago.getTipoPago().equals("TC")) {
+//				coeficioenteInteresTc = ConvertionUtil.DouValueOf(pago.getCoeficiente());
+//				totalAbonadoTc = ConvertionUtil.DouValueOf( pago.getImporte() );
+//			}
+			documentoPagoManager.save(pago);
+		}		
 		
 		//Guardo las líneas de la factura generada
 		for (DocumentoLineaForm linea : form.getLineas()) {
 			linea.setEncabezadoId(ent.getId());
 			documentoLineaManager.save(linea);
 		}
-		//Guardo los pagos que se realizarón para la factura
-		for (DocumentoPagoForm pago : form.getPagos()) {
-			pago.setDocumentoEncabezado(ent.getId());
-			documentoPagoManager.save(pago);
-		}		
+
 		
 		
 		String nuevaFactura = ent.getLetra() + ent.getNumero();
@@ -104,5 +117,5 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		return nuevaFactura ;
 
 	}
-
+	
 }

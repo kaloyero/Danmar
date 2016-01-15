@@ -1,3 +1,4 @@
+
 package com.facturador.danmar.bean;
 
 import java.util.List;

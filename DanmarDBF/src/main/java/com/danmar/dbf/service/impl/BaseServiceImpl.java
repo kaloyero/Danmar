@@ -24,6 +24,11 @@ public class BaseServiceImpl extends PaginacionServiceImpl<ArticuloDto> implemen
 		return dao.searchByFiltros(filtro,pagina,cantRegistros);
 	}
 
+	public List<ArticuloDto> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	    
 	
 	

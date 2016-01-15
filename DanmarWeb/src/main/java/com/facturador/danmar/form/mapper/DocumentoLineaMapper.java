@@ -1,8 +1,13 @@
 package com.facturador.danmar.form.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.danmar.utils.ConvertionUtil;
+import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.DocumentoLineaForm;
 import com.facturador.danmar.model.DocumentoLinea;
+import com.facturador.danmar.model.DocumentoLinea_V;
 
 
 public class DocumentoLineaMapper extends MapperImpl<DocumentoLinea,DocumentoLineaForm>{
@@ -16,6 +21,7 @@ public class DocumentoLineaMapper extends MapperImpl<DocumentoLinea,DocumentoLin
 			ent.setDescripcion(form.getDescripcion());
 			ent.setCantidad(ConvertionUtil.IntValueOf(form.getCantidad()));
 			ent.setPrecio(ConvertionUtil.DouValueOf(form.getPrecio()));
+			ent.setPrecioUnitario(ConvertionUtil.DouValueOf(form.getPrecioUnitario()));
 			ent.setPrecioTC(ConvertionUtil.DouValueOf(form.getPrecioTC()));
 			ent.setDocumentoEncabezadoId((form.getEncabezadoId()));
 			
@@ -30,11 +36,44 @@ public class DocumentoLineaMapper extends MapperImpl<DocumentoLinea,DocumentoLin
 			form.setArticuloId(ent.getArticuloId());
 			form.setCodigo(ConvertionUtil.StrValueOf(ent.getArticuloId()));
 			form.setDescripcion(ent.getDescripcion());
-			form.setPrecioTC(ConvertionUtil.StrValueOf(ent.getPrecioTC()));
-			form.setPrecio(ConvertionUtil.StrValueOf(ent.getPrecio()));
+			form.setPrecioTC(FormatUtil.format2DecimalsStr(ent.getPrecioTC()));
+			form.setPrecioUnitario(FormatUtil.format2DecimalsStr(ent.getPrecioUnitario()));
+			form.setPrecio(FormatUtil.format2DecimalsStr(ent.getPrecio()));
+			
 		}
 		return form;
 	}
 
-
+	public DocumentoLineaForm getForm(DocumentoLinea_V ent) {
+		DocumentoLineaForm form =new DocumentoLineaForm();
+		if (ent != null){
+			form.setEncabezadoId(ent.getDocumentoEncabezadoId());
+			form.setArticuloId(ent.getArticuloId());
+			form.setArticulo(ent.getArticulo());
+			form.setCantidad(ConvertionUtil.StrValueOf(ent.getCantidad()));
+			form.setPrecioTC(FormatUtil.format2DecimalsStr(ent.getPrecioTC()));
+			form.setCc1(ent.getCc1());
+			form.setCc2(ent.getCc2());
+			form.setCc3(ent.getCc3());
+			form.setCc4(ent.getCc4());
+			form.setCc5(ent.getCc5());
+			form.setPrecio(FormatUtil.format2DecimalsStr(ent.getPrecio()));
+			form.setPrecioUnitario(FormatUtil.format2DecimalsStr(ent.getPrecioUnitario()));
+			form.setCodigo(ConvertionUtil.StrValueOf(ent.getArticuloId()));
+			form.setTotalArticulos(FormatUtil.format2DecimalsStr(ent.getTotalArticulos()));
+			form.setTotalLinea(FormatUtil.format2DecimalsStr(ent.getTotalLinea()));
+			form.setTotalImpuestos(FormatUtil.format2DecimalsStr(ent.getTotalImpuestos()));
+		}
+		return form;
+	}
+	
+	public List<DocumentoLineaForm> getFormListView(List<DocumentoLinea_V> list) {
+		List<DocumentoLineaForm> formList = new ArrayList<DocumentoLineaForm>();
+		
+		for (DocumentoLinea_V ent : list) {
+			formList.add((DocumentoLineaForm)getForm(ent));
+		}
+	
+		return formList;
+	}
 }

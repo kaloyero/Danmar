@@ -9,6 +9,8 @@ import com.danmar.service.PaginacionService;
 public interface ArticuloService extends PaginacionService<ArticuloDto>{
 
 	public ArticuloDto getById(String articulo);
+	
+	public List<ArticuloDto> getAll();
 		
 	public  List<ArticuloDto> searchByFiltros(FiltroArticulo filtro,int pagina, int cantRegistros);
 

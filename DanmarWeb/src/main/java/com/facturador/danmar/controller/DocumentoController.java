@@ -1,6 +1,7 @@
 package com.facturador.danmar.controller;
 
 import java.text.ParseException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,10 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.danmar.utils.ConvertionUtil;
 import com.facturador.danmar.bean.CategoriaIvaEnum;
+import com.facturador.danmar.filtro.FiltroFactura;
 import com.facturador.danmar.form.CategoriaIvaForm;
 import com.facturador.danmar.form.DocumentoEncabezadoForm;
 import com.facturador.danmar.manager.CategoriaIvaManager;
 import com.facturador.danmar.manager.DocumentoEncabezadoManager;
+import com.facturador.danmar.manager.DocumentoManager;
 
 
 @Controller
@@ -26,7 +29,8 @@ public class DocumentoController {
 	@Autowired
 	DocumentoEncabezadoManager documentoEncabezadoManager;
 	
-
+	@Autowired
+	DocumentoManager documentoManager;
 
 	@RequestMapping(value = "/Documento/save", method = RequestMethod.POST)
 	public @ResponseBody  String guardar(@RequestBody DocumentoEncabezadoForm form) throws ParseException{
@@ -36,6 +40,23 @@ public class DocumentoController {
 		return rta;
 	}
 
+	@RequestMapping(value = "/Documento/getFactura", method = RequestMethod.POST)
+	public @ResponseBody  DocumentoEncabezadoForm getFactura(@RequestBody String idFactura) throws ParseException{
+		
+		DocumentoEncabezadoForm rta = documentoManager.getFacturaById(ConvertionUtil.IntValueOf(idFactura));
+		
+		return rta;
+	}
+
+	@RequestMapping(value = "/Documento/getFacturaAll", method = RequestMethod.POST)
+	public @ResponseBody  List<DocumentoEncabezadoForm> getFacturaAll(@RequestBody FiltroFactura filtro) throws ParseException{
+		
+		List<DocumentoEncabezadoForm> rta = documentoManager.getFacturaAll(filtro);
+		
+		return rta;
+	}
+
+	
 
 	@RequestMapping(value = "/documento/getAlicuotaCategoriaIva", method = RequestMethod.POST)
 //	public @ResponseBody  String guardar(@ModelAttribute(value = "Form") DocumentoEncabezadoForm form,

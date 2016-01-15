@@ -117,7 +117,7 @@
 		</a>
 		<ul class="dropdown-menu animated messages arrow"tabindex="-1">
 		  <li class="dd-header"tabindex="-1">
-			<span class="ng-binding">Messages (6)</span>
+			<span class="ng-binding">Mensajes (6)</span>
 			<span><a href="#"><i class="glyphicon glyphicon-cog"></i></a></span>
 		  </li>
 			  <div tabindex="-1"class="scrollthis" scrollable=""><div tabindex="-1" class="nano has-scrollbar">
@@ -146,7 +146,7 @@
 				  </a>
 				</li>
 			  </div><div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div></div>
-		  <li class="dd-footer"><a href="#" ng-click="setReadAll($event)">Mark all read</a></li>
+		  <li class="dd-footer"><a href="#" ng-click="setReadAll($event)">Marcar todas Leidas</a></li>
 		</ul>
 	  </li>
 	  <li class="dropdown ng-scope" dropdown="" ng-controller="NotificationsController" ng-show="isLoggedIn" tabindex="-1">
@@ -155,7 +155,7 @@
 		</a>
 		<ul class="dropdown-menu animated notifications arrow" tabindex="-1">
 		  <li class="dd-header">
-			<span class="ng-binding">Notifications (5)</span>
+			<span class="ng-binding">Notificaciones (5)</span>
 			<span><a href="#"><i class="glyphicon glyphicon-cog"></i></a></span>
 		  </li>
 				<div class="scrollthis" scrollable=""><div class="nano has-scrollbar"><div class="nano-content" ng-transclude="" tabindex="0" style="right: -17px;">
@@ -169,7 +169,7 @@
 			  </a>
 			</li><!-- end ngRepeat: item in notifications -->
 				</div><div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div></div>
-		  <li class="dd-footer"><a href="javascript:;" ng-click="setSeenAll($event)">Mark all seen</a></li>
+		  <li class="dd-footer"><a href="javascript:;" ng-click="setSeenAll($event)">Marcar todas Leidas</a></li>
 		</ul>
 	  </li>
 	
@@ -231,7 +231,7 @@
 				<footer role="contentinfo" ng-show="!layoutLoading" ng-cloak>
 					<div class="clearfix">
 						<ul class="list-unstyled list-inline pull-left">
-							<li>MAVERICK &copy; 2015</li>
+							<li>DANMAR &copy; 2016</li>
 						</ul>
 						<button class="pull-right btn btn-default btn-sm hidden-print" back-to-top style="padding: 1px 10px;"><i class="fa fa-angle-up"></i></button>
 					</div>
