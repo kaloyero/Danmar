@@ -28,11 +28,13 @@ public class DocumentoEncabezadoForm implements Form{
 	private String  clienteNombre;
 	private String  clienteCategoria;
 	private String  clienteCuit;
+	private String  clienteIvaInscripto;
 	private String totalArticulos;
 	private String totalImpuestos;
 	private String totalDocumento;	
 	private String pagoEfectivoMonto;
 	private String pagoTarjetaNombre;
+	private String pagoTarjetaCoefRecargoTC;
 	private String pagoTarjetaMonto;
 	private String pagoTarjetaMontoConInteres;
 	private String pagoTarjetaCupon;
@@ -229,6 +231,18 @@ public class DocumentoEncabezadoForm implements Form{
 	}
 	public void setPagoTarjetaCuotas(String pagoTarjetaCuotas) {
 		this.pagoTarjetaCuotas = pagoTarjetaCuotas;
+	}
+	public String getClienteIvaInscripto() {
+		return clienteIvaInscripto;
+	}
+	public void setClienteIvaInscripto(String clienteIvaInscripto) {
+		this.clienteIvaInscripto = clienteIvaInscripto;
+	}
+	public String getPagoTarjetaCoefRecargoTC() {
+		return pagoTarjetaCoefRecargoTC;
+	}
+	public void setPagoTarjetaCoefRecargoTC(String pagoTarjetaCoefRecargoTC) {
+		this.pagoTarjetaCoefRecargoTC = pagoTarjetaCoefRecargoTC;
 	}
 	
 

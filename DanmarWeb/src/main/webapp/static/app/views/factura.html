@@ -50,6 +50,7 @@
 													</span>
 													<div class="col-sm-10">
 														<textarea tabindex="1" class="form-control"
+															ng-model="facturaNotas"
 															ng-class="{botonFocus: focusedNotas}"
 															ng-init="focusedNotas = false"
 															ng-focus="focusedNotas = true"
@@ -195,6 +196,14 @@
 																ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()" ng-disabled="!montoTC>0" ng-options="item as item.nombre for item in tarjetasList " >
 													</select> 
 											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label">Recargo</label>
+											<div class="col-sm-9">
+												<div class="input-group">
+													<span class="input-group-addon">{{recargoTC}}</span>
+												</div>
+											</div>										
 										</div>
 										<div class="form-group col-md-7">
 											<label class="col-sm-3 control-label">Monto</label>

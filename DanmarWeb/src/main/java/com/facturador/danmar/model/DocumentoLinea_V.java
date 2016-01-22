@@ -12,7 +12,6 @@ public class DocumentoLinea_V {
 	@Column(name = "Id")
 	private String id	;
 
-
 	@Column(name = "IdDocumentoEncabezado")
 	private int documentoEncabezadoId	;
 	@Column(name = "IdArticulo")
@@ -23,10 +22,8 @@ public class DocumentoLinea_V {
 	private int cantidad	;
 	@Column(name = "precio")
 	private Double precio;
-	@Column(name = "precioUnitario")
-	private Double precioUnitario;
-	@Column(name = "PrecioTC")
-	private Double precioTC	;
+	@Column(name = "PrecioFinal")
+	private Double precioFinal	;
 	@Column(name = "CC1")
 	private String cc1	;	
 	@Column(name = "CC2")
@@ -73,12 +70,6 @@ public class DocumentoLinea_V {
 	}
 	public void setPrecio(Double precio) {
 		this.precio = precio;
-	}
-	public Double getPrecioTC() {
-		return precioTC;
-	}
-	public void setPrecioTC(Double precioTC) {
-		this.precioTC = precioTC;
 	}
 	public String getCc1() {
 		return cc1;
@@ -128,17 +119,17 @@ public class DocumentoLinea_V {
 	public void setTotalLinea(Double totalLinea) {
 		this.totalLinea = totalLinea;
 	}
-	public Double getPrecioUnitario() {
-		return precioUnitario;
-	}
-	public void setPrecioUnitario(Double precioUnitario) {
-		this.precioUnitario = precioUnitario;
-	}
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public Double getPrecioFinal() {
+		return precioFinal;
+	}
+	public void setPrecioFinal(Double precioFinal) {
+		this.precioFinal = precioFinal;
 	}	
 
 	

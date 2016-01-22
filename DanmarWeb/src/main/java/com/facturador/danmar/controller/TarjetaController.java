@@ -15,6 +15,7 @@ import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.TarjetaForm;
 import com.facturador.danmar.manager.TarjetaCoeficienteManager;
 import com.facturador.danmar.manager.TarjetaManager;
+import com.facturador.danmar.util.CalculosUtil;
 
 
 @Controller
@@ -54,19 +55,26 @@ public class TarjetaController {
 	public @ResponseBody  List<TarjetaForm> getTipoFacturaCategoriaIva(@RequestBody  TarjetaForm filtro) throws ParseException{
 		List<TarjetaForm> rta = tarjetaCoeficienteManager.getCuotas( ConvertionUtil.IntValueOf(filtro.getCodigo()));
 		for (TarjetaForm form : rta) {
-//			Double interes = ((ConvertionUtil.DouValueOf(form.getCoeficiente()) * ConvertionUtil.DouValueOf(filtro.getMonto()) )  ) ;
-//			Double importeFinal = ConvertionUtil.DouValueOf(filtro.getMonto()) + interes;
-			Double importeFinal = ((ConvertionUtil.DouValueOf(form.getCoeficiente()) * ConvertionUtil.DouValueOf(filtro.getMonto()) )  ) ;
-			Double importeCuota = importeFinal / Integer.parseInt(form.getCuotas());
+			Double monto = ConvertionUtil.DouValueOf(filtro.getMonto());
+			Double recargoTc = ConvertionUtil.DouValueOf(filtro.getRecargo());
+			int cantCuotas = ConvertionUtil.IntValueOf(form.getCuotas()) ;
+			Double coeficienteCuota = ConvertionUtil.DouValueOf(form.getCoeficiente());
+
 			
-			String descripcion = form.getCuotas() + " cuota(s) de $ " + FormatUtil.format2DecimalsStr(importeCuota) + " ( "+form.getCoeficiente()+"% - $ "+FormatUtil.format2DecimalsStr(importeFinal)+") " ;
-			
-			form.setDescripcion(descripcion);
+			Double importeFinal = CalculosUtil.getImporteFinalCuotas(monto, recargoTc, coeficienteCuota); 
 			form.setMonto(FormatUtil.format2DecimalsStr(importeFinal));
+			String descripcion = CalculosUtil.getCuotasDescription(importeFinal, cantCuotas, coeficienteCuota); 
+			form.setDescripcion(descripcion);
 
 		}
 		
 		return rta;
+	}
+	
+	@RequestMapping(value = "/updateTarjetaCoefDBF", method = RequestMethod.GET)
+	public @ResponseBody String updateTarjetaCoefDBF() {
+		tarjetaCoeficienteManager.updateTarjetaCoefDBF();
+		return "OK";
 	}
 	
 }

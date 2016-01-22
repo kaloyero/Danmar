@@ -49,4 +49,10 @@ public class ArticuloController  {
 		return articuloManager.getAll(filtro); 
 		
 	}
+	
+	@RequestMapping(value = "/updateArticulosDBF", method = RequestMethod.GET)
+	public @ResponseBody String updateArticulosDBF() {
+		articuloManager.updateArticuloDBF();
+		return "OK";
+	}
 }

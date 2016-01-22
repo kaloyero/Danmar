@@ -24,6 +24,7 @@ import com.facturador.danmar.service.DocumentoEncabezadoService;
 import com.facturador.danmar.service.DocumentoLineaService;
 import com.facturador.danmar.service.DocumentoPagoService;
 import com.facturador.danmar.service.TarjetaService;
+import com.facturador.danmar.util.CalculosUtil;
 
 @Service("documentoManager")
 public class DocumentoManagerImpl implements DocumentoManager {
@@ -67,13 +68,15 @@ public class DocumentoManagerImpl implements DocumentoManager {
 			if (pago.getTipoPago() == TipoPagoEnum.PAGO_EFECTIVO.getCodigo()){
 				factura.setPagoEfectivoMonto(FormatUtil.format2DecimalsStr(pago.getImporte()));
 			} else if (pago.getTipoPago() == TipoPagoEnum.PAGO_TARJETA_CREDITO.getCodigo()){
+
 				factura.setPagoTarjetaMonto(FormatUtil.format2DecimalsStr(pago.getImporte()));
-					Double importeFinal = pago.getCoeficiente() * pago.getImporte()  ;
+				Double importeFinal = CalculosUtil.getImporteFinalCuotas(pago.getImporte(), pago.getCoefRecargoTC(), pago.getCoeficiente());
 				factura.setPagoTarjetaMontoConInteres(FormatUtil.format2DecimalsStr(importeFinal));
-					Double importeCuota = importeFinal / pago.getCuotas();
-					String cuotasDesc = "Cuota(s) de $ " + FormatUtil.format2DecimalsStr(importeCuota) + " ( "+ pago.getCoeficiente()+"% - $ "+FormatUtil.format2DecimalsStr(importeFinal)+") " ;
+				String cuotasDesc = CalculosUtil.getCuotasDescription(importeFinal, pago.getCuotas(), pago.getCoeficiente()); 
+					
 				factura.setPagoTarjetaCuotas(cuotasDesc);
 				factura.setPagoTarjetaCupon(pago.getNroCupon());
+				factura.setPagoTarjetaCoefRecargoTC(FormatUtil.format2DecimalsStr(pago.getCoefRecargoTC() * 100) + " %");
 				
 				Tarjeta tarjeta = tarjetaService.findById(pago.getTarjeta());
 				factura.setPagoTarjetaNombre(tarjeta .getNombre());

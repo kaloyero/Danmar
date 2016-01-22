@@ -1,6 +1,7 @@
 package com.facturador.danmar.form.mapper;
 
 import com.danmar.utils.ConvertionUtil;
+import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.TarjetaForm;
 import com.facturador.danmar.model.Tarjeta;
 
@@ -22,6 +23,7 @@ public class TarjetaMapper extends MapperImpl<Tarjeta,TarjetaForm>{
 		if (ent != null){
         	tarjeta.setNombre(ent.getNombre());
         	tarjeta.setCodigo(ConvertionUtil.StrValueOf(ent.getId()));
+        	tarjeta.setRecargo(FormatUtil.format2DecimalsStr(ent.getRecargo()));
 		}
 		return tarjeta;
 	}

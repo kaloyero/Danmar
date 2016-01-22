@@ -22,7 +22,7 @@
 <!--        <context:component-scan base-package="com.facturador.danmar.dao"></context:component-scan> -->
 <!--        <context:component-scan base-package="com.facturador.danmar.model"></context:component-scan> -->
 <!-- 		<context:component-scan base-package="com.facturador.danmar.controller"></context:component-scan> -->
-<!-- 	   <context:component-scan base-package="com.facturador.danmar.config"></context:component-scan> -->
+<!-- 	    <context:component-scan base-package="com.facturador.danmar.config"></context:component-scan> -->
 <!--        <context:component-scan base-package="com.facturador.danmar.service"></context:component-scan> -->
        <context:component-scan base-package="com.facturador.*" />
        

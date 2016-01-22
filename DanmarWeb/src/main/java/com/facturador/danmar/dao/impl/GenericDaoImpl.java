@@ -26,6 +26,11 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
 		getSession().save(ent);
 	}
 
+	@Transactional
+	public void saveOrUpdate(E ent){
+		getSession().saveOrUpdate(ent);
+	}
+
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<E> getAll(){

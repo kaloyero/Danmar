@@ -2,6 +2,7 @@ package com.facturador.danmar.service;
 
 import java.util.List;
 
+import com.danmar.dbf.dto.ArticuloDto;
 import com.danmar.dbf.dto.filtro.FiltroArticulo;
 import com.danmar.error.ErrorRespuestaBean;
 import com.danmar.filtro.Paginacion;
@@ -16,4 +17,10 @@ public interface ArticuloService extends BaseService {
 	public List <Articulo> getAll(Paginacion paginacion);
 	
 	public List<Articulo> getAllFilter(FiltroArticulo filtro);
+	
+	public ArticuloDto[] getAllArticulosDbf();
+
+	void insertList(List<Articulo> articulosDbf);
+
+	List<Articulo> mapperDtoToModel(ArticuloDto[] articulosDbf);
 }

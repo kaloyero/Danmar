@@ -1,49 +1,25 @@
 package com.facturador.danmar.model;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 
 
 @Entity(name="tarjeta_coeficientes")
-public class TarjetaCoeficiente {
+public class TarjetaCoeficiente  {
 
-	@Id
-	@GeneratedValue
-	private int id;
-	
-	@Column(name = "id_tarjeta")
-	private int tarjetaId;
-	
-	@Column(name = "cuotas")
-	private int cuotas;
+	@EmbeddedId
+	private TarjetaCuotaGroupId tarjetaCuota;
 	
 	@Column(name = "coeficiente")
 	private Double coeficiente;
 
-	public int getId() {
-		return id;
+	public TarjetaCuotaGroupId getTarjetaCuota() {
+		return tarjetaCuota;
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getTarjetaId() {
-		return tarjetaId;
-	}
-
-	public void setTarjetaId(int tarjetaId) {
-		this.tarjetaId = tarjetaId;
-	}
-
-	public int getCuotas() {
-		return cuotas;
-	}
-
-	public void setCuotas(int cuotas) {
-		this.cuotas = cuotas;
+	public void setTarjetaCuota(TarjetaCuotaGroupId tarjetaCuota) {
+		this.tarjetaCuota = tarjetaCuota;
 	}
 
 	public Double getCoeficiente() {
@@ -53,6 +29,6 @@ public class TarjetaCoeficiente {
 	public void setCoeficiente(Double coeficiente) {
 		this.coeficiente = coeficiente;
 	}
-	
+
 	
 }

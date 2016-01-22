@@ -11,4 +11,6 @@ public interface TarjetaCoeficienteManager {
 	TarjetaForm getById(int tarjeta,int cuotas);
 
 	public List<TarjetaForm> getCuotas(int tarjeta);
+
+	void updateTarjetaCoefDBF();
 }

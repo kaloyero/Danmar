@@ -1,5 +1,6 @@
 package com.facturador.danmar.form.mapper;
 
+import com.danmar.utils.ConvertionUtil;
 import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.DocumentoImpuestoForm;
 import com.facturador.danmar.model.DocumentoImpuesto;
@@ -12,6 +13,10 @@ public class DocumentoImpuestoMapper extends MapperImpl<DocumentoImpuesto,Docume
 		DocumentoImpuesto ent = new DocumentoImpuesto();
 		if (form != null){		
 			ent.setId(form.getId());
+//			ent.setDocumentoLineaId(form.get);
+			ent.setAlicuota(ConvertionUtil.DouValueOf(form.getAlicuota()));
+			ent.setImporte(ConvertionUtil.DouValueOf(form.getImporte()));
+
 		}
 		return ent;
 	}

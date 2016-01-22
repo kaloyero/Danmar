@@ -8,7 +8,6 @@ import javax.persistence.Id;
 @Entity(name="tarjetas")
 public class Tarjeta {
 
-	
 	@Id
 	@GeneratedValue
 	private int id;
@@ -22,6 +21,9 @@ public class Tarjeta {
 	@Column(name = "nombre")
 	private String nombre;
 	
+	@Column(name = "recargo")
+	private Double recargo;
+
 	@Column(name = "estado")
 	private String estado;
 
@@ -63,6 +65,14 @@ public class Tarjeta {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public Double getRecargo() {
+		return recargo;
+	}
+
+	public void setRecargo(Double recargo) {
+		this.recargo = recargo;
 	}
 
 	

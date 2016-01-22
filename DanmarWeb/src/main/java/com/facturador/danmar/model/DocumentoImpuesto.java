@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 @Entity(name="documentoimpuestos")
 public class DocumentoImpuesto {
@@ -16,9 +18,14 @@ public class DocumentoImpuesto {
 	private Double alicuota;
 	@Column(name = "importe")
 	private Double importe;
+	
+//	@OneToOne
+//	@JoinColumn(name = "id",nullable=false,updatable=false,insertable=true)
+//	private DocumentoLinea documentoLinea;
+
 	@Column(name = "IdDocumentoLinea")
 	private int documentoLineaId;
-
+	
 	public int getId() {
 		return id;
 	}
@@ -37,6 +44,12 @@ public class DocumentoImpuesto {
 	public void setImporte(Double importe) {
 		this.importe = importe;
 	}
+//	public DocumentoLinea getDocumentoLinea() {
+//		return documentoLinea;
+//	}
+//	public void setDocumentoLinea(DocumentoLinea documentoLinea) {
+//		this.documentoLinea = documentoLinea;
+//	}
 	public int getDocumentoLineaId() {
 		return documentoLineaId;
 	}

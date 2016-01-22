@@ -12,4 +12,6 @@ public interface GenericManager<F> {
 	public List<F> getAll();
 
 	public F findById(int id);
+
+	ErrorRespuestaBean saveOrUpdate(F form);
 }

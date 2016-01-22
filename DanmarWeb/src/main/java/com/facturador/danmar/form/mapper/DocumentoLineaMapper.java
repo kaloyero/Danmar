@@ -21,9 +21,16 @@ public class DocumentoLineaMapper extends MapperImpl<DocumentoLinea,DocumentoLin
 			ent.setDescripcion(form.getDescripcion());
 			ent.setCantidad(ConvertionUtil.IntValueOf(form.getCantidad()));
 			ent.setPrecio(ConvertionUtil.DouValueOf(form.getPrecio()));
-			ent.setPrecioUnitario(ConvertionUtil.DouValueOf(form.getPrecioUnitario()));
-			ent.setPrecioTC(ConvertionUtil.DouValueOf(form.getPrecioTC()));
+			ent.setPrecioFinal(ConvertionUtil.DouValueOf(form.getPrecioFinal()));
 			ent.setDocumentoEncabezadoId((form.getEncabezadoId()));
+//			if (form.getImpuestos() != null){
+//				ent.setImpuestos(new HashSet<DocumentoImpuesto>());
+//				DocumentoImpuestoMapper mapper = new DocumentoImpuestoMapper();
+//				for (DocumentoImpuestoForm imp : form.getImpuestos() ) {
+//					ent.getImpuestos().add(mapper.getEntidad(imp));
+//				}
+//			}
+			
 			
 		}
 		return ent;
@@ -36,8 +43,7 @@ public class DocumentoLineaMapper extends MapperImpl<DocumentoLinea,DocumentoLin
 			form.setArticuloId(ent.getArticuloId());
 			form.setCodigo(ConvertionUtil.StrValueOf(ent.getArticuloId()));
 			form.setDescripcion(ent.getDescripcion());
-			form.setPrecioTC(FormatUtil.format2DecimalsStr(ent.getPrecioTC()));
-			form.setPrecioUnitario(FormatUtil.format2DecimalsStr(ent.getPrecioUnitario()));
+			form.setPrecioFinal(FormatUtil.format2DecimalsStr(ent.getPrecioFinal()));
 			form.setPrecio(FormatUtil.format2DecimalsStr(ent.getPrecio()));
 			
 		}
@@ -51,14 +57,14 @@ public class DocumentoLineaMapper extends MapperImpl<DocumentoLinea,DocumentoLin
 			form.setArticuloId(ent.getArticuloId());
 			form.setArticulo(ent.getArticulo());
 			form.setCantidad(ConvertionUtil.StrValueOf(ent.getCantidad()));
-			form.setPrecioTC(FormatUtil.format2DecimalsStr(ent.getPrecioTC()));
+			form.setPrecioFinal(FormatUtil.format2DecimalsStr(ent.getPrecioFinal()));
 			form.setCc1(ent.getCc1());
 			form.setCc2(ent.getCc2());
 			form.setCc3(ent.getCc3());
 			form.setCc4(ent.getCc4());
 			form.setCc5(ent.getCc5());
 			form.setPrecio(FormatUtil.format2DecimalsStr(ent.getPrecio()));
-			form.setPrecioUnitario(FormatUtil.format2DecimalsStr(ent.getPrecioUnitario()));
+//			form.setPrecioUnitario(FormatUtil.format2DecimalsStr(ent.getPrecioUnitario()));
 			form.setCodigo(ConvertionUtil.StrValueOf(ent.getArticuloId()));
 			form.setTotalArticulos(FormatUtil.format2DecimalsStr(ent.getTotalArticulos()));
 			form.setTotalLinea(FormatUtil.format2DecimalsStr(ent.getTotalLinea()));

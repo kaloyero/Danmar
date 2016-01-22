@@ -203,7 +203,7 @@
 														<td>{{row.cc5}}</td>
 														<td>{{row.articulo}}</td>
 														<td>{{row.cantidad}}</td>
-														<td>{{row.precio}}</td>
+														<td>{{row.totalLinea}}</td>
 													</tr>
 
 												</tbody>
@@ -218,7 +218,50 @@
 						</div>
 						</panel>
 					</div>
-
+					<div class="col-xs-12 col-md-4">
+						<panel data-heading="Totales" panel-class="panel-midnightblue"
+							class="ng-isolate-scope">
+						<div class="panel  panel-midnightblue">
+							<div class="panel-heading">
+								<h2 class="ng-binding">
+									<!-- ngIf: panelIcon -->
+									Cliente
+								</h2>
+							</div>
+							<div class="panel-body" ng-transclude="">
+								<panel-controls class="ng-scope"> </panel-controls>
+								<div class="panel  panel-primary ng-scope">
+									<div class="panel-body">
+										<div class="row">
+											<form action="" class="form-horizontal row-border2">
+												<div class="form-group">
+													<label class="col-md-2 control-label"> <strong>Cliente:</strong></label>
+													<div class="col-md-7">
+														{{viewClienteNombre}}
+													</div>
+												</div>
+												<div class="form-group col-md-6">
+													<label class="col-md-4 control-label"> <strong>CUIT:</strong>
+													</label>
+													<div class="col-md-8">
+														<span class="label label-default form-control">{{viewClienteCuit}}</span>
+													</div>
+												</div>
+												<div class="form-group col-md-6">
+													<label class="col-md-4 control-label"> <strong>Categoria:</strong>
+													</label>
+													<div class="col-md-8">
+														<span class="label label-default form-control">{{viewClienteCategoria}}</span>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						</panel>
+					</div>
 					<div class="col-xs-12 col-md-4">
 						<panel data-heading="Totales" panel-class="panel-midnightblue"
 							class="ng-isolate-scope">
@@ -239,9 +282,15 @@
 													</div>
 												</div>
 												<div class="form-group">
-													<label class="col-sm-2 control-label">Tarjeta</label>
+													<label class="col-sm-2 control-label">Tarjeta de Credito</label>
 													<div class="col-sm-9">
 														{{viewTarjetaNombre}}
+													</div>
+												</div>
+												<div class="form-group">
+													<label class="col-sm-2 control-label">Recargo TC</label>
+													<div class="col-sm-9">
+														{{viewTarjetaRecargo}}
 													</div>
 												</div>
 												<div class="form-group col-md-7">
@@ -319,50 +368,7 @@
 						</panel>
 					</div>
 
-					<div class="col-xs-12 col-md-4">
-						<panel data-heading="Totales" panel-class="panel-midnightblue"
-							class="ng-isolate-scope">
-						<div class="panel  panel-midnightblue">
-							<div class="panel-heading">
-								<h2 class="ng-binding">
-									<!-- ngIf: panelIcon -->
-									Cliente
-								</h2>
-							</div>
-							<div class="panel-body" ng-transclude="">
-								<panel-controls class="ng-scope"> </panel-controls>
-								<div class="panel  panel-primary ng-scope">
-									<div class="panel-body">
-										<div class="row">
-											<form action="" class="form-horizontal row-border2">
-												<div class="form-group">
-													<label class="col-md-2 control-label"> <strong>Cliente:</strong></label>
-													<div class="col-md-7">
-														{{viewClienteNombre}}
-													</div>
-												</div>
-												<div class="form-group col-md-6">
-													<label class="col-md-4 control-label"> <strong>CUIT:</strong>
-													</label>
-													<div class="col-md-8">
-														<span class="label label-default form-control">{{viewClienteCuit}}</span>
-													</div>
-												</div>
-												<div class="form-group col-md-6">
-													<label class="col-md-4 control-label"> <strong>Categoria:</strong>
-													</label>
-													<div class="col-md-8">
-														<span class="label label-default form-control">{{viewClienteCategoria}}</span>
-													</div>
-												</div>
-											</form>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						</panel>
-					</div>
+
 
 
 

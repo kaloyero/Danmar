@@ -263,6 +263,7 @@ angular
 								$scope.tipoFactura = "B";
 								$scope.chkConsumidorFinal = true;
 								$scope.numeroFactura = "Xxxxxxxxxxx"
+								$scope.recargoTC = "";
 								$scope.subTotal = 0;
 								$scope.ivaInscripto = 0;
 								obtenerAlicuotaCategoriaIvaConsumidorFinal();
@@ -623,7 +624,11 @@ angular
 											&& coeficienteEfectivo < 1 &&  $scope.cuotaSeleccionada != undefined) {
 										coeficienteTarjeta = 1 - coeficienteEfectivo;
 										var coeficienteTC = $scope.cuotaSeleccionada.coeficiente
-										totalTarjetaConCoeficiente = (totalProducto - totalEfectivoConCoeficiente) * coeficienteTC;
+										var recargoTC = parseFloat($scope.recargoTC);
+										totalTarjetaConCoeficiente = (totalProducto - totalEfectivoConCoeficiente); //* coeficienteTC;
+//										totalTarjetaConCoeficiente = totalTarjetaConCoeficiente + (totalTarjetaConCoeficiente * (recargoTC / 100));
+										totalTarjetaConCoeficiente = calculateInteresTC(coeficienteTC,totalTarjetaConCoeficiente,parseFloat($scope.recargoTC))
+										
 									} else {
 
 									}
@@ -645,19 +650,19 @@ angular
 							}
 
 							function valorCeldaCambiado() {
-
 								cleanTotales();
-								
+								recalculateGridProductos()
+								calculateTotales()
 								recalculateGridProductos()
 								$scope.$apply() // Averiguar que hace
 							}
-							function valorCeldaCambiadoIva() {
+							/*function valorCeldaCambiadoIva() {
 								recalculateGridProductos()
 								cleanTotales();
 								calculateTotales()
 								recalculateGridProductos()
 								$scope.$apply() // Averiguar que hace
-							}
+							}*/
 
 							function calculateTotales() {
 								obtenerTotales();
@@ -665,17 +670,27 @@ angular
 
 							}
 							function cleanTotales() {
-
+								resetSelectedTC()
+								resetSelectedInfoTC()
 								$scope.TotalFact = 0
 								$scope.subTotal = 0
-								$scope.montoTC = 0;
-								$scope.interesTC = 0
-								$scope.selectTarjetaCredito = 0;
 								setEfectivo();
-								$scope.cuotas = {}
 								$scope.cuotaSeleccionada = undefined
 
 							}
+							function resetSelectedTC(){
+									$scope.montoTC = 0;
+									$scope.selectTarjetaCredito = 0;
+							}
+							
+							function resetSelectedInfoTC(){
+									$scope.cuotaSeleccionada = undefined
+									$scope.interesTC = 0
+									$scope.recargoTC = ""
+									$scope.cuotas = {};
+
+							}
+							
 							/*
 							 * function rowSelectedFunc(event) {
 							 * $scope.seleccionados=$scope.gridOptionsProductos.api.getSelectedRows() }
@@ -1075,14 +1090,26 @@ angular
 								console.log("CUOTACHANGE",
 										$scope.cuotaSeleccionada)
 
-								if ($scope.cuotaSeleccionada != undefined) {
-									var test = $scope.cuotaSeleccionada.coeficiente;
-									$scope.interesTC = ($scope.montoTC * test)
-											.toFixed(2);
+								if ($scope.cuotaSeleccionada != undefined &&  $scope.recargoTC != "" ) {
+									var montoTotal = calculateInteresTC($scope.cuotaSeleccionada.coeficiente,$scope.montoTC,parseFloat($scope.recargoTC))
+
+									$scope.interesTC = (montoTotal).toFixed(2);
 								}
-									console.log("INTEREs", $scope.interesTC)
-									obtenerTotales();
+								console.log("INTEREs", $scope.interesTC)
+								obtenerTotales();
 								
+							}
+							
+							function calculateInteresTC(coefCuotaTC,montoTC,recargoTC){
+									var coefCuota = coefCuotaTC;
+									var montoParcialTC = montoTC
+									var coefRecargoTC = recargoTC / 100;
+									var montoCoefCuota = montoParcialTC * coefCuota;
+									var montoCoefRecargo= montoCoefCuota * coefRecargoTC;
+									
+									var montoTotal = montoCoefCuota + montoCoefRecargo;
+							
+									return montoTotal;
 							}
 
 							function obtenerCuotasTarjeta() {
@@ -1090,10 +1117,12 @@ angular
 								console.log("TARJETA CHANGE ",
 										$scope.selectTarjetaCredito.codigo);
 								
-
+									resetSelectedInfoTC();
 									var tarjeta = new Object()
 									tarjeta.codigo = $scope.selectTarjetaCredito.codigo;
 									tarjeta.monto = $scope.montoTC;
+									setRecargoTC();
+									tarjeta.recargo = $scope.selectTarjetaCredito.recargo;
 									var codigoTarjeta = $scope.selectTarjetaCredito.codigo;
 
 									$
@@ -1118,6 +1147,12 @@ angular
 											});
 							}
 
+							function setRecargoTC(){
+								$scope.recargoTC= (parseFloat($scope.selectTarjetaCredito.recargo) * 100) + "%";
+							}
+
+
+							
 							function obtenerTarjetas() {
 								console.log("Lee tarjetas");
 								$
@@ -1174,12 +1209,11 @@ angular
 								// Backend,como la fecha por ejemplo y el
 								// usuario
 								var header = new Object();
-								console.log("CLICLIEEENTEEE",$scope.clienteSeleccionadoId);
+								console.log("Scope",$scope);
 								
 								header.clienteNro = $scope.clienteSeleccionadoId;
+								header.clienteIvaInscripto = $scope.ivaInscripto;
 								header.letra = $scope.tipoFactura;
-
-								header.clienteNro = "1";
 								header.descripcion = $scope.facturaNotas;
 								return header;
 							}
@@ -1228,6 +1262,8 @@ angular
 									pagoFacturar.coeficiente = $scope.cuotaSeleccionada.coeficiente;
 									pagoFacturar.cupon = $scope.cuponTC;
 									pagoFacturar.tarjeta = $scope.selectTarjetaCredito.codigo;
+									var recargoTC = parseFloat($scope.recargoTC);
+									pagoFacturar.coefRecargoTC = parseFloat($scope.recargoTC) / 100;
 									arrayPagoss.push(pagoFacturar)
 								}
 								if (($scope.montoEfectivo > 0)) {
@@ -1244,15 +1280,14 @@ angular
 							function changeEfectivo() {
 								// $scope.montoTC=$scope.TotalFact
 								// -$scope.montoEfectivo;
+		
+								resetSelectedInfoTC()
 								var nuevoMonto = parseFloat(getTotal() - $scope.montoEfectivo).toFixed(2); ;
 										
 								if (nuevoMonto >= 0){
 									$scope.montoTC = nuevoMonto;
 								} else {
-									$scope.montoTC = 0;
-									$scope.interesTC = 0
-									$scope.selectTarjetaCredito = 0;
-									$scope.cuotas = {};
+									resetSelectedTC();
 								} 
 								
 								console.log("ChangeEfec", $scope.montoTC)
@@ -1262,6 +1297,8 @@ angular
 								}
 								recalculateGridProductos()
 							}
+							
+							
 							
 							function seleccionConsumidorFinal() {
 								if ($scope.chkConsumidorFinal == true){

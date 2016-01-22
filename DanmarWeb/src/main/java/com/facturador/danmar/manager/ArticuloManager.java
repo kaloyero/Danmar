@@ -10,5 +10,7 @@ public interface ArticuloManager {
 	public ArticuloForm getById(String articulo);   
 	
 	public List<ArticuloForm> getAll(FiltroArticulo pag);
+
+	void updateArticuloDBF();
 }   
 	    

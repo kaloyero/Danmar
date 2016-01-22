@@ -54,6 +54,7 @@ public class DocumentoPagoManagerImpl extends GenericManagerImpl<DocumentoPagoFo
 
 			if (form.getTipoPago().equals("TC")) {
 				// TARJETA CREDITO
+				pago.setCoefRecargoTC(ConvertionUtil.DouValueOf(form.getCoefRecargoTC()));
 				pago.setCuotas(ConvertionUtil.IntValueOf(form.getCuotas()));
 				pago.setTipoPago(2);
 			} else if (form.getTipoPago().equals("TD")) {

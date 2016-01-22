@@ -52,6 +52,10 @@ public class ClienteController  {
 		return clienteManager.getById(codigo);
 	}
 
-
+	@RequestMapping(value = "/updateClientesDBF", method = RequestMethod.GET)
+	public @ResponseBody String updateClientes() {
+		clienteManager.updateClientesDBF();
+		return "OK";
+	}
 
 }

@@ -9,15 +9,20 @@ import org.springframework.transaction.annotation.Transactional;
 import com.danmar.error.ErrorRespuestaBean;
 import com.danmar.mapper.Mapper;
 import com.danmar.utils.ConvertionUtil;
+import com.danmar.utils.FormatUtil;
 import com.facturador.danmar.form.DocumentoEncabezadoForm;
 import com.facturador.danmar.form.DocumentoLineaForm;
 import com.facturador.danmar.form.DocumentoPagoForm;
 import com.facturador.danmar.form.mapper.DocumentoEncabezadoMapper;
+import com.facturador.danmar.form.mapper.DocumentoLineaMapper;
 import com.facturador.danmar.manager.DocumentoEncabezadoManager;
-import com.facturador.danmar.manager.DocumentoLineaManager;
 import com.facturador.danmar.manager.DocumentoPagoManager;
 import com.facturador.danmar.model.DocumentoEncabezado;
+import com.facturador.danmar.model.DocumentoImpuesto;
+import com.facturador.danmar.model.DocumentoLinea;
 import com.facturador.danmar.service.DocumentoEncabezadoService;
+import com.facturador.danmar.service.DocumentoImpuestoService;
+import com.facturador.danmar.service.DocumentoLineaService;
 import com.facturador.danmar.service.GenericService;
 
 @Service("documentoEncabezadoManager")
@@ -28,8 +33,11 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 	private DocumentoEncabezadoService documentoEncabezadoService;
 
 	@Autowired
-	private DocumentoLineaManager documentoLineaManager;
+	private DocumentoLineaService documentoLineaService;
 
+	@Autowired
+	private DocumentoImpuestoService documentoImpuestoService;
+	
 	@Autowired
 	private DocumentoPagoManager documentoPagoManager;
 
@@ -49,7 +57,7 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		return null;
 	}
 	
-	@Transactional()
+	@Transactional
 	@Override
 	public String saveDoc(DocumentoEncabezadoForm form) {
 		DocumentoEncabezado ent = new DocumentoEncabezado();
@@ -76,6 +84,9 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		//Letra
 		ent.setLetra(form.getLetra());
 
+		//NOtas
+		ent.setDescripcion(form.getDescripcion()); 
+		
 		//Busco el numero nuevo 
 		int ultimaNumeroFactura = documentoEncabezadoService.getUltimaFactura(ent.getLetra());
 		int nuevoNumeroFactura =  ultimaNumeroFactura + 1;
@@ -104,8 +115,7 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		
 		//Guardo las l�neas de la factura generada
 		for (DocumentoLineaForm linea : form.getLineas()) {
-			linea.setEncabezadoId(ent.getId());
-			documentoLineaManager.save(linea);
+			guardarDocumentoLinea(ent.getId(),linea, ConvertionUtil.DouValueOf(form.getClienteIvaInscripto()));
 		}
 
 		
@@ -116,4 +126,33 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 
 	}
 	
+	@Transactional
+	private void guardarDocumentoLinea(int idEncabezado, DocumentoLineaForm linea, Double clienteIvaInscripto){
+		linea.setEncabezadoId(idEncabezado);
+		
+		Double precio = ConvertionUtil.DouValueOf(linea.getPrecioUnitario());
+		Double precioFinalForm = ConvertionUtil.DouValueOf(linea.getPrecio());
+		Double alicuotaIva = clienteIvaInscripto;
+		Double importeIva = (precio * alicuotaIva ) / 100;
+		precio = precio - importeIva;
+		Double precioFinal = precioFinalForm / ConvertionUtil.IntValueOf(linea.getCantidad()) ;
+		Double importeIvaFinal = (precioFinal * alicuotaIva ) / 100;
+		precioFinal = precioFinal -importeIvaFinal; 
+		//seteo Precios para insertar
+		linea.setPrecio(ConvertionUtil.StrValueOf(precio));
+		linea.setPrecioFinal(FormatUtil.format2DecimalsStr(precioFinal));
+		
+		DocumentoLinea lineaEnt = (new DocumentoLineaMapper()).getEntidad(linea);
+		documentoLineaService.save(lineaEnt);
+		DocumentoImpuesto docImp = new DocumentoImpuesto();
+		//Creo el impuesto perteneciente
+		docImp.setAlicuota(alicuotaIva);
+		docImp.setImporte(importeIvaFinal);
+		docImp.setDocumentoLineaId(lineaEnt.getId());
+		
+		documentoImpuestoService.save(docImp);
+
+				
+		
+	}
 }

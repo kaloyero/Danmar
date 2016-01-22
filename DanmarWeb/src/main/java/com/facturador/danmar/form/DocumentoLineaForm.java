@@ -1,5 +1,7 @@
 package com.facturador.danmar.form;
 
+import java.util.Set;
+
 
 public class DocumentoLineaForm implements Form{
 
@@ -19,11 +21,12 @@ public class DocumentoLineaForm implements Form{
 	private String  cantidad;
 	private String  precio;
 	private String  precioUnitario;
-	private String  precioTC;
+	private String  precioFinal;
 	private String totalArticulos;
 	private String totalImpuestos;
 	private String totalLinea;
 	
+	private Set<DocumentoImpuestoForm> impuestos;
 	
 	public String getCantidad() {
 		return cantidad;
@@ -67,11 +70,11 @@ public class DocumentoLineaForm implements Form{
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-	public String getPrecioTC() {
-		return precioTC;
+	public String getPrecioFinal() {
+		return precioFinal;
 	}
-	public void setPrecioTC(String precioTC) {
-		this.precioTC = precioTC;
+	public void setPrecioFinal(String precioFinal) {
+		this.precioFinal = precioFinal;
 	}
 	public String getArticulo() {
 		return articulo;
@@ -132,6 +135,12 @@ public class DocumentoLineaForm implements Form{
 	}
 	public void setPrecioUnitario(String precioUnitario) {
 		this.precioUnitario = precioUnitario;
+	}
+	public Set<DocumentoImpuestoForm> getImpuestos() {
+		return impuestos;
+	}
+	public void setImpuestos(Set<DocumentoImpuestoForm> impuestos) {
+		this.impuestos = impuestos;
 	}
 	
 }

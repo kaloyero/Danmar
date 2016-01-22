@@ -84,5 +84,10 @@ public class ArticuloDaoImpl implements ArticuloDao {
 		return ct.list();
 	}
 
+	@Override
+	public void saveOrUpdate(Articulo ent) {
+		this.sessionFactory.getCurrentSession().saveOrUpdate(ent);
+	}
+
 	
 }

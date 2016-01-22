@@ -10,6 +10,7 @@ public class DocumentoPagoForm implements Form{
 	private String importe;
 	private String cuotas;
 	private String coeficiente;
+	private String coefRecargoTC;
 	private String cupon;
 	private String tarjeta;
 	public int getId() {
@@ -59,6 +60,12 @@ public class DocumentoPagoForm implements Form{
 	}
 	public void setTarjeta(String tarjeta) {
 		this.tarjeta = tarjeta;
+	}
+	public String getCoefRecargoTC() {
+		return coefRecargoTC;
+	}
+	public void setCoefRecargoTC(String coefRecargoTC) {
+		this.coefRecargoTC = coefRecargoTC;
 	}
 
 	

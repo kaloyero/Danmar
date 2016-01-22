@@ -9,6 +9,8 @@ import com.facturador.danmar.model.Articulo;
 public interface ArticuloDao {
 
 	public void save(Articulo ent);
+	
+	public void saveOrUpdate(Articulo ent);
 
 	public List<Articulo > getAll();
 	

@@ -21,8 +21,8 @@ public class TarjetaCoeficienteMapper extends MapperImpl<TarjetaCoeficiente,Tarj
 	public TarjetaForm getForm(TarjetaCoeficiente ent) {
 		TarjetaForm tarjeta=new TarjetaForm();
 		if (ent != null){
-        	tarjeta.setCodigo( ConvertionUtil.StrValueOf(ent.getId()));
-        	tarjeta.setCuotas( ConvertionUtil.StrValueOf(ent.getCuotas()));
+			tarjeta.setTarjetaId( ConvertionUtil.StrValueOf(ent.getTarjetaCuota().getTarjetaId()));
+        	tarjeta.setCuotas( ConvertionUtil.StrValueOf(ent.getTarjetaCuota().getCuotas()));
         	tarjeta.setCoeficiente(FormatUtil.format2DecimalsStr(ent.getCoeficiente()));
 
 		}

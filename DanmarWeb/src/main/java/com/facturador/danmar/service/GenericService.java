@@ -12,6 +12,8 @@ public interface GenericService<E> {
 	public List<E> getAll();
 	
 	public E findById(int id);
+
+	ErrorRespuestaBean saveOrUpdate(E dto);
 	
 
 }

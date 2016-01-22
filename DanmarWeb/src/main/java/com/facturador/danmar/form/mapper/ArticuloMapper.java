@@ -23,6 +23,7 @@ public class ArticuloMapper extends MapperImpl<Articulo,ArticuloForm> implements
 		ArticuloForm articulo=new ArticuloForm();
 		if (ent != null){
 			articulo.setCodigo(ConvertionUtil.StrValueOf(ent.getId()));
+
 			articulo.setArticulo(ent.getArticulo());
 //        	articulo.setCanMaxima(ConvertionUtil.StrValueOf(ent.getCanMaxima()));
 //        	articulo.setCanMinima(ConvertionUtil.StrValueOf(ent.getCanMinima()));

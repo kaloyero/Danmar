@@ -24,6 +24,16 @@ public abstract class GenericServiceImpl<E> implements GenericService<E>, BaseSe
 		return rta;
 	}
 
+	@Override
+	@Transactional
+	@SuppressWarnings("unchecked")
+	public ErrorRespuestaBean saveOrUpdate(E dto) {
+		ErrorRespuestaBean rta = new ErrorRespuestaBean(true);
+		getDao().saveOrUpdate(dto);
+		
+		return rta;
+	}
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<E> getAll() {

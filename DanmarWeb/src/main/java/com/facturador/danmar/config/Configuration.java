@@ -1,4 +1,4 @@
-package com.danmar.dbf.conn;
+package com.facturador.danmar.config;
 
 
 import java.io.IOException;
@@ -13,19 +13,13 @@ public class Configuration {
    Properties properties = null;
 
    /** Configuration file name */
-   public final static String CONFIG_FILE_NAME = "db_access_config.properties";
+   public final static String CONFIG_FILE_NAME = "config.properties";
 
-   /** Data base server */
-   public final static String DB_PATH = "dbPath";
-
-   /** Data base name */
-   public final static String DB_NAME = "dbName";
-
-   /** Data base user */
-   public final static String DB_USER = "dbUser";
-
-   /** Data base password */
-   public final static String DB_PWD = "dbPwd";
+   public static final String PROTOCOLO_DBF_API = "http://";
+   public static final String PROYECTO_DBF_API = "/DanmarDbfApi";
+   
+   /** Data base DBF IP */
+   public final static String DBF_IP = "dbfIp";
    
    private Configuration() {
        this.properties = new Properties();
@@ -56,8 +50,8 @@ public class Configuration {
     * @param key
     * @return
     */
-   public String getProperty(String key) {
-       return properties.getProperty(key);
+   public static String getProperty(String key) {
+       return getInstance().properties.getProperty(key);
    }
    
    

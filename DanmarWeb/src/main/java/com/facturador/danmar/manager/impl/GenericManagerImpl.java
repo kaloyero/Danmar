@@ -27,6 +27,16 @@ public abstract class GenericManagerImpl<F> implements GenericManager<F>, BaseSe
 		return rta;
 	}
 
+	@SuppressWarnings("unchecked")
+	@Override
+	@Transactional
+	public ErrorRespuestaBean saveOrUpdate(F form) {
+		ErrorRespuestaBean rta = new ErrorRespuestaBean(true);
+		getService().saveOrUpdate(getMapper().getEntidad(form));
+		
+		return rta;
+	}
+	
 	@Override
 	public List<F> getAll() {
 		return null;

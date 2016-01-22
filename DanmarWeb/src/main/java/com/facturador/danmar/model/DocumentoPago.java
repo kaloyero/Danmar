@@ -26,6 +26,9 @@ public class DocumentoPago {
 	
 	@Column(name = "coeficiente")
 	private Double coeficiente;
+
+	@Column(name = "recargoTC")
+	private Double coefRecargoTC;
 	
 	@Column(name = "NroCupon")
 	private String nroCupon;
@@ -95,6 +98,14 @@ public class DocumentoPago {
 
 	public void setTarjeta(int tarjeta) {
 		this.tarjeta = tarjeta;
+	}
+
+	public Double getCoefRecargoTC() {
+		return coefRecargoTC;
+	}
+
+	public void setCoefRecargoTC(Double coefRecargoTC) {
+		this.coefRecargoTC = coefRecargoTC;
 	}
 
 
