@@ -55,60 +55,60 @@ angular
 							var modalInstanceArticulo;
 							var modalInstanceSuccessFactura;
 
-							var columnCliente = [ {
-								headerName : "Razon Social",
-								field : "razonSocial",
-								width : 150
-							}, {
+							var columnCliente = [  {
 								headerName : "codigo",
 								field : "codigo",
-								width : 90
+								width : 120
+							}, {
+								headerName : "Razon Social",
+								field : "razonSocial",
+								width : 350
 							}, {
 								headerName : "cuit",
 								field : "cuit",
-								width : 90
+								width : 150
 							}, {
 								headerName : "categoria",
 								field : "categoria",
-								width : 90
+								width : 200
 							} ];
 							var columnProductos = [ {
 								headerName : "Cod",
 								field : "codigo",
-								width : 90
+								width : 100
 							},
 							{
 								headerName : "CC1",
 								field : "cc1",
-								width : 55
+								width : 70
 							},
 							{
 								headerName : "CC2",
 								field : "cc2",
-								width : 55
+								width : 70
 							},
 							{
 								headerName : "CC3",
 								field : "cc3",
-								width : 55
+								width : 70
 							},
 							{
 								headerName : "CC4",
 								field : "cc4",
-								width : 55
+								width : 70
 							},
 							{
 								headerName : "CC5",
 								field : "cc5",
-								width : 55
+								width : 70
 							}, {
 								headerName : "Articulo",
 								field : "articulo",
-								width : 200
+								width : 300
 							}, {
 								headerName : "Precio",
 								field : "precio",
-								width : 90
+								width : 100
 							}
 
 							];
@@ -165,6 +165,12 @@ angular
 //										width : 90,
 //										editable : true
 //									},
+									{
+										headerName : "Total Lista",
+										field: "precioTl",
+										valueGetter : 'ctx.fnTotalPrecioLista(ctx.getNumberFrmt(getValue("precio")),getValue("canMaxima"))',
+										width : 90
+									},
 									{
 										headerName : "Total",
 										field: "precioLp",
@@ -249,7 +255,11 @@ angular
 									codigo2 : "",
 									codigo3 : ""
 								};
-
+								$scope.dataCliente = {
+									razonSocial : "",
+									codigo : ""
+								};
+								
 								// Variables que contendran la informacion para
 								// el header
 								$scope.clienteSeleccionadoRazon;
@@ -275,6 +285,7 @@ angular
 								$scope.montoEfectivo = 0;
 								// $scope.interesTarjeta = 0;
 								$scope.selectTarjetaCredito = 0;
+								$scope.totalPrecioLista = 0;
 								$scope.montoTC = 0;
 								$scope.cuotasTC = 0;
 								$scope.interesTC = 0;
@@ -585,6 +596,13 @@ angular
 									
 									return total;
 								};
+								
+								$scope.gridOptionsFactura.context.fnTotalPrecioLista = function(precio, cantidad) {
+									var total = calculaTotalPrecioLista(precio, cantidad);
+									
+									return total.toFixed(2);
+								};
+								
 								$scope.gridOptionsFactura.context.getNumberFrmt = function(
 										numeroStr) {
 									var rta = getNumber(numeroStr);
@@ -597,8 +615,19 @@ angular
 							function getIva() {
 								return $scope.ivaInscripto;
 							}
+
+							function calculaTotalPrecioLista(precio, cantidad) {
+									precio = getNumber(precio);
+									/* Se bloquea el uso de IVA para calculo de articulo
+									var totalProducto = (cantidad * precio + (cantidad	* precio * (getIva() / 100) )); */
+									var totalProducto = (cantidad * precio); 
+									return totalProducto;
+
+							}
 							
 							function calculaTotalLinea(precio, cantidad) {
+//								calculaTotalPrecioLista(precio, cantidad);
+							
 								var coeficienteTarjeta = 0;
 									var coeficienteEfectivo = 0;
 									var totalEfectivoConCoeficiente = 0;
@@ -862,6 +891,11 @@ angular
 								console.log("Actualiza el monto de efectivo")
 								$scope.montoEfectivo = getTotal();
 							}
+							function setTotalPrecioLista(totalPrecioLista) {
+								console.log("Actualiza el total de precio lista")
+								$scope.totalPrecioLista = totalPrecioLista;
+							}
+
 							/* Se bloquea el uso de IVA para calculo de articulo
 							function getResultadoConIva(valor) {
 								return valor + valor * getIva() / 100;
@@ -869,27 +903,29 @@ angular
 
 							function calculateSaldosTotales() {
 								var producto;
+								
 								var total = 0;
+								var totalPrecioLista = 0;
 
 								for (producto in $scope.gridOptionsFactura.rowData) {
 									total = total
 											+ (parseInt($scope.gridOptionsFactura.rowData[producto].canMaxima) * parseInt(getNumber($scope.gridOptionsFactura.rowData[producto].precio)));
 								}
-								//Agrego que el subtotal sea el total menos el IVA
-								var ivaTotal = calculaIva(total);
-								setIvaInscriptoTotal(ivaTotal)
-
-								//Calculo el sub total
-								var subTotal = (total - ivaTotal);
-								setSubTotal(subTotal);
-
-								//Calculo el Total
-								var subTotal = (total - ivaTotal);
-								setSubTotal(subTotal);
+								//Seteo el total del precio de lista
+								setTotalPrecioLista(total);
 								
 								//Sumo los intereses al subtotal para obtener el total
 								var totalFact = sumoInteresTarjetaAlTotalFactura(total);
 								setTotal(totalFact);
+
+								/* Impuestos y Subtotal */
+								//Agrego que el subtotal sea el total menos el IVA
+								var ivaTotal = calculaIva(totalFact);
+								setIvaInscriptoTotal(ivaTotal)
+
+								//Calculo el sub total
+								var subTotal = (totalFact - ivaTotal);
+								setSubTotal(subTotal);
 								
 							}
 							
@@ -928,7 +964,7 @@ angular
 							}
 				
 							function getTotal() {
-								return parseFloat($scope.TotalFact);
+								return parseFloat($scope.totalPrecioLista);
 							}
 
 							function getSubTotalConIva() {
@@ -983,7 +1019,9 @@ angular
 							/** ***Otros****** */
 
 							function showClientePopup(event) {
+							   $scope.dataCliente.razonSocial = $scope.clienteSeleccionadoRazon;
 								if (event.which == 13) {
+									$scope.clienteSeleccionadoRazon = "";
 									$scope.openDemoModalCliente('lg');
 								}
 							}
@@ -1015,8 +1053,8 @@ angular
 
 							function getFiltroBusquedaCliente(start, end) {
 								var filtro = new Object();
-								filtro.codigo = $scope.codigoCliente;
-								filtro.razonSocial = $scope.razonSocial;
+								filtro.codigo = $scope.dataCliente.codigoCliente;
+								filtro.razonSocial = $scope.dataCliente.razonSocial;
 								filtro.pagina = start;
 								filtro.cantRegistros = end;
 								return filtro;
@@ -1081,7 +1119,6 @@ angular
 							}
 
 							function cuotaChange() {
-
 								calculateInteresTotalCuotas()
 								recalculateGridProductos()
 
@@ -1140,7 +1177,7 @@ angular
 													// selecciono la cuotra 1
 													$scope.cuotasTC = 1;
 													$scope.cuotas = resultadoBusqueda;
-													obtenerTarjetas() 
+													//obtenerTarjetas() 
 													console.log($scope.cuotas);
 													// $scope.tipoFactura = data;
 												}
@@ -1280,19 +1317,27 @@ angular
 							function changeEfectivo() {
 								// $scope.montoTC=$scope.TotalFact
 								// -$scope.montoEfectivo;
-		
+								//Valido que no se pueda ingresar un monto mayor al maximo de precio de lista
+								console.log("MONTO FT: ",parseFloat($scope.montoEfectivo))
+								console.log("TOTAL FT: ",$scope.totalPrecioLista)
+								if ($scope.montoEfectivo > $scope.totalPrecioLista){
+								 $scope.montoEfectivo =  $scope.totalPrecioLista
+								}
+								
+								var montoAnterior = $scope.montoTC;
 								resetSelectedInfoTC()
 								var nuevoMonto = parseFloat(getTotal() - $scope.montoEfectivo).toFixed(2); ;
 										
-								if (nuevoMonto >= 0){
+								if (nuevoMonto > 0){
 									$scope.montoTC = nuevoMonto;
 								} else {
 									resetSelectedTC();
+									resetSelectedInfoTC()
 								} 
 								
 								console.log("ChangeEfec", $scope.montoTC)
-								if ($scope.montoTC > 0) {
-									cuotaChange()
+								if ($scope.montoTC > 0 || ($scope.montoTC == 0 && montoAnterior > 0 ) ) {
+									cuotaChange();
 									// obtenerCuotasTarjeta()
 								}
 								recalculateGridProductos()

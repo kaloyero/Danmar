@@ -36,7 +36,7 @@ public class FormatUtil {
 	}
 	public synchronized static Double format4Decimals (Double num){
 		
-		DecimalFormat decim = new DecimalFormat("#,####0.0000");
+		DecimalFormat decim = new DecimalFormat("#,##0.0000");
 
 //	    if (num != null){
 //	    	return Double.parseDouble(decim.format(num));
@@ -75,7 +75,7 @@ public class FormatUtil {
 	}
 	public synchronized static String format4DecimalsStr (String num){
 		
-		return format2DecimalsStr (ConvertionUtil.DouValueOf(num));
+		return format4DecimalsStr (ConvertionUtil.DouValueOf(num));
 		
 	}
 

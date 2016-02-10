@@ -27,10 +27,10 @@ public class EstadoMapper extends MapperImpl<Estados,EstadosForm>{
 		if (ent != null){
 			form.setId(ent.getId());
 			form.setTarjeta(ConvertionUtil.StrValueOf(ent.getTarjeta()));
-			form.setCoeficiente(FormatUtil.format2DecimalsStr(ent.getCoeficiente()));
+			form.setCoeficiente(FormatUtil.format4DecimalsStr(ent.getCoeficiente()));
 			form.setCuotas(ConvertionUtil.StrValueOf(ent.getCuotas()));
 			form.setCuponNro(ent.getCuponNro());
-			form.setImporte(FormatUtil.format2DecimalsStr(ent.getImporte()));
+			form.setImporte(FormatUtil.format4DecimalsStr(ent.getImporte()));
 		}
 		return form;
 	}

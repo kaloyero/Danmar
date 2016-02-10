@@ -23,7 +23,7 @@ public class CategoriaIvaMapper extends MapperImpl<CategoriaIva,CategoriaIvaForm
 			form.setId(ent.getCategoria());
 			form.setNombre(ent.getNombre());
 			form.setCategoria(ent.getCategoria());
-			form.setAlicuota(FormatUtil.format2DecimalsStr(ent.getAlicuota()));
+			form.setAlicuota(FormatUtil.format4DecimalsStr(ent.getAlicuota()));
 			form.setAlicuotaNum(ent.getAlicuota());
 		}
 		return form;

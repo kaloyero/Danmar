@@ -6,7 +6,7 @@ import com.danmar.dbf.dto.filtro.FiltroArticulo;
 import com.danmar.filtro.Paginacion;
 import com.facturador.danmar.model.Articulo;
 
-public interface ArticuloDao {
+public interface ArticuloDao extends GenericDao<Articulo>{
 
 	public void save(Articulo ent);
 	

@@ -35,7 +35,7 @@ public class ClienteDaoImpl extends GenericDaoImpl<Cliente> implements ClienteDa
 	protected void setFiltros (Criteria ct, FiltroCliente filtro){
 		
 		if (filtro.getCodigo() > 0){
-			ct.add(Restrictions.eq("articulo", filtro.getCodigo() ));
+			ct.add(Restrictions.eq("id", filtro.getCodigo() ));
 		}
 		if (StringUtils.isNotEmpty(filtro.getCuit())){
 			ct.add(Restrictions.like("cuit", filtro.getCuit() + "%"));

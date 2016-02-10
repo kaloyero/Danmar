@@ -23,8 +23,8 @@ public class TarjetaCoeficienteDaoImpl extends
 	@Transactional
 	public List<TarjetaCoeficiente> getAllByTarjeta(int tarjeta) {
 		Criteria ct = getSession().createCriteria(getEntityClass());
-		ct.add(Restrictions.eq("tarjetaId", tarjeta));
-		ct.addOrder(Order.asc("cuotas"));
+		ct.add(Restrictions.eq("tarjetaCuota.tarjetaId", tarjeta));
+		ct.addOrder(Order.asc("tarjetaCuota.cuotas"));
 
 		List<TarjetaCoeficiente> list = ct.list();
 
@@ -35,8 +35,8 @@ public class TarjetaCoeficienteDaoImpl extends
 	public TarjetaCoeficiente getById(int tarjeta, int cuotas) {
 
 		Criteria ct = getSession().createCriteria(getEntityClass());
-		ct.add(Restrictions.eq("tarjetaId", tarjeta));
-		ct.add(Restrictions.eq("cuotas", cuotas));
+		ct.add(Restrictions.eq("tarjetaCuota.tarjetaId", tarjeta));
+		ct.add(Restrictions.eq("tarjetaCuota.cuotas", cuotas));
 
 		TarjetaCoeficiente res = (TarjetaCoeficiente) ct.uniqueResult();
 

@@ -6,6 +6,7 @@ import java.util.List;
 import com.danmar.utils.ConvertionUtil;
 import com.danmar.utils.DateUtil;
 import com.danmar.utils.FormatUtil;
+import com.facturador.danmar.bean.CategoriaIvaEnum;
 import com.facturador.danmar.form.DocumentoEncabezadoForm;
 import com.facturador.danmar.model.DocumentoEncabezado;
 import com.facturador.danmar.model.DocumentoEncabezado_V;
@@ -78,7 +79,7 @@ public class DocumentoEncabezadoMapper extends MapperImpl<DocumentoEncabezado,Do
 			form.setClienteCuit(ent.getClienteCuit());
 			form.setClienteNombre(ent.getClienteRazonSocial());
 			form.setClienteCategoria(ConvertionUtil.StrValueOf(ent.getClienteCategoria()));
-			
+			form.setClienteCategoriaNombre(CategoriaIvaEnum.getCategoriaIvaByCodigo(ent.getClienteCategoria()));
 //			form.setUsuarioActualizaId(ConvertionUtil.StrValueOf(ent.getUsuarioActualizaId()));
 //			form.setUsuarioCreadorId(ConvertionUtil.StrValueOf(ent.getUsuarioCreadorId()));
 			

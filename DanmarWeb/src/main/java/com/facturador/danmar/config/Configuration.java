@@ -6,7 +6,7 @@ import java.util.Properties;
 
 /**
 *
-* @author v3rgu1
+* @author 
 */
 public class Configuration {
 
@@ -45,7 +45,7 @@ public class Configuration {
    }
 
    /**
-    * Retorna la propiedad de configuración solicitada
+    * Retorna la propiedad de configuracion solicitada
     *
     * @param key
     * @return

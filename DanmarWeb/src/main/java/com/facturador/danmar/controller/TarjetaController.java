@@ -62,7 +62,7 @@ public class TarjetaController {
 
 			
 			Double importeFinal = CalculosUtil.getImporteFinalCuotas(monto, recargoTc, coeficienteCuota); 
-			form.setMonto(FormatUtil.format2DecimalsStr(importeFinal));
+			form.setMonto(FormatUtil.format4DecimalsStr(importeFinal));
 			String descripcion = CalculosUtil.getCuotasDescription(importeFinal, cantCuotas, coeficienteCuota); 
 			form.setDescripcion(descripcion);
 

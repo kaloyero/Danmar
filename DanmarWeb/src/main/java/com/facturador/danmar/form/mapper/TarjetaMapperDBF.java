@@ -23,7 +23,7 @@ public class TarjetaMapperDBF extends MapperImpl<TarjetaDto,TarjetaForm>{
 		if (ent != null){
         	tarjeta.setCodigo( ConvertionUtil.StrValueOf(ent.getCodigo()));
         	tarjeta.setCuotas( ConvertionUtil.StrValueOf(ent.getCuotas()));
-        	tarjeta.setCoeficiente(FormatUtil.format2DecimalsStr(ent.getCoeficiente()));
+        	tarjeta.setCoeficiente(FormatUtil.format4DecimalsStr(ent.getCoeficiente()));
 
 		}
 		return tarjeta;

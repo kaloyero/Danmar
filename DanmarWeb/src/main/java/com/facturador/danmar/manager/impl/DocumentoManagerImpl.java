@@ -76,7 +76,7 @@ public class DocumentoManagerImpl implements DocumentoManager {
 					
 				factura.setPagoTarjetaCuotas(cuotasDesc);
 				factura.setPagoTarjetaCupon(pago.getNroCupon());
-				factura.setPagoTarjetaCoefRecargoTC(FormatUtil.format2DecimalsStr(pago.getCoefRecargoTC() * 100) + " %");
+				factura.setPagoTarjetaCoefRecargoTC(FormatUtil.format4DecimalsStr(pago.getCoefRecargoTC() * 100) + " %");
 				
 				Tarjeta tarjeta = tarjetaService.findById(pago.getTarjeta());
 				factura.setPagoTarjetaNombre(tarjeta .getNombre());

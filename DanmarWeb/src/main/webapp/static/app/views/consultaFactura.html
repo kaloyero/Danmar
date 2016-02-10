@@ -2,7 +2,7 @@
 
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-xs-12 col-md-8">
+			<div class="col-xs-12 col-md-7">
 				<panel data-heading="Factura" panel-class="panel-midnightblue">
 				<div class="panel panel-midnightblue">
 					<div class="panel-heading">
@@ -27,7 +27,7 @@
 				</panel>
 			</div>
 			<!-- CLIENTE -->
-			<div class="col-xs-12 col-md-4">
+			<div class="col-xs-12 col-md-5">
 				<panel data-heading="Totales" panel-class="panel-midnightblue"
 					class="ng-isolate-scope">
 				<div class="panel  panel-midnightblue">
@@ -39,7 +39,7 @@
 						<div class="panel  panel-primary ng-scope">
 							<div class="panel-body">
 								<div class="row">
-									<div class="col-md-10">
+									<div class="col-md-10" style="margin-left: 25px;">
 										<div class="form-horizontal row-border ng-scope">
 											<div class="form-group">
 												<div class="form-group">
@@ -121,8 +121,8 @@
 		</div>
 	</div>
 	<script type="text/ng-template" id="modalFacturaVer.html">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
+	<div class="modal-dialog modal-lg" role="document" style="width: 1200px; margin: 0px -150px;">
+		<div class="modal-content" >
 			<div class="modal-header">
 				<h4 class="modal-title" id="myModalLabel">{{viewTipoFactura}}	</h4>
 			</div>
@@ -130,7 +130,7 @@
 				<div class="container-fluid">
 
 					<!-- FACTURA -->
-					<div class="col-xs-12 col-md-8">
+					<div class="col-xs-12 col-md-8" style="min-height: 500px;">
 						<panel data-heading="Factura" panel-class="panel-midnightblue">
 						<div class="panel  panel-midnightblue">
 							<div class="panel-body">
@@ -145,11 +145,11 @@
 														<div class="text-center ng-binding">Factura</div>
 													</div>
 													<div class="tiles-body">
-														<div class="text-center ng-binding">{{viewLetra}}</div>
+														<div class="text-center ng-binding" style="margin: 0px 0px 0px;">{{viewLetra}}</div>
 													</div>
 												</a>
 												<div class="pull-right text-center">
-													<span class="badge ng-binding">{{viewNumeroFactura}}</span>
+													<span class="badge ng-binding" style="width: 108px;">{{viewNumeroFactura}}</span>
 												</div>
 											</div>
 
@@ -179,7 +179,7 @@
 										</div>
 
 										<div class="table-responsive ng-scope">
-											<table st-table="viewLineasProductos" class="table">
+											<table st-table="viewLineasProductos" class="table" style="    margin-top: 20px;   ">
 												<thead>
 													<tr>
 														<th>Codigo</th>
@@ -231,23 +231,23 @@
 							<div class="panel-body" ng-transclude="">
 								<panel-controls class="ng-scope"> </panel-controls>
 								<div class="panel  panel-primary ng-scope">
-									<div class="panel-body">
+									<div class="panel-body"   style="margin-left: 10px;">
 										<div class="row">
 											<form action="" class="form-horizontal row-border2">
-												<div class="form-group">
-													<label class="col-md-2 control-label"> <strong>Cliente:</strong></label>
+												<div class="form-group  col-md-6">
+													<label class="col-md-4 control-label"> <strong>Cliente:</strong></label>
 													<div class="col-md-7">
 														{{viewClienteNombre}}
 													</div>
 												</div>
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-5">
 													<label class="col-md-4 control-label"> <strong>CUIT:</strong>
 													</label>
 													<div class="col-md-8">
 														<span class="label label-default form-control">{{viewClienteCuit}}</span>
 													</div>
 												</div>
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-7">
 													<label class="col-md-4 control-label"> <strong>Categoria:</strong>
 													</label>
 													<div class="col-md-8">
@@ -269,51 +269,58 @@
 							<div class="panel-heading">
 								<h2 class="ng-binding">Forma de Pago</h2>
 							</div>
-							<div class="panel-body" ng-transclude="">
+							<div class="panel-body" ng-transclude="" style="margin-left: 10px;">
 								<panel-controls class="ng-scope"> </panel-controls>
-								<div class="panel  panel-primary ng-scope">
+								<div class="panel  panel-primary ng-scope" style="padding: 10px;">
 									<div class="panel-body">
 										<div class="row">
 											<form action="" class="form-horizontal row-border2">
-												<div class="form-group">
-													<label class="col-sm-2 control-label">Efectivo</label>
-													<div class="col-sm-4">
-														$ {{viewMontoEfectivo}}
+												<div class="form-group  col-md-12">
+													<label class="col-sm-3 control-label"><strong>Efectivo</strong></label>
+													<div class="col-sm-8">
+														<span class="input-group-addon">$ {{viewMontoEfectivo}}</span>
+														 
 													</div>
 												</div>
-												<div class="form-group">
-													<label class="col-sm-2 control-label">Tarjeta de Credito</label>
-													<div class="col-sm-9">
-														{{viewTarjetaNombre}}
+												<div class="form-group col-md-12">
+													<label class="col-sm-3 control-label"><strong>Cupon</strong></label>
+													<div class="col-sm-8">
+														<span class="input-group-addon">{{viewTarjetaCupon}}</span>
+														
+													</div>
+												</div>		
+												<div class="form-group col-md-12">
+													<label class="col-sm-3 control-label"><strong>Monto TC</strong></label>
+													<div class="col-sm-8">
+														<span class="input-group-addon">$ {{viewTarjetaMonto}}</span>
+														
 													</div>
 												</div>
-												<div class="form-group">
-													<label class="col-sm-2 control-label">Recargo TC</label>
-													<div class="col-sm-9">
-														{{viewTarjetaRecargo}}
+												<div class="form-group  col-md-12">
+													<label class="col-sm-3 control-label"><strong>Tarjeta</strong></label>
+													<div class="col-sm-8">
+														<span class="input-group-addon">{{viewTarjetaNombre}}</span>
+														
 													</div>
 												</div>
-												<div class="form-group col-md-7">
-													<label class="col-sm-3 control-label">Monto</label>
-													<div class="col-sm-9">
-														$ {{viewTarjetaMonto}}
+												<div class="form-group col-md-12">
+													<label class="col-sm-3 control-label"><strong>Cuotas</strong></label>
+													<div class="col-sm-8">
+														<span class="input-group-addon">{{viewTarjetaCuotas}}</span>
+														
+													</div>
+												</div>
+												<div class="form-group  col-md-6">
+													<label class="col-sm-4 control-label"><strong>Recargo TC</strong></label>
+													<div class="col-sm-8">
+														<span class="input-group-addon">{{viewTarjetaRecargo}} %</span>
+														
 													</div>
 												</div>
 												<div class="form-group col-md-6">
-													<div class="col-sm-12">
-														{{viewTarjetaCuotas}}
-													</div>
-												</div>
-												<div class="form-group col-md-5">
-													<label class="col-sm-4 control-label">Total con Interes</label>
-													<div class="col-sm-8">
+													<label class="col-sm-5 control-label"><strong>Interes</strong></label>
+													<div class="col-sm-7">
 															<span class="input-group-addon">$ {{tarjetaMontoInteres}}</span>
-													</div>
-												</div>
-												<div class="form-group col-md-8">
-													<label class="col-sm-4 control-label">Cupon</label>
-													<div class="col-sm-8">
-														{{viewTarjetaCupon}}
 													</div>
 												</div>
 

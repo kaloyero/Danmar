@@ -172,21 +172,22 @@
 		  <li class="dd-footer"><a href="javascript:;" ng-click="setSeenAll($event)">Marcar todas Leidas</a></li>
 		</ul>
 	  </li>
-	
+	  <li class="dropdown ng-scope" dropdown="" ng-controller="NotificationsController" ng-show="isLoggedIn" tabindex="-1">
+		<a href="" dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" tabindex="-1">
+		  <i class="glyphicon glyphicon-globe"></i><!-- ngIf: unseenCount>0 --><span class="badge badge-indigo ng-binding ng-scope" ng-if="unseenCount>0" ng-bind="unseenCount">5</span><!-- end ngIf: unseenCount>0 -->
+		</a>
+	  </li>	
 	</ul>
 </header>	
 	
 	
 	
 	
-	<nav id="headernav" class="navbar ng-hide" role="navigation" ng-show="getLayoutOption('layoutHorizontal') && !layoutLoading">
+	<nav id="headernav" class="navbar ng-hide"  ng-show="getLayoutOption('layoutHorizontal') && !layoutLoading">
 		<div class="nav">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 				<i class="fa fa-reorder"></i>
 			</button>
-		</div>
-		<div class="collapse navbar-collapse navbar-ex1-collapse" ng-class="{'large-icons-nav': getLayoutOption('layoutHorizontalLargeIcons')}" id="horizontal-navbar">
-	
 		</div>
 	</nav>
 

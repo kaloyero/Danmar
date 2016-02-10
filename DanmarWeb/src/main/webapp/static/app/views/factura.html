@@ -8,16 +8,24 @@
 				<panel data-heading="Factura" panel-class="panel-midnightblue">
 				<div class="panel  panel-midnightblue">
 					<div class="panel-heading">
-						<select class="ng-binding">
-							<option><h2 class="ng-binding">Factura</h2>
-							</option>
-						</select>
+
 					</div>
 					<div class="panel-body">
 						<panel-controls class="ng-scope"> </panel-controls>
 						<div class="panel  panel-primary ng-scope">
 							<div class="panel-body">
 								<div class="row">
+									<div class="form-group col-md-12">
+										<label class="col-sm-2 control-label">Tipo de Documento</label>
+										<div class="col-sm-10">
+											<div class="input-group col-md-10">
+												<select class="ng-binding">
+													<option><h2 class="ng-binding">Factura</h2>
+													</option>
+												</select>
+											</div>
+										</div>
+									</div>	
 									<div class="col-xs-2">
 										<a class="info-tiles tiles-midnightblue"
 											data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
@@ -28,9 +36,9 @@
 												<div class="text-center ng-binding">{{tipoFactura}}</div>
 											</div>
 										</a>
-										<div class="pull-right text-center">
+<!--									<div class="pull-right text-center">
 											<span class="badge ng-binding">{{numeroFactura}}</span>
-										</div>
+										</div>-->
 									</div>
 
 									<div class="col-md-8">
@@ -57,7 +65,7 @@
 															ng-blur="focusedNotas = false"></textarea>
 													</div>
 												</div>
-												<div class="row">
+												<div class="row" style="margin-top: 5px;">
 													<span class="col-md-2"> <strong>Producto:</strong>
 													</span>
 													<div class="col-md-10">
@@ -122,7 +130,7 @@
 											</div>
 										</div>
 										<div class="form-group col-md-6">
-											<label class="col-md-4 control-label"> <strong>CUIT:</strong>
+											<label class="col-md-4 control-label"> <strong>Cuit:</strong>
 											</label>
 											<div class="col-md-8">
 												<span class="label label-default form-control">{{clienteSeleccionadoCuit}}</span>
@@ -132,19 +140,32 @@
 											<label class="col-md-4 control-label"> <strong>Categoria:</strong>
 											</label>
 											<div class="col-md-8">
-												<span class="label label-default form-control">{{clienteSeleccionadoCategoria}}</span>
+												<span class="label label-default control-label">{{clienteSeleccionadoCategoria}}</span>
 											</div>
 										</div>
-
-										<div class="form-group  col-md-10">
-											<label for="checkbox" class="col-sm-2 control-label"></label>
+<!--
+										<div class="form-group col-md-10">
+														<div class="col-sm-6">
+															<div class="input-group">
+															  <span class="input-group-addon">
+																<div class="icheckbox_minimal-blue checked" style="position: relative;">
+																	<input icheck="" type="checkbox" style="position: absolute; opacity: 0;" ng-model="chkConsumidorFinal"
+																		tabindex="-1" ng-change="seleccionConsumidorFinal()" />
+																		<ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; border: 0px; opacity: 0; background: rgb(255, 255, 255);"></ins></div>
+															  </span>
+															  <label class="form-control control-label">Consumidor Final</label>
+															</div>
+														</div>
+										</div>	-->									
+										
+										
+										<div class="form-group  col-md-10" style="margin-left: -50px;">
+											<label for="checkbox" class="col-sm-1 control-label"></label>
 											<div class="col-sm-10">
 												<div class="block">
-													<!-- 																					<div class="checkbox block"> -->
-													<label class="checkbox-inline"> <input
+													<label class="checkbox-inline"> <input style="    width: 100%;    height: 100%;    margin: -4px 0 0;"
 														type="checkbox" ng-model="chkConsumidorFinal"
-														tabindex="-1" ng-change="seleccionConsumidorFinal()">Consumidor
-														Final</input> <!-- 														<input icheck id="chkConsumidorFinal" type="checkbox" tabindex="-1" checked> -->
+														tabindex="-1" ng-change="seleccionConsumidorFinal()"><strong>Consumidor Final</strong></input>
 													</label>
 												</div>
 											</div>
@@ -173,51 +194,87 @@
 							<div class="panel-body">
 								<div class="row">
 									<form action="" class="form-horizontal row-border2">
-										<div class="form-group">
-											<label class="col-sm-2 control-label">Efectivo</label>
+										<!--<div class="form-group col-md-5"  >
+											<label class="col-sm-4 control-label">Efectivo</label>
 											<div class="col-sm-4">
 												<div class="input-group">
 													<span class="input-group-addon">$</span> <input
 														tabindex="3" type="number" ng-disabled="subTotal==0"
+														maxlength="10"
 														class="form-control" ng-model="montoEfectivo"
 														ng-change="changeEfectivo()"
 														ng-class="{botonFocus: focusedEfectivo}"
 														ng-init="focusedEfectivo = false"
 														ng-focus="focusedEfectivo = true"
-														ng-blur="focusedEfectivo = false" min="0">
+														ng-blur="focusedEfectivo = false" min="0" ng-min="0" />
 												</div>
 											</div>
-										</div>
-
-										<div class="form-group">
-											<label class="col-sm-2 control-label">Tarjeta</label>
+										</div>-->
+										<div class="form-group col-md-6">
+											<label class="col-sm-4 control-label"><strong>Efectivo</strong></label>
 											<div class="col-sm-8">
-													<select  tabindex="4" class="form-control" id="source" ng-class="{botonFocus: focusedTarjeta}" ng-init="focusedTarjeta = false" ng-focus="focusedTarjeta = true" ng-blur="focusedTarjeta = false"
-																ng-model="selectTarjetaCredito"  ng-change="obtenerCuotasTarjeta()" ng-disabled="!montoTC>0" ng-options="item as item.nombre for item in tarjetasList " >
-													</select> 
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label">Recargo</label>
-											<div class="col-sm-9">
 												<div class="input-group">
-													<span class="input-group-addon">{{recargoTC}}</span>
+													<span class="input-group-addon"><strong>$</strong></span> <input
+														tabindex="3" type="number" ng-disabled="subTotal==0"
+														maxlength="10"
+														class="form-control" ng-model="montoEfectivo"
+														ng-change="changeEfectivo()"
+														ng-class="{botonFocus: focusedEfectivo}"
+														ng-init="focusedEfectivo = false"
+														ng-focus="focusedEfectivo = true"
+														ng-blur="focusedEfectivo = false" min="0" ng-min="0" />
 												</div>
-											</div>										
-										</div>
-										<div class="form-group col-md-7">
-											<label class="col-sm-3 control-label">Monto</label>
-											<div class="col-sm-9">
+											</div>
+										</div>										
+
+										<div class="form-group col-md-6">
+											<label class="col-sm-4 control-label"><strong>Cupon</strong></label>
+											<div class="col-sm-8">
 												<div class="input-group">
-													<span class="input-group-addon">$</span> <input type="text"
+													<input ng-class="{botonFocus: focusedCupon}"
+														ng-init="focusedCupon = false"
+														ng-focus="focusedCupon = true"
+														ng-blur="focusedCupon = false" 
+														tabindex="6" type="text" maxlength="19"
+														class="form-control" ng-model="cuponTC">
+												</div>
+											</div>
+										</div>										
+										<div class="form-group col-md-6">
+											<label class="col-sm-4 control-label"><strong>Monto TC</strong></label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon"><strong>$</strong></span> <input type="text" 
 														disabled=true class="form-control" ng-model="montoTC">
 												</div>
 											</div>
 										</div>
 										<div class="form-group col-md-6">
-											<label class="col-sm-4 control-label">Cuotas</label>
+											<label class="col-sm-4 control-label"></label>
 											<div class="col-sm-8">
 												<div class="input-group">
+												</div>
+											</div>
+										</div>										
+										
+										<div class="form-group col-md-12">
+											<label class="col-sm-2 control-label"><strong>Tarjeta</strong></label>
+											<div class="col-sm-10">
+												<div class="input-group col-md-10">
+													<select  tabindex="4" class="form-control" 
+															 id="source" ng-class="{botonFocus: focusedTarjeta}" 
+															 ng-init="focusedTarjeta = false" ng-focus="focusedTarjeta = true" 
+															 ng-blur="focusedTarjeta = false" ng-model="selectTarjetaCredito"  
+															 ng-change="obtenerCuotasTarjeta()" ng-disabled="!montoTC>0" 
+															 ng-options="item as item.nombre for item in tarjetasList " >
+													</select> 
+												</div>
+											</div>
+										</div>													
+										<div class="form-group col-md-12">
+											<label class="col-sm-2 control-label"><strong>Cuotas</strong></label>
+											<div class="col-sm-10">
+												<div class="input-group col-md-10">
 													<select ng-class="{botonFocus: focusedCuotas}"
 														ng-init="focusedCuotas = false"
 														ng-focus="focusedCuotas = true"
@@ -229,28 +286,26 @@
 														ng-options="cuota.descripcion  for cuota in cuotas track by cuota.coeficiente"></select>
 												</div>
 											</div>
-										</div>
-										<div class="form-group col-md-5">
-											<label class="col-sm-4 control-label">Total con
-												Interes</label>
+										</div>	
+										<div class="form-group col-md-6">
+											<label class="col-sm-4 control-label"><strong>Recargo</strong></label>
+											<div class="col-sm-8">
+												<div class="input-group">
+													<span class="input-group-addon">{{recargoTC}}</span>
+												</div>
+											</div>
+										</div>										
+										<div class="form-group col-md-6">
+											<label class="col-sm-4 control-label"><strong>Interes</strong></label>
 											<div class="col-sm-8">
 												<div class="input-group">
 													<span class="input-group-addon">{{interesTC}}</span>
 												</div>
 											</div>
-										</div>
-										<div class="form-group col-md-8">
-											<label class="col-sm-4 control-label">Cupon</label>
-											<div class="col-sm-8">
-												<div class="input-group">
-													<input ng-class="{botonFocus: focusedCupon}"
-														ng-init="focusedCupon = false"
-														ng-focus="focusedCupon = true"
-														ng-blur="focusedCupon = false" tabindex="6" type="text"
-														class="form-control" ng-model="cuponTC">
-												</div>
-											</div>
-										</div>
+										</div>		
+
+
+
 
 									</form>
 								</div>
@@ -417,7 +472,7 @@
 													<strong>Codigo:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="" ng-model="codigoCliente"></div>
+													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.codigoCliente"></div>
 											</div>
 										</form>
 									</div>
@@ -427,10 +482,10 @@
 										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
 											<div class="form-group">
 												<label class="col-md-3 control-label">
-													<strong>Razón Social:</strong>
+													<strong>Razon Social:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="" ng-model="razonSocial"></div>
+													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.razonSocial"></div>
 											</div>
 										</form>
 									</div>

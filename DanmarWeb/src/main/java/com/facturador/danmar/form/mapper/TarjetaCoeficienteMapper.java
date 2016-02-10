@@ -23,7 +23,7 @@ public class TarjetaCoeficienteMapper extends MapperImpl<TarjetaCoeficiente,Tarj
 		if (ent != null){
 			tarjeta.setTarjetaId( ConvertionUtil.StrValueOf(ent.getTarjetaCuota().getTarjetaId()));
         	tarjeta.setCuotas( ConvertionUtil.StrValueOf(ent.getTarjetaCuota().getCuotas()));
-        	tarjeta.setCoeficiente(FormatUtil.format2DecimalsStr(ent.getCoeficiente()));
+        	tarjeta.setCoeficiente(FormatUtil.format4DecimalsStr(ent.getCoeficiente()));
 
 		}
 		return tarjeta;

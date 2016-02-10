@@ -25,9 +25,9 @@ public class DocumentoImpuestoMapper extends MapperImpl<DocumentoImpuesto,Docume
 		DocumentoImpuestoForm form =new DocumentoImpuestoForm();
 		if (ent != null){
 			form.setId(ent.getId());
-			form.setAlicuota(FormatUtil.format2DecimalsStr(ent.getAlicuota()));
+			form.setAlicuota(FormatUtil.format4DecimalsStr(ent.getAlicuota()));
 			form.setAlicuotaNum(ent.getAlicuota());
-			form.setImporte(FormatUtil.format2DecimalsStr(ent.getImporte()));
+			form.setImporte(FormatUtil.format4DecimalsStr(ent.getImporte()));
 			
 		}
 		return form;

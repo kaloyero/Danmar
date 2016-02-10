@@ -2,13 +2,9 @@ package com.facturador.danmar.dao.impl;
 
 import java.util.List;
 
-import javax.annotation.Resource;
-
 import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,26 +14,16 @@ import com.facturador.danmar.dao.ArticuloDao;
 import com.facturador.danmar.model.Articulo;
 
 @Repository("articuloDao")
-public class ArticuloDaoImpl implements ArticuloDao {
-
-	@Autowired
-	@Resource(name = "sessionFactory")
-	private SessionFactory sessionFactory;
-	
-	@Transactional
-	public void save(Articulo ent){
-		this.sessionFactory.getCurrentSession().save(ent);
-	}
+public class ArticuloDaoImpl extends GenericDaoImpl<Articulo> implements ArticuloDao {
 
 	@SuppressWarnings("unchecked")
 	@Transactional
+	@Override
 	public List<Articulo> getAll(){
-		Criteria ct = this.sessionFactory.getCurrentSession().createCriteria(Articulo.class);
+		Criteria ct = getSession().createCriteria(Articulo.class);
 		ct.setFirstResult(90000);
 		ct.setMaxResults(50);
 		ct.addOrder(Order.asc("articulo"));
-		
-		
 		
 		return ct.list();
 	}
@@ -45,7 +31,7 @@ public class ArticuloDaoImpl implements ArticuloDao {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<Articulo> getAllFilterPaging(FiltroArticulo filtro){
-		Criteria ct = this.sessionFactory.getCurrentSession().createCriteria(Articulo.class);
+		Criteria ct = getSession().createCriteria(Articulo.class);
 		ct.setFirstResult( (filtro.getPagina() -1 ) * filtro.getCantRegistros());
 		ct.setMaxResults(filtro.getCantRegistros());
 		ct.addOrder(Order.asc("articulo"));
@@ -76,7 +62,7 @@ public class ArticuloDaoImpl implements ArticuloDao {
 	@SuppressWarnings("unchecked")
 	@Transactional
 	public List<Articulo> getAllPaging(Paginacion pag){
-		Criteria ct = this.sessionFactory.getCurrentSession().createCriteria(Articulo.class);
+		Criteria ct = getSession().createCriteria(Articulo.class);
 		ct.setFirstResult( (pag.getPagina() -1 ) * pag.getCantRegistros());
 		ct.setMaxResults(pag.getCantRegistros());
 		ct.addOrder(Order.asc("articulo"));
@@ -85,8 +71,8 @@ public class ArticuloDaoImpl implements ArticuloDao {
 	}
 
 	@Override
-	public void saveOrUpdate(Articulo ent) {
-		this.sessionFactory.getCurrentSession().saveOrUpdate(ent);
+	protected Class<Articulo> getEntityClass() {
+		return Articulo.class;
 	}
 
 	

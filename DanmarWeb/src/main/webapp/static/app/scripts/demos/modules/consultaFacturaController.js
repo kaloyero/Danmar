@@ -25,11 +25,11 @@ var columnFacturas = [
         	} , {
                 headerName: "Cliente",
                 field: "clienteNombre",
-                width: 150
+                width: 200
         	} ,  {
                 headerName: "Categoria",
-                field: "clienteCategoria",
-                width: 120
+                field: "clienteCategoriaNombre",
+                width: 150
             },
 			{
 				headerName : "",
@@ -38,7 +38,7 @@ var columnFacturas = [
 				cellRenderer : function(params) {
 					return '<img ng-click="verFila('
 							+ params.rowIndex
-							+ ')" src="https://cdn3.iconfinder.com/data/icons/softwaredemo/PNG/128x128/DeleteRed.png" height="22" width="22">'
+							+ ')" src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/blue-metallic-orbs-icons-people-things/061229-blue-metallic-orb-icon-people-things-eye4-sc48.png" height="22" width="22">'
 					// return '<button tabindex="-1"
 					// ng-click="borrarFila(' +
 					// params.rowIndex +
@@ -267,8 +267,6 @@ var columnFacturas = [
 			$scope.viewClienteCuit = data.clienteCuit ;
 			$scope.viewLineasProductos = data.lineas;
 			
-			console.log("quiuiq",data)
-			console.log("quiuiq",$scope.viewLineasProductos)
         }
 
 		}]);
