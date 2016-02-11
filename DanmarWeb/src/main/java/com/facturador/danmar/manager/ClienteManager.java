@@ -13,5 +13,7 @@ public interface ClienteManager {
 
 	void updateClientesDBF();
 
+	public int getAllCount(FiltroCliente filtro);
+
 		
 }

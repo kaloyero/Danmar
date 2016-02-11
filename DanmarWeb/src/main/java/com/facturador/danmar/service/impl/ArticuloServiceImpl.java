@@ -114,6 +114,11 @@ public class ArticuloServiceImpl extends GenericServiceImpl<Articulo> implements
 		return articuloDao;
 	}
 
+	@Override
+	public int getAllFilterCount(FiltroArticulo filtro) {
+		return articuloDao.getAllFilterPagingCount(filtro);
+	}
+
 	
 
 }

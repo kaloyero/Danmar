@@ -18,4 +18,5 @@ public interface ArticuloDao extends GenericDao<Articulo>{
 	
 	public List<Articulo> getAllFilterPaging(FiltroArticulo pag);
 
+	public int getAllFilterPagingCount(FiltroArticulo pag);
 }

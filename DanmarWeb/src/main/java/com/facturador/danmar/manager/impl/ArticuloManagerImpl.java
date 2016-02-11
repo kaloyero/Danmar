@@ -51,4 +51,9 @@ public class ArticuloManagerImpl implements ArticuloManager{
 		servicio.updateArticuloDBF();
 		
 	}
+
+	@Override
+	public int getAllCount(FiltroArticulo pag) {
+		return articuloService.getAllFilterCount(pag);
+	}
 }

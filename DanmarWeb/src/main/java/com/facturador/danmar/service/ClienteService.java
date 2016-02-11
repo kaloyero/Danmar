@@ -17,5 +17,7 @@ public interface ClienteService extends GenericService<Cliente> {
 	public List<Cliente> mapperDtoToModel ( ClienteDto[] clientesDto);
 	
 	public void insertList ( List<Cliente> clientes);
+
+	int getAllFilterCount(FiltroCliente filtro);
 	
 }

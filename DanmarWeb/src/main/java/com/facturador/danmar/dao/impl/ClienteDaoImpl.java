@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -50,5 +51,18 @@ public class ClienteDaoImpl extends GenericDaoImpl<Cliente> implements ClienteDa
 			ct.add(Restrictions.like("nombre", filtro.getNombre() + "%"));
 		}		
 	}
+
+	@Override
+	@Transactional
+	public int getAllFilterPagingCount(FiltroCliente filtro) {
+		Criteria ct = getSession().createCriteria(Cliente.class);
+		setFiltros(ct, filtro);
+
+		Integer res = ((Number) ct.setProjection(Projections.rowCount()).uniqueResult()).intValue();
 		
+		return res.intValue() ;
+	}
+
+
+	
 }

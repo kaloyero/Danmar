@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -73,6 +74,17 @@ public class ArticuloDaoImpl extends GenericDaoImpl<Articulo> implements Articul
 	@Override
 	protected Class<Articulo> getEntityClass() {
 		return Articulo.class;
+	}
+
+	@Override
+	@Transactional
+	public int getAllFilterPagingCount(FiltroArticulo filtro) {
+		Criteria ct = getSession().createCriteria(Articulo.class);
+		setFiltros(ct, filtro);
+
+		Integer res = ((Number) ct.setProjection(Projections.rowCount()).uniqueResult()).intValue();
+		
+		return res.intValue() ;
 	}
 
 	

@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.danmar.dbf.dto.filtro.FiltroArticulo;
 import com.facturador.danmar.form.ArticuloForm;
+import com.facturador.danmar.form.PaginadoForm;
 import com.facturador.danmar.manager.ArticuloManager;
 
 
@@ -44,10 +45,11 @@ public class ArticuloController  {
 	}
 	
 	@RequestMapping(value = "/searchByFiltros", method = RequestMethod.POST)
-	public @ResponseBody List<ArticuloForm> searchArticulosByFiltro(@RequestBody FiltroArticulo filtro) throws ParseException{
-		
-		return articuloManager.getAll(filtro); 
-		
+	public @ResponseBody PaginadoForm<ArticuloForm> searchArticulosByFiltro(@RequestBody FiltroArticulo filtro) throws ParseException{
+		PaginadoForm<ArticuloForm> listado = new PaginadoForm<ArticuloForm>();
+		listado.setLista(articuloManager.getAll(filtro));
+		listado.setTamanio(articuloManager.getAllCount(filtro));
+		return listado; 
 	}
 	
 	@RequestMapping(value = "/updateArticulosDBF", method = RequestMethod.GET)

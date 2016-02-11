@@ -8,6 +8,8 @@ import com.facturador.danmar.model.Cliente;
 public interface ClienteDao extends GenericDao<Cliente> {
 	
 	public List<Cliente> searchByFiltros(FiltroCliente filtro);
+
+	int getAllFilterPagingCount(FiltroCliente filtro);
 	
 	
 }

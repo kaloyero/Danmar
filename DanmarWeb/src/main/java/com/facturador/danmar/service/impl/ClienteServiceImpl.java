@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.danmar.dbf.dto.ClienteDto;
+import com.danmar.dbf.dto.filtro.FiltroArticulo;
 import com.danmar.dbf.dto.filtro.FiltroCliente;
 import com.danmar.utils.ConvertionUtil;
 import com.facturador.danmar.config.Configuration;
@@ -88,4 +89,10 @@ public class ClienteServiceImpl extends GenericServiceImpl<Cliente>
 			}
 		}
 	}
+	
+	@Override
+	public int getAllFilterCount(FiltroCliente filtro) {
+		return clienteDao.getAllFilterPagingCount(filtro);
+	}
+
 }

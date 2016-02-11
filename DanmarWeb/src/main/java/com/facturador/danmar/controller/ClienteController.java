@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.danmar.dbf.dto.filtro.FiltroCliente;
+import com.facturador.danmar.form.ArticuloForm;
 import com.facturador.danmar.form.ClienteForm;
+import com.facturador.danmar.form.PaginadoForm;
 import com.facturador.danmar.manager.ClienteManager;
 import com.facturador.danmar.manager.EstadoManager;
 
@@ -41,9 +43,11 @@ public class ClienteController  {
 	}
 	
 	@RequestMapping(value = "/searchByFiltros", method = RequestMethod.POST)
-	public @ResponseBody List<ClienteForm> searchArticulosByFiltro(@RequestBody FiltroCliente filtro) throws ParseException{
-		
-		return clienteManager.getAll(filtro); 
+	public @ResponseBody PaginadoForm<ClienteForm> searchArticulosByFiltro(@RequestBody FiltroCliente filtro) throws ParseException{
+		PaginadoForm<ClienteForm> listado = new PaginadoForm<ClienteForm>();
+		listado.setLista(clienteManager.getAll(filtro));
+		listado.setTamanio(clienteManager.getAllCount(filtro));
+		return listado; 
 		
 	}
 

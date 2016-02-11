@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.danmar.dbf.dto.ClienteDto;
+import com.danmar.dbf.dto.filtro.FiltroArticulo;
 import com.danmar.dbf.dto.filtro.FiltroCliente;
 import com.facturador.danmar.form.ClienteForm;
 import com.facturador.danmar.form.mapper.ClienteMapper;
@@ -48,6 +49,11 @@ public class ClienteManagerImpl implements ClienteManager{
 		List<Cliente> clientes = getService().mapperDtoToModel(clientesDbf);
 		//Los inserto en la base local
 		getService().insertList(clientes);
+	}
+
+	@Override
+	public int getAllCount(FiltroCliente filtro) {
+		return clienteService.getAllFilterCount(filtro);
 	}
 
 	
