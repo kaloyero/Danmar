@@ -357,13 +357,13 @@ angular
 														// Se posiciona en el
 														// INPUT de Busqueda
 														// focus($("#busquedaArticulo"))
-
+														console.log("DATAaaa",data)
 														resultadoBusqueda = JSON
 																.parse(angular
-																		.toJson(data))
+																		.toJson(data.lista))
 														var rowsThisPage = resultadoBusqueda;
-														var lastRow = 1000;
-														console.log("RESUll",rowsThisPage.length)
+														var lastRow = data.tamanio;
+														console.log("RESUllttaa",rowsThisPage.length,data)
 														params.successCallback(
 																rowsThisPage,
 																lastRow);
@@ -409,13 +409,13 @@ angular
 													success : function(data) {
 														resultadoBusqueda = JSON
 																.parse(angular
-																		.toJson(data))
+																		.toJson(data.lista))
 														// modalInstance.close();
 														var rowsThisPage = resultadoBusqueda
 																.slice(
 																		params.startRow,
 																		params.endRow);
-														var lastRow = -1;
+														var lastRow = data.tamanio;
 
 														params.successCallback(
 																rowsThisPage,
