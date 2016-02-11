@@ -336,7 +336,7 @@ angular
 										// console.log('Pagina ' + pagina + '
 										// Tamanio ' + pageSize);
 										//debugger;
-										console.log("PAGINA",pagina,"PAGESIZE",pageSize)
+										console.log("PAGINA",pagina,"PAGESIZE",pageSize,params.endRow)
 										$
 												.ajax({
 													type : 'POST',
@@ -362,8 +362,8 @@ angular
 																.parse(angular
 																		.toJson(data))
 														var rowsThisPage = resultadoBusqueda;
-														var lastRow = -1;
-
+														var lastRow = 1000;
+														console.log("RESUll",rowsThisPage.length)
 														params.successCallback(
 																rowsThisPage,
 																lastRow);
