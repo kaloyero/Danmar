@@ -217,7 +217,7 @@
 													<span class="input-group-addon"><strong>$</strong></span> <input
 														tabindex="5" type="number" ng-disabled="subTotal==0"
 														maxlength="10"
-														class="form-control" ng-model="montoEfectivo"
+														class="form-control" ng-model="montoEfectivo"  step="any"
 														ng-change="changeEfectivo()"
 														ng-class="{botonFocus: focusedEfectivo}"
 														ng-init="focusedEfectivo = false"
@@ -490,6 +490,19 @@
 										</form>
 									</div>
 								</div>
+								<div class="col-xs-12 col-md-5">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-3 control-label">
+													<strong>Numero Cuit:</strong>
+												</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.cuit"></div>
+											</div>
+										</form>
+									</div>
+								</div>
 								<div class="col-xs-12 col-md-2">
 									<div class="row2">
 										<!-- <button class="btn btn-block" type="button" ng-click="busquedaCliente()" > -->
@@ -543,7 +556,7 @@
 													<strong>CC1:</strong>
 												</label>
 												<div class="col-md-7">
-													<input  tabindex="11" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1"></div>
+													<input  tabindex="11" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1" id="cc1"></div>
 											</div>
 										</form>
 									</div>
