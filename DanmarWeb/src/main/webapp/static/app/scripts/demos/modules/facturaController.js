@@ -177,7 +177,6 @@ angular
 										valueGetter : 'ctx.totalReal(ctx.getNumberFrmt(getValue("precio")),getValue("canMaxima"))',
 										width : 90
 									},
-
 									{
 										headerName : "",
 										field : "total",
@@ -603,6 +602,7 @@ angular
 									
 									return total;
 								};
+							
 								
 								$scope.gridOptionsFactura.context.fnTotalPrecioLista = function(precio, cantidad) {
 									var total = calculaTotalPrecioLista(precio, cantidad);
@@ -630,10 +630,23 @@ angular
 									return totalProducto;
 
 							}
+							function getTotalVeridico() {
+							
+							    var producto;
+								var total=0
+								for (producto in $scope.gridOptionsFactura.rowData) {
+									total = total+ (parseFloat($scope.gridOptionsFactura.rowData[producto].precio.replace(",", "")) * parseFloat($scope.gridOptionsFactura.rowData[producto].canMaxima.replace(",", ".")));	
+									console.log($scope.gridOptionsFactura.rowData[producto].precio,"p",parseFloat($scope.gridOptionsFactura.rowData[producto].precio.replace(",", "")))
+									console.log("d",$scope.gridOptionsFactura.rowData[producto].canMaxima.replace(",", "."))
+
+									console.log("TOTAl",(parseFloat($scope.gridOptionsFactura.rowData[producto].precio.replace(",", "."))))
+								}
+									return total;
+							}
 							
 							function calculaTotalLinea(precio, cantidad) {
-//								calculaTotalPrecioLista(precio, cantidad);
-							
+					
+
 								var coeficienteTarjeta = 0;
 									var coeficienteEfectivo = 0;
 									var totalEfectivoConCoeficiente = 0;
@@ -649,12 +662,25 @@ angular
 									if ($scope.montoEfectivo != 0 && $scope.montoTC != 0 && $scope.cuotaSeleccionada == undefined) {
 										coeficienteEfectivo = (parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)) / getSubTotalConIva();
 										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
-										console.log("IDO")
+									   console.log("totalEfectivoConCoeficiente",totalProducto)
+										console.log("coeficienteEfectivo",coeficienteEfectivo)
+										console.log("montoEfectivo",$scope.montoEfectivo,parseFloat($scope.montoEfectivo))
+										console.log("montoTC",$scope.montoTC,parseFloat($scope.montoTC))
+										console.log("CUENTA",(parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)))
+										console.log("SubTotalConIva",getSubTotalConIva())
+										
 									} else if ($scope.montoEfectivo != 0) {
-										coeficienteEfectivo = $scope.montoEfectivo / getSubTotalConIva();
+										//coeficienteEfectivo = $scope.montoEfectivo / getSubTotalConIva();
+										coeficienteEfectivo = $scope.montoEfectivo / getTotalVeridico();
+										console.log("TOTALVERID",getTotalVeridico())
 										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
-									   console.log("IDO2",coeficienteEfectivo,getSubTotalConIva(),$scope.montoEfectivo)
+										
+										console.log("montoEfectivo", $scope.montoEfectivo)
 
+										console.log("SubTotalConIva",getSubTotalConIva())
+										console.log("totalProducto",totalProducto)
+										console.log("coeficienteEfectivo",coeficienteEfectivo)
+										console.log("totalEfectivoConCoeficiente",totalEfectivoConCoeficiente)
 									}
 
 									if (coeficienteEfectivo > 0
@@ -665,17 +691,17 @@ angular
 										totalTarjetaConCoeficiente = (totalProducto - totalEfectivoConCoeficiente); //* coeficienteTC;
 //										totalTarjetaConCoeficiente = totalTarjetaConCoeficiente + (totalTarjetaConCoeficiente * (recargoTC / 100));
 										totalTarjetaConCoeficiente = calculateInteresTC(coeficienteTC,totalTarjetaConCoeficiente,parseFloat($scope.recargoTC))
-																			   console.log("IDO3")
+									    console.log("coeficienteTC",coeficienteTC)
+										console.log("recargoTC",recargoTC)
+										console.log("totalTarjetaConCoeficiente",totalTarjetaConCoeficiente)
 
 									} else {
 
 									}
 									
-									console.log("TOTAL PROD",totalProducto)
-
+									
 									totalRealProducto = totalEfectivoConCoeficiente + totalTarjetaConCoeficiente
 
-									console.log("TOTAL REl", totalRealProducto.toFixed(2), precio)
 									return totalRealProducto.toFixed(2);
 
 							}
@@ -905,7 +931,6 @@ angular
 								
 								//$scope.montoEfectivo = Number(parseFloat(parseInt(getTotal())).toFixed(2
 								$scope.montoEfectivo=getTotal()
-								console.log("MontoEfec",$scope.montoEfectivo)
 							}
 							function setTotalPrecioLista(totalPrecioLista) {
 								$scope.totalPrecioLista = totalPrecioLista;
@@ -925,9 +950,7 @@ angular
 								for (producto in $scope.gridOptionsFactura.rowData) {
 									//total = total+ (parseInt($scope.gridOptionsFactura.rowData[producto].canMaxima) * parseInt(getNumber($scope.gridOptionsFactura.rowData[producto].precio)));
 									total = total+ ($scope.gridOptionsFactura.rowData[producto].canMaxima* getNumber($scope.gridOptionsFactura.rowData[producto].precio));
-									 console.log("TOTAL1",total)
-
-									console.log("CANMAX",$scope.gridOptionsFactura.rowData[producto].canMaxima,getNumber($scope.gridOptionsFactura.rowData[producto].precio))
+								
 								}
 								//Seteo el total del precio de lista
 								setTotalPrecioLista(total);
@@ -936,14 +959,18 @@ angular
 								var totalFact = sumoInteresTarjetaAlTotalFactura(total);
 								setTotal(totalFact);
 
+								
+
+								//Calculo el sub total.totalFact / 21(iva)/100 +1
+								//var subTotal = (totalFact - ivaTotal);
+								var subTotal = totalFact / ((getIva() /100)+ 1)
+								setSubTotal(subTotal);
+								
 								/* Impuestos y Subtotal */
 								//Agrego que el subtotal sea el total menos el IVA
-								var ivaTotal = calculaIva(totalFact);
+								//var ivaTotal = calculaIva(totalFact);
+								var ivaTotal=(totalFact - subTotal)
 								setIvaInscriptoTotal(ivaTotal)
-
-								//Calculo el sub total
-								var subTotal = (totalFact - ivaTotal);
-								setSubTotal(subTotal);
 								
 							}
 							
@@ -1156,13 +1183,23 @@ angular
 							
 							function calculateInteresTC(coefCuotaTC,montoTC,recargoTC){
 									var coefCuota = coefCuotaTC;
+									console.log("---------PRUEBAS---------")
+									console.log("coefCuota",coefCuota)
 									var montoParcialTC = montoTC
+								   console.log("montoParcialTC",montoParcialTC)
+
 									var coefRecargoTC = recargoTC / 100;
+									console.log("coefRecargoTC",coefRecargoTC)
 									var montoCoefCuota = montoParcialTC * coefCuota;
+							        console.log("montoCoefCuota",montoCoefCuota)
+
 									var montoCoefRecargo= montoCoefCuota * coefRecargoTC;
-									
+							        console.log("montoCoefRecargo",montoCoefRecargo)
+
 									var montoTotal = montoCoefCuota + montoCoefRecargo;
-							
+							         console.log("montoTotal",montoTotal)
+								   console.log("---------FIN---------")
+
 									return montoTotal;
 							}
 
