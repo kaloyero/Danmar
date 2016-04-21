@@ -41,8 +41,10 @@ public class DocumentoEncabezado_V {
 	private String clienteRazonSocial;
 	@Column(name = "clienteCuit")
 	private String clienteCuit;
-
-	
+	@Column(name = "CFDocumento")
+	private String documentoConsumidorFinal;
+	@Column(name = "CFNombre")
+	private String nombreConsumidorFinal;
 	
 	@Column(name = "TotalArticulos")
 	private Double totalArticulos;
@@ -149,6 +151,18 @@ public class DocumentoEncabezado_V {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getDocumentoConsumidorFinal() {
+		return documentoConsumidorFinal;
+	}
+	public void setDocumentoConsumidorFinal(String documentoConsumidorFinal) {
+		this.documentoConsumidorFinal = documentoConsumidorFinal;
+	}
+	public String getNombreConsumidorFinal() {
+		return nombreConsumidorFinal;
+	}
+	public void setNombreConsumidorFinal(String nombreConsumidorFinal) {
+		this.nombreConsumidorFinal = nombreConsumidorFinal;
 	}
 
 	

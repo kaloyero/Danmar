@@ -262,8 +262,8 @@ var columnFacturas = [
 			$scope.viewTarjetaCuotas = data.pagoTarjetaCuotas;
 			$scope.tarjetaMontoInteres = data.pagoTarjetaMontoConInteres;
 		   
-		   $scope.nombreCliente = data.pagoTarjetaMontoConInteres;
-			$scope.documentoCliente = data.pagoTarjetaMontoConInteres;
+		   $scope.nombreCliente = data.nombreConsumidorFinal;
+			$scope.documentoCliente = data.documentoConsumidorFinal;
 
 			$scope.viewTarjetaCupon = data.pagoTarjetaCupon;
 			$scope.viewClienteNombre = data.clienteNombre ;
