@@ -13,7 +13,7 @@
 					<div class="panel-body">
 						<panel-controls class="ng-scope"> </panel-controls>
 						<div class="panel  panel-primary ng-scope">
-							<div class="panel-body">
+							<div class="panel-body" style="background-color: rgba(240, 147, 78, 0.23)">
 								<div class="row">
 									<div class="form-group col-md-12">
 										<label class="col-sm-2 control-label">Tipo de Documento</label>
@@ -133,7 +133,7 @@
 											<label class="col-md-4 control-label"> <strong>Cuit:</strong>
 											</label>
 											<div class="col-md-8">
-												<span class="label label-default form-control">{{clienteSeleccionadoCuit}}</span>
+												<span class="label label-default form-control">{{clienteSeleccionadoCuit.substring(0,2)}}-{{clienteSeleccionadoCuit.substring(2,10)}}-{{clienteSeleccionadoCuit.substring(10,12)}}</span>
 											</div>
 										</div>
 										<div class="form-group col-md-6">
@@ -309,7 +309,7 @@
 												<div class="input-group">
 													<input ng-disabled="checkClient()"
 														tabindex="8" type="text" maxlength="19"
-														class="form-control" ng-model="nombre">
+														class="form-control" ng-model="nombreConsumidorFinal">
 												</div>
 											</div>
 											</div>
@@ -319,7 +319,7 @@
 												<div class="input-group">
 													<input ng-disabled="checkClient()"
 														tabindex="8" type="text" maxlength="19"
-														class="form-control" ng-model="dni">
+														class="form-control" ng-model="documentoConsumidorFinal">
 												</div>
 											</div>
 										</div>											

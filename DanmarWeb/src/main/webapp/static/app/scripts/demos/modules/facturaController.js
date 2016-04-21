@@ -16,7 +16,7 @@ angular
 
 							$scope.estaDeshabilitado = function(e) {
 									if ($scope.TotalFact>=1000 && $scope.chkConsumidorFinal==true){
-									if ($scope.nombre=="" || $scope.dni==""){
+									if ($scope.nombreConsumidorFinal=="" || $scope.documentoConsumidorFinal==""){
 
 										return true
 									}
@@ -273,8 +273,8 @@ angular
 								$scope.cuotaChange = cuotaChange;
 								$scope.calcularTC = calcularTC;
 								$scope.checkClient = checkClient;
-								$scope.nombre = "";
-								$scope.dni = "";
+								$scope.nombreConsumidorFinal = "";
+								$scope.documentoConsumidorFinal = "";
 
 								$scope.cuotaSeleccionada;
 								$scope.articuloSeleccionadoBuscar = "";
@@ -1348,8 +1348,8 @@ angular
 								header.clienteIvaInscripto = $scope.ivaInscripto;
 								header.letra = $scope.tipoFactura;
 								header.descripcion = $scope.facturaNotas;
-								header.nombre = $scope.nombre;
-								header.dni = $scope.dni;
+								header.nombreConsumidorFinal = $scope.nombreConsumidorFinal;
+								header.documentoConsumidorFinal = $scope.documentoConsumidorFinal;
 
 																
 								return header;
@@ -1445,6 +1445,12 @@ angular
 							
 							
 							function seleccionConsumidorFinal() {
+								console.log("ENTRA CONSFINAL",$scope.clienteSeleccionadoRazon)
+								if ($scope.clienteSeleccionadoRazon==undefined){
+									$scope.chkConsumidorFinal=true
+								     return false;
+								}
+								
 								if ($scope.chkConsumidorFinal == true){
 									// Borro cliente seleccionado
 									$scope.clienteSeleccionadoRazon = "";

@@ -41,6 +41,10 @@ public class DocumentoEncabezado {
 	private int tipoDocumentoId;
 	@Column(name = "NumeroCliente")
 	private int clienteNro;
+	@Column(name = "CFNombre")
+	private String nombre;
+	@Column(name = "CFDocumento")
+	private String documento;
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "documentoEncabezadoId")
 	public Set<DocumentoLinea > lineas ;
@@ -120,6 +124,19 @@ public class DocumentoEncabezado {
 	}
 	public Date getFechaCreacion() {
 		return fechaCreacion;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getDocumento() {
+		return documento;
+	}
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
 	public void setFechaCreacion(Date fechaCreacion) {
 		this.fechaCreacion = fechaCreacion;

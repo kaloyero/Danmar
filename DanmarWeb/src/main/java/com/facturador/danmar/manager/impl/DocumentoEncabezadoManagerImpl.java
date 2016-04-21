@@ -78,6 +78,11 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		//Pongo la Sucursal
 		ent.setSucursalId(1);
 		
+		//Datos Cliente
+		ent.setNombre(form.getNombreConsumidorFinal()); 		
+		ent.setDocumento(form.getDocumentoConsumidorFinal()); 
+
+
 		//Tipo Factura (FAC)
 		ent.setTipoDocumentoId(1);
 
