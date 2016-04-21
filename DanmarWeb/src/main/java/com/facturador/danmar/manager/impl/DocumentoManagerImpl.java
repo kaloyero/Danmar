@@ -88,7 +88,7 @@ public class DocumentoManagerImpl implements DocumentoManager {
 		
 		/* Consultar Cliente*/ 
 		if (StringUtils.isBlank(factura.getClienteNro()) || factura.getClienteNro().equals("0")){
-			factura.setClienteCategoria(CategoriaIvaEnum.RESPONSABLE_INSCRIPTO.getNombre());
+			factura.setClienteCategoria(CategoriaIvaEnum.CONSUMIDOR_FINAL.getNombre());
 		} else {
 			factura.setClienteCategoria(CategoriaIvaEnum.getCategoriaIvaByCodigo(ConvertionUtil.IntValueOf(factura.getClienteCategoria())));
 		}

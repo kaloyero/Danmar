@@ -25,6 +25,8 @@ public class DocumentoEncabezadoForm implements Form{
 	private String  tipoDocumentoCodigo;
 	private String  tipoDocumentoNombre;
 	private String  clienteNro;
+	private String  nombre;
+	private String  dni;
 	private String  clienteNombre;
 	private String  clienteCategoria;
 	private String  clienteCategoriaNombre;
@@ -63,6 +65,19 @@ public class DocumentoEncabezadoForm implements Form{
 	}
 	public void setLetra(String letra) {
 		this.letra = letra;
+	}
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public String getDni() {
+		return dni;
+	}
+	public void setDni(String dni) {
+		this.dni = dni;
 	}
 	public String getSucursalId() {
 		return sucursalId;

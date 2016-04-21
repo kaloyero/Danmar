@@ -135,7 +135,8 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		Double alicuotaIva = clienteIvaInscripto;
 		Double importeIva = (precio * alicuotaIva ) / 100;
 		precio = precio - importeIva;
-		Double precioFinal = precioFinalForm / ConvertionUtil.IntValueOf(linea.getCantidad()) ;
+		//Double precioFinal = precioFinalForm / ConvertionUtil.IntValueOf(linea.getCantidad()) ;
+		Double precioFinal = precioFinalForm / ConvertionUtil.DouValueOf(linea.getCantidad()) ;
 		Double importeIvaFinal = (precioFinal * alicuotaIva ) / 100;
 		precioFinal = precioFinal -importeIvaFinal; 
 		//seteo Precios para insertar

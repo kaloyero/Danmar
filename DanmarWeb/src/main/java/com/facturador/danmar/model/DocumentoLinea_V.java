@@ -19,7 +19,7 @@ public class DocumentoLinea_V {
 	@Column(name = "articulo")
 	private String articulo;
 	@Column(name = "cantidad")
-	private int cantidad	;
+	private double cantidad	;
 	@Column(name = "precio")
 	private Double precio;
 	@Column(name = "PrecioFinal")
@@ -59,10 +59,10 @@ public class DocumentoLinea_V {
 	public void setArticulo(String articulo) {
 		this.articulo = articulo;
 	}
-	public int getCantidad() {
+	public double getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(int cantidad) {
+	public void setCantidad(double cantidad) {
 		this.cantidad = cantidad;
 	}
 	public Double getPrecio() {

@@ -15,6 +15,12 @@ angular
 							'use strict';
 
 							$scope.estaDeshabilitado = function(e) {
+									if ($scope.TotalFact>=1000 && $scope.chkConsumidorFinal==true){
+									if ($scope.nombre=="" || $scope.dni==""){
+
+										return true
+									}
+								}
 								if ($scope.montoEfectivo > 0) {
 									if ($scope.montoTC != 0) {
 										if ($scope.cuotaSeleccionada != undefined) {
@@ -42,7 +48,7 @@ angular
 
 									return true
 								}
-
+							
 							}
 
 							var borraProducto = true;
@@ -78,7 +84,7 @@ angular
 								width : 100
 							},
 							{
-								headerName : "CC1",
+								headerName : "Cod Prov",
 								field : "cc1",
 								width : 70
 							},
@@ -115,33 +121,36 @@ angular
 							var columnsFactura = [
 									{
 										headerName : "Cod",
-										field : "codigo",
-										width : 75
+										field : "codigoFormateado",
+										width : 110,
+										valueGetter : 'ctx.formatearCodigo(getValue("cc1"),getValue("cc2"),getValue("cc3"),getValue("cc4"),getValue("cc5"))',
+
 									},
 									{
-										headerName : "CC1",
+										headerName : "Cod Pro",
 										field : "cc1",
-										width : 55
+										hide:true
 									},
 									{
 										headerName : "CC2",
 										field : "cc2",
-										width : 55
+										hide:true
+
 									},
 									{
 										headerName : "CC3",
 										field : "cc3",
-										width : 55
+										hide:true
 									},
 									{
 										headerName : "CC4",
 										field : "cc4",
-										width : 55
+										hide:true
 									},
 									{
 										headerName : "CC5",
 										field : "cc5",
-										width : 55
+										hide:true
 									},
 							        {
 										headerName : "Articulo",
@@ -157,7 +166,15 @@ angular
 									{
 										headerName : "Precio",
 										field : "precio",
-										width : 90
+										width : 90,
+										editable : true
+									},
+									{
+										headerName : "Precio Final",
+										field : "precioFinal",
+										width : 120,
+										valueGetter : 'ctx.calcularPrecioFinal(ctx.getNumberFrmt(getValue("precioLp")),getValue("canMaxima"))',
+	
 									},
 //									{
 //										headerName : "Iva",
@@ -255,6 +272,10 @@ angular
 								$scope.obtenerCuotasTarjeta = obtenerCuotasTarjeta;
 								$scope.cuotaChange = cuotaChange;
 								$scope.calcularTC = calcularTC;
+								$scope.checkClient = checkClient;
+								$scope.nombre = "";
+								$scope.dni = "";
+
 								$scope.cuotaSeleccionada;
 								$scope.articuloSeleccionadoBuscar = "";
 								$scope.data = {
@@ -602,6 +623,18 @@ angular
 									
 									return total;
 								};
+								$scope.gridOptionsFactura.context.formatearCodigo = function(cc1, cc2,cc3,cc4,cc5) {
+									var codigoFormateado = cc1+"-"+cc2+"-"+cc3+"-"+cc4+"-"+cc5+"-"
+									
+									return codigoFormateado;
+								};
+								$scope.gridOptionsFactura.context.calcularPrecioFinal = function(total, cantidad) {
+									
+									console.log("calcularPrecioFinal",total, cantidad)
+									var totalPrecio = (total/cantidad);
+									console.log("TotalPReciop$",totalPrecio)
+									return totalPrecio;
+								};
 							
 								
 								$scope.gridOptionsFactura.context.fnTotalPrecioLista = function(precio, cantidad) {
@@ -636,10 +669,7 @@ angular
 								var total=0
 								for (producto in $scope.gridOptionsFactura.rowData) {
 									total = total+ (parseFloat($scope.gridOptionsFactura.rowData[producto].precio.replace(",", "")) * parseFloat($scope.gridOptionsFactura.rowData[producto].canMaxima.replace(",", ".")));	
-									console.log($scope.gridOptionsFactura.rowData[producto].precio,"p",parseFloat($scope.gridOptionsFactura.rowData[producto].precio.replace(",", "")))
-									console.log("d",$scope.gridOptionsFactura.rowData[producto].canMaxima.replace(",", "."))
-
-									console.log("TOTAl",(parseFloat($scope.gridOptionsFactura.rowData[producto].precio.replace(",", "."))))
+						
 								}
 									return total;
 							}
@@ -657,30 +687,30 @@ angular
 									/* Se bloquea el uso de IVA para calculo de articulo
 									var totalProducto = (cantidad * precio + (cantidad	* precio * (getIva() / 100) )); */
 									var totalProducto = (cantidad * precio); 
-									
+									console.log("MONTOEFE",$scope.montoEfectivo)
+
 									//Caso Monto tarjeta de credito con monto > 0  y cuotas no seleccionadas
-									if ($scope.montoEfectivo != 0 && $scope.montoTC != 0 && $scope.cuotaSeleccionada == undefined) {
+									if ($scope.montoEfectivo != 0 && $scope.montoEfectivo != null && $scope.montoTC != 0 && $scope.cuotaSeleccionada == undefined) {
 										coeficienteEfectivo = (parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)) / getSubTotalConIva();
 										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
-									   console.log("totalEfectivoConCoeficiente",totalProducto)
-										console.log("coeficienteEfectivo",coeficienteEfectivo)
-										console.log("montoEfectivo",$scope.montoEfectivo,parseFloat($scope.montoEfectivo))
-										console.log("montoTC",$scope.montoTC,parseFloat($scope.montoTC))
-										console.log("CUENTA",(parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)))
-										console.log("SubTotalConIva",getSubTotalConIva())
+
 										
-									} else if ($scope.montoEfectivo != 0) {
+									} else if ($scope.montoEfectivo != 0 && $scope.montoEfectivo != null) {
 										//coeficienteEfectivo = $scope.montoEfectivo / getSubTotalConIva();
 										coeficienteEfectivo = $scope.montoEfectivo / getTotalVeridico();
-										console.log("TOTALVERID",getTotalVeridico())
 										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
-										
-										console.log("montoEfectivo", $scope.montoEfectivo)
 
-										console.log("SubTotalConIva",getSubTotalConIva())
-										console.log("totalProducto",totalProducto)
-										console.log("coeficienteEfectivo",coeficienteEfectivo)
-										console.log("totalEfectivoConCoeficiente",totalEfectivoConCoeficiente)
+									}else if ($scope.montoEfectivo == null||$scope.montoEfectivo == 0) {
+										//coeficienteEfectivo = $scope.montoEfectivo / getSubTotalConIva();
+										coeficienteEfectivo = 0
+										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
+										coeficienteTarjeta = 1
+										totalTarjetaConCoeficiente = (totalProducto - totalEfectivoConCoeficiente);
+										if ( $scope.cuotaSeleccionada != undefined){
+											var coeficienteTC = $scope.cuotaSeleccionada.coeficiente
+										totalTarjetaConCoeficiente = calculateInteresTC(coeficienteTC,totalTarjetaConCoeficiente,parseFloat($scope.recargoTC))
+
+										}
 									}
 
 									if (coeficienteEfectivo > 0
@@ -691,14 +721,11 @@ angular
 										totalTarjetaConCoeficiente = (totalProducto - totalEfectivoConCoeficiente); //* coeficienteTC;
 //										totalTarjetaConCoeficiente = totalTarjetaConCoeficiente + (totalTarjetaConCoeficiente * (recargoTC / 100));
 										totalTarjetaConCoeficiente = calculateInteresTC(coeficienteTC,totalTarjetaConCoeficiente,parseFloat($scope.recargoTC))
-									    console.log("coeficienteTC",coeficienteTC)
-										console.log("recargoTC",recargoTC)
-										console.log("totalTarjetaConCoeficiente",totalTarjetaConCoeficiente)
 
 									} else {
-
+												
 									}
-									
+
 									
 									totalRealProducto = totalEfectivoConCoeficiente + totalTarjetaConCoeficiente
 
@@ -745,12 +772,17 @@ angular
 								$scope.subTotal = 0
 								setEfectivo();
 								$scope.cuotaSeleccionada = undefined
+								cleanClienteData()
 
+							}
+							function cleanClienteData(){
+								$scope.nombre=""
+								$scope.dni=""
 							}
 							function resetSelectedTC(){
 									$scope.montoTC = 0;
-									$scope.selectTarjetaCredito = 0;
-							}
+									$scope.selectTarjetaCredito = null;
+									}
 							
 							function resetSelectedInfoTC(){
 									$scope.cuotaSeleccionada = undefined
@@ -758,6 +790,7 @@ angular
 									$scope.recargoTC = ""
 									$scope.cuotas = {};
 									$scope.cuponTC = ""
+									
 
 							}
 							
@@ -958,7 +991,10 @@ angular
 								//Sumo los intereses al subtotal para obtener el total
 								var totalFact = sumoInteresTarjetaAlTotalFactura(total);
 								setTotal(totalFact);
-
+								if (totalFact <1000){
+									$scope.nombre=""
+									$scope.dni=""
+								}
 								
 
 								//Calculo el sub total.totalFact / 21(iva)/100 +1
@@ -1066,6 +1102,10 @@ angular
 							function showClientePopup(event) {
 							   $scope.dataCliente.razonSocial = $scope.clienteSeleccionadoRazon;
 								if (event.which == 13) {
+									$scope.dataCliente.codigoCliente=""
+									$scope.dataCliente.cuit=""
+									$scope.dataCliente.razonSocial=""
+									$scope.clienteSeleccionadoRazon = "";
 									$scope.clienteSeleccionadoRazon = "";
 									$scope.primerIngresoCliente=1;
 									$scope.openDemoModalCliente('lg');
@@ -1108,7 +1148,15 @@ angular
 								filtro.cantRegistros = end;
 								return filtro;
 							}
+							function checkClient(){
+								if (($scope.TotalFact<1000 && $scope.chkConsumidorFinal==true)||($scope.chkConsumidorFinal==false)){
+									cleanClienteData()
+									return true;
+								}else{
 
+									return false;
+								}
+							}
 							function guardarFactura() {
 								var factura
 								factura = getHeader()
@@ -1300,6 +1348,10 @@ angular
 								header.clienteIvaInscripto = $scope.ivaInscripto;
 								header.letra = $scope.tipoFactura;
 								header.descripcion = $scope.facturaNotas;
+								header.nombre = $scope.nombre;
+								header.dni = $scope.dni;
+
+																
 								return header;
 							}
 							function getLineas() {
@@ -1365,6 +1417,7 @@ angular
 								//Valido que no se pueda ingresar un monto mayor al maximo de precio de lista
 								console.log("MONTO FT: ",parseFloat($scope.montoEfectivo))
 								console.log("TOTAL FT: ",$scope.totalPrecioLista)
+								
 								if ($scope.montoEfectivo > $scope.totalPrecioLista){
 								 $scope.montoEfectivo =  $scope.totalPrecioLista
 								}
@@ -1375,6 +1428,8 @@ angular
 										
 								if (nuevoMonto > 0){
 									$scope.montoTC = nuevoMonto;
+									resetSelectedInfoTC()
+									$scope.selectTarjetaCredito = null;
 								} else {
 									resetSelectedTC();
 									resetSelectedInfoTC()

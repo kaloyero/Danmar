@@ -299,10 +299,30 @@
 														ng-focus="focusedCupon = true"
 														ng-blur="focusedCupon = false" 
 														tabindex="8" type="text" maxlength="19"
-														class="form-control" ng-model="cuponTC">
+														class="form-control" ng-model="cuponTC" ng-disabled="cuotaSeleccionada==undefined">
 												</div>
 											</div>
-										</div>										
+										</div>
+									  <div class="form-group col-md-6">
+											<label class="col-sm-2 control-label"><strong>Nombre</strong></label>
+											<div class="col-sm-10">
+												<div class="input-group">
+													<input ng-disabled="checkClient()"
+														tabindex="8" type="text" maxlength="19"
+														class="form-control" ng-model="nombre">
+												</div>
+											</div>
+											</div>
+                                  <div class="form-group col-md-6">
+											<label class="col-sm-2 control-label"><strong>Dni</strong></label>
+											<div class="col-sm-10">
+												<div class="input-group">
+													<input ng-disabled="checkClient()"
+														tabindex="8" type="text" maxlength="19"
+														class="form-control" ng-model="dni">
+												</div>
+											</div>
+										</div>											
 
 
 
@@ -553,7 +573,7 @@
 										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
 											<div class="form-group">
 												<label class="col-md-5 control-label">
-													<strong>CC1:</strong>
+													<strong>Codigo de Proveedores:</strong>
 												</label>
 												<div class="col-md-7">
 													<input  tabindex="11" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1" id="cc1"></div>

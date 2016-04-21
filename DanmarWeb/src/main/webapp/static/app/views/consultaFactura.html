@@ -183,26 +183,21 @@
 												<thead>
 													<tr>
 														<th>Codigo</th>
-														<th>CC1</th>
-														<th>CC2</th>
-														<th>CC3</th>
-														<th>CC4</th>
-														<th>CC5</th>
+					
 														<th>Articulo</th>
 														<th>Qt</th>
 														<th>Precio</th>
+														<th>Precio Final</th>
+														<th>Total Linea</th>
 													</tr>
 												</thead>
 												<tbody>
 													<tr ng-repeat="row in viewLineasProductos">
-														<td align="left">{{row.codigo}}</td>
-														<td>{{row.cc1}}</td>
-														<td>{{row.cc2}}</td>
-														<td>{{row.cc3}}</td>
-														<td>{{row.cc4}}</td>
-														<td>{{row.cc5}}</td>
+														<td align="left">{{row.cc1}}-{{row.cc2}}-{{row.cc3}}-{{row.cc4}}-{{row.cc5}}</td>
 														<td>{{row.articulo}}</td>
 														<td>{{row.cantidad}}</td>
+														<td>{{row.precio}}</td>
+														<td>{{row.precioFinal}}</td>
 														<td>{{row.totalLinea}}</td>
 													</tr>
 
