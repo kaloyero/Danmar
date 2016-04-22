@@ -7330,6 +7330,7 @@ var ag;
                 this.checkQueueForNextLoad();
             };
             VirtualPageRowController.prototype.pageLoaded = function (pageNumber, rows, lastRow) {
+				
                 this.putPageIntoCacheAndPurge(pageNumber, rows);
                 this.checkMaxRowAndInformRowRenderer(pageNumber, lastRow);
                 this.removeFromLoading(pageNumber);
@@ -7353,7 +7354,7 @@ var ag;
                 }
             };
             VirtualPageRowController.prototype.checkMaxRowAndInformRowRenderer = function (pageNumber, lastRow) {
-                if (!this.foundMaxRow) {
+				if (!this.foundMaxRow) {
                     // if we know the last row, use if
                     if (typeof lastRow === 'number' && lastRow >= 0) {
                         this.virtualRowCount = lastRow;
@@ -7476,13 +7477,30 @@ var ag;
                     console.warn('ag-grid: It looks like your paging datasource is of the old type, taking more than one parameter.');
                     console.warn('ag-grid: From ag-grid 1.9.0, now the getRows takes one parameter. See the documentation for details.');
                 }
-                console.log("GET ROWS1")
                 this.datasource.getRows(params);
-                function successCallback(rows, lastRowIndex) {
+                function successCallback(rows, lastRowIndex,focusX,focusY) {
+					var focusedCellRow=-1
+					var focusedCellColumn=-1
+					console.log("RES1",(that.rowRenderer.getFocusedCell()!=null && that.rowRenderer.getFocusedCell()!='undefined'))
+
+					if (that.rowRenderer.getFocusedCell()!=null && that.rowRenderer.getFocusedCell()!='undefined'){
+					   focusedCellRow=that.rowRenderer.getFocusedCell()['rowIndex']
+				       focusedCellColumn=that.rowRenderer.getFocusedCell()['colIndex']
+
+					}
+
+
+
                     if (that.requestIsDaemon(datasourceVersionCopy)) {
                         return;
                     }
                     that.pageLoaded(pageNumber, rows, lastRowIndex);
+					console.log("RES2",focusedCellRow,focusedCellColumn,(focusedCellRow!="" && focusedCellColumn!=""))
+				    if (focusedCellRow!=-1 && focusedCellColumn!=-1){
+						console.log("PONEEE",focusedCellRow,focusedCellColumn)
+						that.rowRenderer.setFocusedCell(focusedCellRow, focusedCellColumn);
+					}
+					console.log("SUCCESSVIRTUA")
                 }
                 function failCallback() {
                     if (that.requestIsDaemon(datasourceVersionCopy)) {

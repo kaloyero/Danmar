@@ -118,33 +118,11 @@
 		<ul class="dropdown-menu animated messages arrow"tabindex="-1">
 		  <li class="dd-header"tabindex="-1">
 			<span class="ng-binding">Mensajes (6)</span>
-			<span><a href="#"><i class="glyphicon glyphicon-cog"></i></a></span>
+			<span><a href="#"></a></span>
 		  </li>
 			  <div tabindex="-1"class="scrollthis" scrollable=""><div tabindex="-1" class="nano has-scrollbar">
 			  <div class="nano-content" ng-transclude="" tabindex="-1" style="right: -17px;">
-				<!-- ngRepeat: item in messages --><li ng-repeat="item in messages" class="ng-scope"tabindex="-1" >
-				  <a href="#/" ng-class="{active: !item.read}" class="active" tabindex="-1">
-					<!-- ngIf: !item.read --><button tabindex="-1" tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark read" class="btn-mark-read ng-scope" ng-if="!item.read" ng-click="setRead(item, $event)"><i class="glyphicon glyphicon-unchecked"></i></button><!-- end ngIf: !item.read -->
-					<!-- ngIf: item.read -->
-					<span class="time ng-binding">3m</span>
-					<img ng-src="assets/demo/avatar/paton.png" alt="avatar" src="http://placehold.it/400&amp;text=Placeholder">
-					<div>
-					  <span class="name ng-binding">Polly Paton</span>
-					  <span class="msg ng-binding">Uploaded all the files to server</span>
-					</div>
-				  </a>
-				</li><!-- end ngRepeat: item in messages --><li ng-repeat="item in messages" class="ng-scope"tabindex="-1">
-				  <a href="#/" ng-class="{active: !item.read}" class="active">
-					<!-- ngIf: !item.read --><tabindex="-1"button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark read" class="btn-mark-read ng-scope" ng-if="!item.read" ng-click="setRead(item, $event)"><i class="glyphicon glyphicon-unchecked"></i></button><!-- end ngIf: !item.read -->
-					<!-- ngIf: item.read -->
-					<span class="time ng-binding">17m</span>
-					<img ng-src="assets/demo/avatar/corbett.png" alt="avatar" src="http://placehold.it/400&amp;text=Placeholder">
-					<div>
-					  <span class="name ng-binding">Simon Corbett</span>
-					  <span class="msg ng-binding">I am signing off for today</span>
-					</div>
-				  </a>
-				</li>
+				<!-- ngRepeat: item in messages -->
 			  </div><div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div></div>
 		  <li class="dd-footer"><a href="#" ng-click="setReadAll($event)">Marcar todas Leidas</a></li>
 		</ul>
@@ -156,18 +134,10 @@
 		<ul class="dropdown-menu animated notifications arrow" tabindex="-1">
 		  <li class="dd-header">
 			<span class="ng-binding">Notificaciones (5)</span>
-			<span><a href="#"><i class="glyphicon glyphicon-cog"></i></a></span>
+			<span><a href="#"></a></span>
 		  </li>
 				<div class="scrollthis" scrollable=""><div class="nano has-scrollbar"><div class="nano-content" ng-transclude="" tabindex="0" style="right: -17px;">
-			<!-- ngRepeat: item in notifications --><li ng-repeat="item in notifications" class="ng-scope">
-			  <a href="#" class="notification-success" ng-class="{active: !item.seen}">
-				<!-- ngIf: !item.seen -->
-				<!-- ngIf: item.seen --><button tooltip-placement="top" tooltip-append-to-body="true" tooltip="Mark unseen" class="btn-mark-unread ng-scope" ng-if="item.seen" ng-click="setUnseen(item, $event)"><i class="glyphicon glyphicon-check"></i></button><!-- end ngIf: item.seen -->
-				<span class="time ng-binding">4m</span>
-				<i class="glyphicon glyphicon-ok"></i>
-				<span class="msg ng-binding">Server #1 is live</span>
-			  </a>
-			</li><!-- end ngRepeat: item in notifications -->
+			<!-- ngRepeat: item in notifications --><!-- end ngRepeat: item in notifications -->
 				</div><div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div></div>
 		  <li class="dd-footer"><a href="javascript:;" ng-click="setSeenAll($event)">Marcar todas Leidas</a></li>
 		</ul>

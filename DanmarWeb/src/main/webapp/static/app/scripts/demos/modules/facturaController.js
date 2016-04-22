@@ -348,7 +348,7 @@ angular
 							/* Setear Datasource */
 
 							function setDatasources() {
-								var pageSize = 50;
+								var pageSize = 30;
 
 								dataSource = {
 									rowCount : null, // behave as infinite
@@ -356,7 +356,7 @@ angular
 									pageSize : pageSize,
 									overflowSize : 50,
 									maxConcurrentRequests : 2,
-									maxPagesInCache : 2,
+									maxPagesInCache : 20,
 									getRows : function(params) {
 
 										var start = params.startRow + 1;
@@ -366,7 +366,6 @@ angular
 										var pagina = (params.endRow / pageSize);
 										// console.log('Pagina ' + pagina + '
 										// Tamanio ' + pageSize);
-										//debugger;
 										console.log("PAGINA",pagina,"PAGESIZE",pageSize,params.endRow)
 										$
 												.ajax({
@@ -396,6 +395,7 @@ angular
 														params.successCallback(
 																rowsThisPage,
 																lastRow);
+																console.log("PARAMS",params)
 														if ($scope.primerIngreso==1){
 															$scope.primerIngreso=0;
 															if ($scope.data.articulo!=''){
