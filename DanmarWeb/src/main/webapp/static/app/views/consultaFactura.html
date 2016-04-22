@@ -257,6 +257,47 @@
 						</div>
 						</panel>
 					</div>
+
+
+					<div class="col-xs-12 col-md-4"  style="background-color:#8D8C8D">
+						<panel data-heading="Totales" panel-class="panel-midnightblue"
+							class="ng-isolate-scope">
+						<div class="panel  panel-midnightblue">
+							<!-- 					<div class="panel-heading"> -->
+							<!-- 						<h2 class="ng-binding"> -->
+							<!-- 							ngIf: panelIcon -->
+							<!-- 							Totales -->
+							<!-- 						</h2> -->
+							<!-- 					</div> -->
+							<div class="panel-body" ng-transclude="">
+								<div class="col-xs-6">
+									<a class="info-tiles tiles-green"
+										data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}">
+										<div class="tiles-heading">
+											<div class="text-center ng-binding">Sub Total</div>
+										</div>
+										<div class="tiles-body" style="font-size: 12px;">
+											<div class="text-center ng-binding">$ {{viewSubTotal}}</div>
+										</div>
+									</a>
+								</div>
+
+								<div class="col-xs-6">
+									<a class="info-tiles tiles-primary"
+										data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}">
+										<div class="tiles-heading">
+											<div class="text-center ng-binding">Total</div>
+										</div>
+										<div class="tiles-body" style="font-size: 12px;">
+											<div class="text-center ng-binding">$ {{viewTotalFact}}</div>
+										</div>
+									</a>
+								</div>
+							</div>
+						</div>
+						</panel>
+					</div>
+
 					<div class="col-xs-12 col-md-4"  style="background-color:#8D8C8D">
 						<panel data-heading="Totales" panel-class="panel-midnightblue"
 							class="ng-isolate-scope">
@@ -306,7 +347,7 @@
 													</div>
 												</div>
 												<div class="form-group  col-md-6">
-													<label class="col-sm-4 control-label"><strong>Recargo TC</strong></label>
+													<label class="col-sm-4 control-label"><strong>Recargo</strong></label>
 													<div class="col-sm-8">
 														<span class="input-group-addon">{{viewTarjetaRecargo}} %</span>
 														
@@ -318,17 +359,18 @@
 															<span class="input-group-addon">$ {{tarjetaMontoInteres}}</span>
 													</div>
 												</div>
-													<div class="form-group  col-md-6">
+												
+												<div class="form-group  col-md-6">
 													<label class="col-sm-4 control-label"><strong>Nombre</strong></label>
 													<div class="col-sm-8">
-														<span class="input-group-addon">{{nombreCliente}}</span>
+														<span class="input-group-addon">{{nombreCliente}} %</span>
 														
 													</div>
 												</div>
 												<div class="form-group col-md-6">
-													<label class="col-sm-5 control-label"><strong>Dni</strong></label>
+													<label class="col-sm-5 control-label"><strong>DNI</strong></label>
 													<div class="col-sm-7">
-															<span class="input-group-addon">{{documentoCliente}}</span>
+															<span class="input-group-addon">$ {{documentoCliente}}</span>
 													</div>
 												</div>
 
@@ -344,44 +386,6 @@
 
 
 
-					<div class="col-xs-12 col-md-4"  style="background-color:#8D8C8D">
-						<panel data-heading="Totales" panel-class="panel-midnightblue"
-							class="ng-isolate-scope">
-						<div class="panel  panel-midnightblue">
-							<!-- 					<div class="panel-heading"> -->
-							<!-- 						<h2 class="ng-binding"> -->
-							<!-- 							ngIf: panelIcon -->
-							<!-- 							Totales -->
-							<!-- 						</h2> -->
-							<!-- 					</div> -->
-							<div class="panel-body" ng-transclude="">
-								<div class="col-xs-6">
-									<a class="info-tiles tiles-green"
-										data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}">
-										<div class="tiles-heading">
-											<div class="text-center ng-binding">Sub Total</div>
-										</div>
-										<div class="tiles-body" style="font-size: 12px;">
-											<div class="text-center ng-binding">$ {{viewSubTotal}}</div>
-										</div>
-									</a>
-								</div>
-
-								<div class="col-xs-6">
-									<a class="info-tiles tiles-primary"
-										data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}">
-										<div class="tiles-heading">
-											<div class="text-center ng-binding">Total</div>
-										</div>
-										<div class="tiles-body" style="font-size: 12px;">
-											<div class="text-center ng-binding">$ {{viewTotalFact}}</div>
-										</div>
-									</a>
-								</div>
-							</div>
-						</div>
-						</panel>
-					</div>
 
 
 

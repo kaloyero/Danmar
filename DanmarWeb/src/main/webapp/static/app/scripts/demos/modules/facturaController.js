@@ -129,11 +129,13 @@ angular
 									{
 										headerName : "Cod Pro",
 										field : "cc1",
+										width : 55,
 										hide:true
 									},
 									{
 										headerName : "CC2",
 										field : "cc2",
+										width : 55,
 										hide:true
 
 									},

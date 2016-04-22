@@ -8,7 +8,7 @@ var columnFacturas = [
 			{
 	            headerName: "Codigo",
 	            field: "id",
-	            width: 90
+	            width: 60
         	} , {
                 headerName: "Fecha",
                 field: "fecha",
@@ -17,19 +17,18 @@ var columnFacturas = [
 			{
                 headerName: "Tipo",
                 field: "tipoDocumentoNombre",
-                width: 75
+                width: 70
         	} , {
                 headerName: "Numero",
                 field: "numero",
-                width: 150
+                width: 130
         	} , {
                 headerName: "Cliente",
                 field: "clienteNombre",
-                width: 200
+                width: 150
         	} ,  {
                 headerName: "Categoria",
-                field: "clienteCategoriaNombre",
-                width: 150
+                field: "clienteCategoriaNombre"
             },
 			{
 				headerName : "",
