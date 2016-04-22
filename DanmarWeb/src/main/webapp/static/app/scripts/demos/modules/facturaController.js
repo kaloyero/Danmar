@@ -45,6 +45,7 @@ angular
 
 							}
 
+							var urlDefault = "";
 							var borraProducto = true;
 							var dataSource;
 							var dataSourceCliente;
@@ -196,19 +197,16 @@ angular
 							];
 
 							$scope.$on('$viewContentLoaded', function() {
-								console.log("termino de cargar")
 							});
 							init();
 
 							function pruebaFocusFactura(event) {
-								// console.log("ENRAFOC")
 								// $("#productoGrid").css("border-style","none")
 								// $("#facturaGrid").css("border-style","dotted")
 								// Le hago foco a algun elemento como para que
 								// pueda empezar a ir para abajo directamente
 								// con la flecha de abajo
 								// angular.element(angular.element('.cell-col-0')[0]).trigger('focus');
-								// console.log("FOCUS",event)
 							}
 
 							function pruebaFocusProductos(event) {
@@ -218,7 +216,6 @@ angular
 
 							}
 							function pruebaLostFocusProductos(event) {
-								console.log("PIEDERE")
 								// $("#productoGrid").css("border-style","none")
 								// $("#productoGrid").css("border-style","none")
 
@@ -233,6 +230,7 @@ angular
 
 								$scope.onKeyCliente = showClientePopup;
 								$scope.onKeyArticulo = showArticuloPopup;
+								$scope.borrarArticulosTodos = borrarArticulosTodos;
 								$scope.onKeySelectArticulo = showSelectArticuloPopup;
 								$scope.guardarFactura = guardarFactura;
 								$scope.borrarFila = borrarFila;
@@ -329,18 +327,15 @@ angular
 									getRows : function(params) {
 
 										var start = params.startRow + 1;
-										// console.log('params.endRow ' +
 										// params.endRow + ' pageSize ' +
 										// pageSize);
 										var pagina = (params.endRow / pageSize);
-										// console.log('Pagina ' + pagina + '
 										// Tamanio ' + pageSize);
 										//debugger;
-										console.log("PAGINA",pagina,"PAGESIZE",pageSize,params.endRow)
 										$
 												.ajax({
 													type : 'POST',
-													url : 'http://localhost:8080/DanmarWeb/articulo/searchByFiltros',
+													url : 'articulo/searchByFiltros',
 													contentType : "application/json",
 													data : JSON
 															.stringify(getFiltroBusqueda(
@@ -349,7 +344,7 @@ angular
 													dataType : 'json',
 
 													// url:
-													// 'http://localhost:8080/DanmarWeb/articulo/findAll/'
+													// 'articulo/findAll/'
 													// + start + '/' +
 													// params.endRow,
 
@@ -357,18 +352,15 @@ angular
 														// Se posiciona en el
 														// INPUT de Busqueda
 														// focus($("#busquedaArticulo"))
-														console.log("DATAaaa",data)
 														resultadoBusqueda = JSON
 																.parse(angular
 																		.toJson(data.lista))
 														var rowsThisPage = resultadoBusqueda;
 														var lastRow = data.tamanio;
-														console.log("RESUllttaa",rowsThisPage.length,data)
 														params.successCallback(
 																rowsThisPage,
 																lastRow);
 														if ($scope.primerIngreso==1){
-															console.log("ENTRA")
 															$scope.primerIngreso=0;
 															pruebaFocusProductos()
 														}
@@ -394,7 +386,7 @@ angular
 										$
 												.ajax({
 													type : 'POST',
-													url : 'http://localhost:8080/DanmarWeb/cliente/searchByFiltros',
+													url : 'cliente/searchByFiltros',
 													contentType : "application/json",
 													data : JSON
 															.stringify(getFiltroBusquedaCliente(
@@ -402,7 +394,7 @@ angular
 																	pageSize)),
 													dataType : 'json',
 													// url:
-													// 'http://localhost:8080/DanmarWeb/articulo/findAll/'
+													// 'articulo/findAll/'
 													// + start + '/' +
 													// params.endRow,
 
@@ -558,7 +550,6 @@ angular
 															// done
 									// onSelectionChanged: seleccionCambiada,
 									ready : function(api) {
-										console.log("READY")
 										$scope.gridOptionsProductos.api
 												.setDatasource(dataSource);
 									}
@@ -590,7 +581,7 @@ angular
 									onCellValueChanged : valorCeldaCambiado,
 									angularCompileRows : true
 								};
-								console.log("GRID", $scope.gridOptionsFactura)
+
 								$scope.gridOptionsFactura.context.totalReal = function(precio, cantidad) {
 									var total = calculaTotalLinea(precio, cantidad);
 									
@@ -606,7 +597,6 @@ angular
 								$scope.gridOptionsFactura.context.getNumberFrmt = function(
 										numeroStr) {
 									var rta = getNumber(numeroStr);
-									console.log("salgaHermano", rta);
 									return rta;
 								};
 
@@ -642,10 +632,12 @@ angular
 									
 									//Caso Monto tarjeta de credito con monto > 0  y cuotas no seleccionadas
 									if ($scope.montoEfectivo != 0 && $scope.montoTC != 0 && $scope.cuotaSeleccionada == undefined) {
-										coeficienteEfectivo = (parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)) / getSubTotalConIva();
+										//coeficienteEfectivo = (parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)) / getSubTotalConIva();
+										coeficienteEfectivo = (parseFloat($scope.montoEfectivo) + parseFloat($scope.montoTC)) / getTotal();
 										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
 									} else if ($scope.montoEfectivo != 0) {
-										coeficienteEfectivo = $scope.montoEfectivo / getSubTotalConIva();
+										//coeficienteEfectivo = $scope.montoEfectivo / getSubTotalConIva();
+										coeficienteEfectivo = $scope.montoEfectivo / getTotal();
 										totalEfectivoConCoeficiente = totalProducto	* coeficienteEfectivo;
 									}
 
@@ -663,7 +655,6 @@ angular
 									}
 									totalRealProducto = totalEfectivoConCoeficiente + totalTarjetaConCoeficiente
 
-									console.log("TOTAL REl", totalRealProducto.toFixed(2), precio)
 									return totalRealProducto.toFixed(2);
 
 							}
@@ -737,7 +728,6 @@ angular
 							// Chequea si ya existe un elemento en la tabla de
 							// factura,para no agregarlo nuevamente
 							function existe(arrayABuscar, codigo) {
-								console.log("arrayabuscar", arrayABuscar)
 								var x;
 								for (x in arrayABuscar) {
 
@@ -782,7 +772,6 @@ angular
 								element.focus();
 							}
 							function seleccionClienteCambiada(event) {
-								console.log("event", event)
 								modalInstanceCliente.close();
 								// Seteamos el valor del cliente elegido
 
@@ -812,7 +801,7 @@ angular
 								$
 										.ajax({
 											type : 'POST',
-											url : 'http://localhost:8080/DanmarWeb/documento/getLetraCategoriaIva',
+											url : 'documento/getLetraCategoriaIva',
 											contentType : "application/json",
 											data : JSON
 													.stringify(categoria),
@@ -820,7 +809,6 @@ angular
 
 											complete : function(data) {
 												if (data.status = 200) {
-													console.log("RES", data)
 													$scope.tipoFactura = data.responseText;
 
 												}
@@ -880,6 +868,28 @@ angular
 								recalculateGridProductos()
 							}
 
+							function borrarArticulosTodos() {
+								$scope.gridOptionsProductos.api
+										.forEachNode(function(node) {
+
+												$scope.gridOptionsProductos.api.selectionController
+														.deselectNode(node);
+										});
+								$scope.gridOptionsFactura.rowData.splice(0);
+								
+								var newArray = $scope.gridOptionsFactura.rowData
+								$scope.gridOptionsFactura.api
+										.setRowData(newArray); // Investigar
+																// refrescar y
+																// no hacer esto								
+								
+								cleanTotales()
+								calculateTotales()
+								recalculateGridProductos()
+							
+							}
+							
+							
 							/** ***FIN Eventos Grillas****** */
 
 							/** ***Calculos****** */
@@ -902,30 +912,37 @@ angular
 							}*/
 
 							function calculateSaldosTotales() {
+								console.log ("CALCULA SALDOS")
 								var producto;
 								
 								var total = 0;
 								var totalPrecioLista = 0;
-
+								console.log ("Items Factura ",$scope.gridOptionsFactura.rowData)
 								for (producto in $scope.gridOptionsFactura.rowData) {
-									total = total
-											+ (parseInt($scope.gridOptionsFactura.rowData[producto].canMaxima) * parseInt(getNumber($scope.gridOptionsFactura.rowData[producto].precio)));
+									console.log ("Total",total)
+									total += (parseFloat($scope.gridOptionsFactura.rowData[producto].canMaxima) * parseFloat(getNumber($scope.gridOptionsFactura.rowData[producto].precio)));
+									console.log ("Item",$scope.gridOptionsFactura.rowData[producto])
+									console.log ("Total",total)
 								}
+								
 								//Seteo el total del precio de lista
 								setTotalPrecioLista(total);
-								
+								console.log ("SETEO TOTAL PRECIO LISTA",total)
 								//Sumo los intereses al subtotal para obtener el total
 								var totalFact = sumoInteresTarjetaAlTotalFactura(total);
 								setTotal(totalFact);
+								console.log ("SETEO TOTAL",totalFact)
 
 								/* Impuestos y Subtotal */
 								//Agrego que el subtotal sea el total menos el IVA
 								var ivaTotal = calculaIva(totalFact);
 								setIvaInscriptoTotal(ivaTotal)
+								console.log ("IVA TOTAL",totalFact)
 
 								//Calculo el sub total
 								var subTotal = (totalFact - ivaTotal);
 								setSubTotal(subTotal);
+								console.log ("SUB TOTAL",totalFact)
 								
 							}
 							
@@ -1065,12 +1082,11 @@ angular
 								factura = getHeader()
 								factura.lineas = getLineas();
 								factura.pagos = getPagos();
-								console.log("FAC", factura)
 
 								$
 										.ajax({
 											type : 'POST',
-											url : 'http://localhost:8080/DanmarWeb/Documento/save',
+											url : 'documento/save',
 											contentType : "application/json",
 											data : JSON.stringify(factura),
 											dataType : 'json',
@@ -1091,7 +1107,7 @@ angular
 								$
 										.ajax({
 											type : 'POST',
-											url : 'http://localhost:8080/DanmarWeb/documento/getAlicuotaCategoriaIva',
+											url : 'documento/getAlicuotaCategoriaIva',
 											contentType : "application/json",
 											data : JSON
 													.stringify(categoria),
@@ -1124,15 +1140,12 @@ angular
 
 							}
 							function calculateInteresTotalCuotas() {
-								console.log("CUOTACHANGE",
-										$scope.cuotaSeleccionada)
 
 								if ($scope.cuotaSeleccionada != undefined &&  $scope.recargoTC != "" ) {
 									var montoTotal = calculateInteresTC($scope.cuotaSeleccionada.coeficiente,$scope.montoTC,parseFloat($scope.recargoTC))
 
 									$scope.interesTC = (montoTotal).toFixed(2);
 								}
-								console.log("INTEREs", $scope.interesTC)
 								obtenerTotales();
 								
 							}
@@ -1151,8 +1164,6 @@ angular
 
 							function obtenerCuotasTarjeta() {
 								// $scope.interesTarjeta=0;
-								console.log("TARJETA CHANGE ",
-										$scope.selectTarjetaCredito.codigo);
 								
 									resetSelectedInfoTC();
 									var tarjeta = new Object()
@@ -1165,7 +1176,7 @@ angular
 									$
 											.ajax({
 												type : 'POST',
-												url : 'http://localhost:8080/DanmarWeb/tarjeta/getCuotas',
+												url : 'tarjeta/getCuotas',
 												contentType : "application/json",
 												data : JSON.stringify(tarjeta),
 												dataType : 'json',
@@ -1195,7 +1206,7 @@ angular
 								$
 										.ajax({
 											type : 'POST',
-											url : 'http://localhost:8080/DanmarWeb/tarjeta/getTarjetas',
+											url : 'tarjeta/getTarjetas',
 											contentType : "application/json",
 											dataType : 'json',
 
@@ -1222,7 +1233,7 @@ angular
 								$
 										.ajax({
 											type : 'POST',
-											url : 'http://localhost:8080/DanmarWeb/tarjeta/getAlicuota',
+											url : 'tarjeta/getAlicuota',
 											contentType : "application/json",
 											data : JSON.stringify(tarjeta),
 											dataType : 'json',

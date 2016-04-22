@@ -58,7 +58,8 @@ public class DocumentoEncabezadoDaoImpl extends GenericDaoImpl<DocumentoEncabeza
 		ct.setFirstResult( (filtro.getPagina() -1 ) * filtro.getCantRegistros());
 		ct.setMaxResults(filtro.getCantRegistros());
 		if (StringUtils.isBlank(filtro.getOrderBy()) ){
-			ct.addOrder(Order.asc("fecha"));	
+			ct.addOrder(Order.desc("fecha"));	
+			ct.addOrder(Order.desc("id"));
 		} else {
 			ct.addOrder(Order.asc(filtro.getOrderBy()));
 		}

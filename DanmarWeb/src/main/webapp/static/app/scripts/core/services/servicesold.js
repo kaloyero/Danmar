@@ -39,7 +39,7 @@ angular
   }])
     .factory('ArticuloaService',  function ($resource) {
     'use strict';
-    return $resource('http://localhost:8080/DanmarWeb/articulo/findAll', {}, {
+    return $resource('articulo/findAll', {}, {
         query: { method: 'GET', isArray: true },
        save: { method: 'POST'},
 	 update: { method: 'PUT'}

@@ -107,7 +107,7 @@ var columnFacturas = [
 										var pagina = (params.endRow / pageSize);
 										$.ajax({
 													type : 'POST',
-													url : 'http://localhost:8080/DanmarWeb/Documento/getFacturaAll',
+													url : 'documento/getFacturaAll',
 													contentType : "application/json",
 													data : JSON
 															.stringify(getFiltroBusqueda(
@@ -168,7 +168,7 @@ var columnFacturas = [
 
         	$.ajax({
                             type: 'POST',
-                            url:'http://localhost:8080/DanmarWeb/Documento/getFacturaAll',
+                            url:'documento/getFacturaAll',
                             contentType : "application/json",
                 			data :  JSON.stringify(filtro),
                 		    dataType: 'json',
@@ -190,7 +190,7 @@ var columnFacturas = [
 
 					$.ajax({
                             type: 'POST',
-                            url:'http://localhost:8080/DanmarWeb/Documento/getFactura',
+                            url:'documento/getFactura',
                             contentType : "application/json",
                 			data :  JSON.stringify(codigo),
                 		    dataType: 'json',
