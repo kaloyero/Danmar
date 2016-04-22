@@ -25,6 +25,8 @@ public class DocumentoEncabezadoForm implements Form{
 	private String  tipoDocumentoCodigo;
 	private String  tipoDocumentoNombre;
 	private String  clienteNro;
+	private String  nombreConsumidorFinal;
+	private String  documentoConsumidorFinal;
 	private String  clienteNombre;
 	private String  clienteCategoria;
 	private String  clienteCategoriaNombre;
@@ -63,6 +65,19 @@ public class DocumentoEncabezadoForm implements Form{
 	}
 	public void setLetra(String letra) {
 		this.letra = letra;
+	}
+	
+	public String getNombreConsumidorFinal() {
+		return nombreConsumidorFinal;
+	}
+	public void setNombreConsumidorFinal(String nombreConsumidorFinal) {
+		this.nombreConsumidorFinal = nombreConsumidorFinal;
+	}
+	public String getDocumentoConsumidorFinal() {
+		return documentoConsumidorFinal;
+	}
+	public void setDocumentoConsumidorFinal(String documentoConsumidorFinal) {
+		this.documentoConsumidorFinal = documentoConsumidorFinal;
 	}
 	public String getSucursalId() {
 		return sucursalId;

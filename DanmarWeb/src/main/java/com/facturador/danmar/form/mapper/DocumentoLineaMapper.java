@@ -19,7 +19,8 @@ public class DocumentoLineaMapper extends MapperImpl<DocumentoLinea,DocumentoLin
 			ent.setId(form.getId());
 			ent.setArticuloId(form.getArticuloId());
 			ent.setDescripcion(form.getDescripcion());
-			ent.setCantidad(ConvertionUtil.IntValueOf(form.getCantidad()));
+			//ent.setCantidad(ConvertionUtil.IntValueOf(form.getCantidad()));
+			ent.setCantidad(ConvertionUtil.DouValueOf(form.getCantidad()));
 			ent.setPrecio(ConvertionUtil.DouValueOf(form.getPrecio()));
 			ent.setPrecioFinal(ConvertionUtil.DouValueOf(form.getPrecioFinal()));
 			ent.setDocumentoEncabezadoId((form.getEncabezadoId()));

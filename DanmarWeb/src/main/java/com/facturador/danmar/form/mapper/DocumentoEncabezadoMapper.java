@@ -81,6 +81,9 @@ public class DocumentoEncabezadoMapper extends MapperImpl<DocumentoEncabezado,Do
 			form.setClienteCategoria(ConvertionUtil.StrValueOf(ent.getClienteCategoria()));
 			form.setClienteCategoriaNombre(CategoriaIvaEnum.getCategoriaIvaByCodigo(ent.getClienteCategoria()));
 //			form.setUsuarioActualizaId(ConvertionUtil.StrValueOf(ent.getUsuarioActualizaId()));
+			form.setNombreConsumidorFinal(ent.getNombreConsumidorFinal());
+			form.setDocumentoConsumidorFinal(ent.getDocumentoConsumidorFinal());
+
 //			form.setUsuarioCreadorId(ConvertionUtil.StrValueOf(ent.getUsuarioCreadorId()));
 			
 		}

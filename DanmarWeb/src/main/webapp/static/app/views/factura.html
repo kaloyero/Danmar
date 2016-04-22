@@ -13,7 +13,7 @@
 					<div class="panel-body">
 						<panel-controls class="ng-scope"> </panel-controls>
 						<div class="panel  panel-primary ng-scope">
-							<div class="panel-body">
+							<div class="panel-body" style="background-color: rgba(240, 147, 78, 0.23)">
 								<div class="row">
 									<div class="form-group col-md-12">
 										<label class="col-sm-2 control-label">Tipo de Documento</label>
@@ -138,7 +138,7 @@
 											<label class="col-md-4 control-label"> <strong>Cuit:</strong>
 											</label>
 											<div class="col-md-8">
-												<span class="label label-default form-control">{{clienteSeleccionadoCuit}}</span>
+												<span class="label label-default form-control">{{clienteSeleccionadoCuit.substring(0,2)}}-{{clienteSeleccionadoCuit.substring(2,10)}}-{{clienteSeleccionadoCuit.substring(10,12)}}</span>
 											</div>
 										</div>
 										<div class="form-group col-md-6">
@@ -222,7 +222,7 @@
 													<span class="input-group-addon"><strong>$</strong></span> <input
 														tabindex="5" type="number" ng-disabled="subTotal==0"
 														maxlength="10"
-														class="form-control" ng-model="montoEfectivo"
+														class="form-control" ng-model="montoEfectivo"  step="any"
 														ng-change="changeEfectivo()"
 														ng-class="{botonFocus: focusedEfectivo}"
 														ng-init="focusedEfectivo = false"
@@ -297,10 +297,30 @@
 														ng-focus="focusedCupon = true"
 														ng-blur="focusedCupon = false" 
 														tabindex="8" type="text" maxlength="19"
-														class="form-control" ng-model="cuponTC">
+														class="form-control" ng-model="cuponTC" ng-disabled="cuotaSeleccionada==undefined">
 												</div>
 											</div>
-										</div>										
+										</div>
+									  <div class="form-group col-md-6">
+											<label class="col-sm-2 control-label"><strong>Nombre</strong></label>
+											<div class="col-sm-10">
+												<div class="input-group">
+													<input ng-disabled="checkClient()"
+														tabindex="8" type="text" maxlength="19"
+														class="form-control" ng-model="nombreConsumidorFinal">
+												</div>
+											</div>
+											</div>
+                                  <div class="form-group col-md-6">
+											<label class="col-sm-2 control-label"><strong>Dni</strong></label>
+											<div class="col-sm-10">
+												<div class="input-group">
+													<input ng-disabled="checkClient()"
+														tabindex="8" type="text" maxlength="19"
+														class="form-control" ng-model="documentoConsumidorFinal">
+												</div>
+											</div>
+										</div>											
 
 
 
@@ -488,6 +508,19 @@
 										</form>
 									</div>
 								</div>
+								<div class="col-xs-12 col-md-5">
+									<div class="row2">
+										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
+											<div class="form-group">
+												<label class="col-md-3 control-label">
+													<strong>Numero Cuit:</strong>
+												</label>
+												<div class="col-md-9">
+													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.cuit"></div>
+											</div>
+										</form>
+									</div>
+								</div>
 								<div class="col-xs-12 col-md-2">
 									<div class="row2">
 										<!-- <button class="btn btn-block" type="button" ng-click="busquedaCliente()" > -->
@@ -538,10 +571,10 @@
 										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
 											<div class="form-group">
 												<label class="col-md-5 control-label">
-													<strong>CC1:</strong>
+													<strong>Codigo de Proveedores:</strong>
 												</label>
 												<div class="col-md-7">
-													<input  tabindex="11" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1"></div>
+													<input  tabindex="11" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo1" id="cc1"></div>
 											</div>
 										</form>
 									</div>

@@ -107,7 +107,7 @@ var columnFacturas = [
 										var pagina = (params.endRow / pageSize);
 										$.ajax({
 													type : 'POST',
-													url : 'documento/getFacturaAll',
+													url : 'Documento/getFacturaAll',
 													contentType : "application/json",
 													data : JSON
 															.stringify(getFiltroBusqueda(
@@ -165,14 +165,12 @@ var columnFacturas = [
 		}
 		/*
         function callServiceBusqueda(filtro){
-
         	$.ajax({
                             type: 'POST',
-                            url:'documento/getFacturaAll',
+                            url:'Documento/getFacturaAll',
                             contentType : "application/json",
                 			data :  JSON.stringify(filtro),
                 		    dataType: 'json',
-
                             success: function(data) {
                             	actualizarPantalla();
                             	console.log(data)
@@ -190,7 +188,7 @@ var columnFacturas = [
 
 					$.ajax({
                             type: 'POST',
-                            url:'documento/getFactura',
+                            url:'Documento/getFactura',
                             contentType : "application/json",
                 			data :  JSON.stringify(codigo),
                 		    dataType: 'json',
@@ -261,6 +259,10 @@ var columnFacturas = [
 			$scope.viewTarjetaMonto = data.pagoTarjetaMonto;
 			$scope.viewTarjetaCuotas = data.pagoTarjetaCuotas;
 			$scope.tarjetaMontoInteres = data.pagoTarjetaMontoConInteres;
+		   
+		   $scope.nombreCliente = data.nombreConsumidorFinal;
+			$scope.documentoCliente = data.documentoConsumidorFinal;
+
 			$scope.viewTarjetaCupon = data.pagoTarjetaCupon;
 			$scope.viewClienteNombre = data.clienteNombre ;
 			$scope.viewClienteCategoria = data.clienteCategoria ;

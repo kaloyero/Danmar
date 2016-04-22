@@ -35,7 +35,7 @@ public enum CategoriaIvaEnum {
     
     public static CategoriaIvaEnum getCategoriaIvaObjByCodigo(Integer codigo){
         if (codigo == null){
-        	return RESPONSABLE_INSCRIPTO;
+        	return CONSUMIDOR_FINAL;
         }
     	String buscar = String.valueOf(codigo);
         CategoriaIvaEnum categoria = CONSUMIDOR_FINAL; 

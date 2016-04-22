@@ -44,7 +44,16 @@ public class ArticuloForm {
 	private String 	fVarmin	;
 	private String fVarmay;
 	private String 	visible;
+	private String 	precioFinal;
 	
+	
+	
+	public String getPrecioFinal() {
+		return precioFinal;
+	}
+	public void setPrecioFinal(String precioFinal) {
+		this.precioFinal = precioFinal;
+	}
 	public String getCodigo() {
 		return codigo;
 	}

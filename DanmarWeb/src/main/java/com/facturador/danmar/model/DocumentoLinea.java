@@ -18,7 +18,7 @@ public class DocumentoLinea {
 	private int id;
 
 	@Column(name = "cantidad")
-	private int cantidad	;
+	private Double cantidad	;
 	@Column(name = "precio")
 	private Double precio;
 	@Column(name = "IdDocumentoEncabezado")
@@ -44,10 +44,10 @@ public class DocumentoLinea {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getCantidad() {
+	public Double getCantidad() {
 		return cantidad;
 	}
-	public void setCantidad(int cantidad) {
+	public void setCantidad(Double cantidad) {
 		this.cantidad = cantidad;
 	}
 	public Double getPrecio() {

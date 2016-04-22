@@ -5501,6 +5501,7 @@ var ag;
                 this.focusedCell = { rowIndex: rowIndex, colIndex: colIndex, node: this.rowModel.getVirtualRow(rowIndex), colDef: colDef };
                 // this puts the browser focus on the cell (so it gets key presses)
                 if (forceBrowserFocus) {
+					console.log("FOCUSSS")
                     eCell.focus();
                 }
                 this.eventService.dispatchEvent(grid.Events.EVENT_CELL_FOCUSED, this.focusedCell);
