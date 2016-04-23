@@ -261,6 +261,7 @@ angular
 
 								$scope.onKeyCliente = showClientePopup;
 								$scope.onKeyArticulo = showArticuloPopup;
+							    $scope.borrarArticulosTodos = borrarArticulosTodos;
 								$scope.onKeySelectArticulo = showSelectArticuloPopup;
 								$scope.guardarFactura = guardarFactura;
 								$scope.borrarFila = borrarFila;
@@ -1448,7 +1449,7 @@ angular
 							
 							function seleccionConsumidorFinal() {
 								console.log("ENTRA CONSFINAL",$scope.clienteSeleccionadoRazon)
-								if ($scope.clienteSeleccionadoRazon==undefined){
+								if ($scope.clienteSeleccionadoRazon==undefined ||$scope.clienteSeleccionadoRazon==null ||$scope.clienteSeleccionadoRazon==""){
 									$scope.chkConsumidorFinal=true
 								     return false;
 								}
@@ -1507,7 +1508,26 @@ angular
 							}*/
 
 							
+					function borrarArticulosTodos() {
+								$scope.gridOptionsProductos.api
+										.forEachNode(function(node) {
 
+												$scope.gridOptionsProductos.api.selectionController
+														.deselectNode(node);
+										});
+								$scope.gridOptionsFactura.rowData.splice(0);
+								
+								var newArray = $scope.gridOptionsFactura.rowData
+								$scope.gridOptionsFactura.api
+										.setRowData(newArray); // Investigar
+																// refrescar y
+																// no hacer esto								
+								
+								cleanTotales()
+								calculateTotales()
+								recalculateGridProductos()
+							
+							}
 		
 		
 
