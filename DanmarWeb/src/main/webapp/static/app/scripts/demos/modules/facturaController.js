@@ -109,12 +109,12 @@ angular
 								width : 70
 							}, {
 								headerName : "Articulo",
-								field : "articulo",
-								width : 300
+								field : "articulo"
 							}, {
 								headerName : "Precio",
 								field : "precio",
-								width : 100
+								width : 100,
+								cellClass : "text-right"
 							}
 
 							];
@@ -157,7 +157,8 @@ angular
 							        {
 										headerName : "Articulo",
 										field : "articulo",
-										width : 250
+										width : 400,
+										cellClass : "text-right"
 									},
 									{
 										headerName : "Qt",
@@ -169,12 +170,14 @@ angular
 										headerName : "Precio",
 										field : "precio",
 										width : 90,
-										editable : true
+										editable : true,
+										cellClass : "text-right"
 									},
 									{
 										headerName : "Precio Final",
 										field : "precioFinal",
 										width : 120,
+										cellClass : "text-right",
 										valueGetter : 'ctx.calcularPrecioFinal(ctx.getNumberFrmt(getValue("precioLp")),getValue("canMaxima"))',
 	
 									},
@@ -194,12 +197,14 @@ angular
 										headerName : "Total",
 										field: "precioLp",
 										valueGetter : 'ctx.totalReal(ctx.getNumberFrmt(getValue("precio")),getValue("canMaxima"))',
-										width : 90
+										width : 90,
+										cellClass : "text-right"
 									},
 									{
 										headerName : "",
 										field : "total",
 										width : 30,
+										cellClass : "text-right",
 										cellRenderer : function(params) {
 											return '<img ng-click="borrarFila('
 													+ params.rowIndex
@@ -774,8 +779,8 @@ angular
 								$scope.TotalFact = 0
 								$scope.subTotal = 0
 								setEfectivo();
-								$scope.cuotaSeleccionada = undefined
-								cleanClienteData()
+								$scope.cuotaSeleccionada = undefined;
+								cleanClienteData();
 
 							}
 							function cleanClienteData(){
@@ -1509,6 +1514,7 @@ angular
 
 							
 					function borrarArticulosTodos() {
+					
 								$scope.gridOptionsProductos.api
 										.forEachNode(function(node) {
 

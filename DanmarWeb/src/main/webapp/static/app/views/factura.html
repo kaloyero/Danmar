@@ -13,20 +13,10 @@
 					<div class="panel-body">
 						<panel-controls class="ng-scope"> </panel-controls>
 						<div class="panel  panel-primary ng-scope">
-							<div class="panel-body" style="background-color: rgba(80, 78, 240, 0.23)">
-								<div class="row">
-									<div class="form-group col-md-12">
-										<label class="col-sm-2 control-label">Tipo de Documento</label>
-										<div class="col-sm-10">
-											<div class="input-group col-md-10">
-												<select class="ng-binding">
-													<option><h2 class="ng-binding">Factura</h2>
-													</option>
-												</select>
-											</div>
-										</div>
-									</div>	
-									<div class="col-xs-2">
+							<div class="panel-body" style="background-color: rgba(38, 133, 238, 0.47);">
+								<div class="row" style="margin-top:20px;">
+
+									<div class="col-xs-2" style="margin-left:10px">
 										<a class="info-tiles tiles-midnightblue"
 											data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
 											<div class="tiles-heading">
@@ -44,19 +34,30 @@
 									<div class="col-md-8">
 										<div class="form-horizontal row-border ng-scope">
 											<div class="form-group">
+									
 												<div class="row">
-													<label for="#" class="col-md-2 control-label"
-														style="text-align: left !important;"> <strong>Fecha:</strong>
+													<label for="#" class="col-md-4 control-label"> <strong>Tipo de Documento:</strong>
 													</label>
-													<div class="col-md-10">
-														<div class="input-group">{{fechaFactura |
+													<div class="input-group col-md-8" >
+														<select class="ng-binding form-control" style="margin: 0px 0px 5px 10px; width:70%; border-radius:3px;">
+															<option><h2 class="ng-binding">Factura</h2>
+															</option>
+														</select>
+													</div>
+												</div>	
+											
+												<div class="row">
+													<label for="#" class="col-md-4 control-label"> <strong>Fecha:</strong>
+													</label>
+													<div class="col-md-8">
+														<div class="input-group" style="margin-top:3px; margin-bottom:5px;">{{fechaFactura |
 															date:'dd-MM-yyyy'}}</div>
 													</div>
 												</div>
 												<div class="row">
-													<span class="col-md-2"> <strong>Notas:</strong>
-													</span>
-													<div class="col-sm-10">
+													<label for="#" class="col-md-4 control-label"> <strong>Notas:</strong>
+													</label>
+													<div class="col-sm-8">
 														<textarea tabindex="1" class="form-control"
 															ng-model="facturaNotas"
 															ng-class="{botonFocus: focusedNotas}"
@@ -66,15 +67,16 @@
 													</div>
 												</div>
 												<div class="row" style="margin-top: 5px;">
-													<span class="col-md-2"> <strong>Producto:</strong>
-													</span>
-													<div class="col-md-8">
+													<label for="#" class="col-md-4 control-label"> <strong>Busqueda de Producto:</strong>
+													</label>
+													<div class="col-md-6">
 														<input ng-class="{botonFocus: focusedBusqueda}"
+															style="height:36px;"
 															ng-init="focusedBusqueda = false"
 															ng-focus="focusedBusqueda = true"
 															ng-blur="focusedBusqueda = false" tabindex="2"
 															type="text" class="form-control" id="busquedaProd"
-															placeholder="Busqueda..."
+															placeholder="Ingrese el articulo a buscar"
 															ng-keypress="onKeyArticulo($event);"
 															ng-model="articuloSeleccionadoBuscar" autofocus>
 													</div>
@@ -93,7 +95,8 @@
 								</div>
 								<div tabindex="-1" ng-focus="pruebaFocusFactura()"
 									ag-grid="gridOptionsFactura" id="facturaGrid" class="ag-fresh"
-									style="height: 400px; margin-top: 24px;"></div>
+									style="height: 400px; margin-top: 24px;"
+									"></div>
 
 							</div>
 						</div>
@@ -185,10 +188,13 @@
 				</panel>
 			</div>
 
+			
 			<div class="col-xs-12 col-md-4">
 				<panel data-heading="Totales" panel-class="panel-midnightblue"
 					class="ng-isolate-scope">
 				<div class="panel  panel-midnightblue">
+					<div class="panel-heading">
+					</div>				
 					<div class="panel-body" ng-transclude="">
 						<div class="col-xs-3">
 							<a class="info-tiles tiles-green"
@@ -269,13 +275,15 @@
 											</div>
 										</div>-->
 										<div class="form-group col-md-12">
-											<label class="col-sm-2 control-label"><strong>Efectivo</strong></label>
+											<label class="col-sm-2 control-label" ><strong>Efectivo</strong></label>
 											<div class="col-sm-4">
 												<div class="input-group">
 													<span class="input-group-addon"><strong>$</strong></span> <input
 														tabindex="5" type="number" ng-disabled="subTotal==0"
 														maxlength="10"
-														class="form-control" ng-model="montoEfectivo"  step="any"
+														class="form-control" ng-model="montoEfectivo" 
+														style="text-align:right;"
+														step="any"
 														ng-change="changeEfectivo()"
 														ng-class="{botonFocus: focusedEfectivo}"
 														ng-init="focusedEfectivo = false"
@@ -289,7 +297,7 @@
 											<div class="col-sm-4">
 												<div class="input-group">
 													<span class="input-group-addon"><strong>$</strong></span> <input type="text" 
-														disabled=true class="form-control" ng-model="montoTC">
+														style="text-align:right;" disabled=true class="form-control" ng-model="montoTC">
 												</div>
 											</div>											
 										</div>	
@@ -334,10 +342,10 @@
 											</div>
 										</div>										
 										<div class="form-group col-md-6">
-											<label class="col-sm-4 control-label"><strong>Interes</strong></label>
+											<label class="col-sm-4 control-label" alt=" Monto Final con Tarjeta de Credito"><strong>Monto TC</strong></label>
 											<div class="col-sm-8">
 												<div class="input-group">
-													<span class="input-group-addon">{{interesTC}}</span>
+													<span class="input-group-addon" style="text-align:right;" alt=" Monto Final con Tarjeta de Credito">{{interesTC}}</span>
 												</div>
 											</div>
 										</div>		
@@ -421,10 +429,10 @@
 									<div class="row2">
 										<form action="" class="form-horizontal row-border2 ng-pristine ng-valid">
 											<div class="form-group">
-												<label class="col-md-3 control-label">
+												<label class="col-md-4 control-label">
 													<strong>Razon Social:</strong>
 												</label>
-												<div class="col-md-9">
+												<div class="col-md-8">
 													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.razonSocial"></div>
 											</div>
 										</form>
@@ -443,20 +451,20 @@
 										</form>
 									</div>
 								</div>
-								<div class="col-xs-12 col-md-2">
-									<div class="row2">
-										<!-- <button class="btn btn-block" type="button" ng-click="busquedaCliente()" > -->
-										<button class="btn btn-block" type="button" ng-click="busquedaCliente()" >
+								<div class="col-xs-12 col-md-1">
+									<div class="form-group">
+										<label class="col-md-3 control-label">
+										</label>
+										<div class="col-md-9">
+											<button  tabindex="15" type="button" class="btn btn-block btn-primary"	ng-click="busquedaCliente()">
 											<i class="fa fa-search"></i>
-											<span class="">Buscar</span>
 										</button>
-									</div>
+									</div>										
 								</div>
+		
 							</div>
-							<div class="row2">
-
-
-							<div class="row2">
+							
+							<div class="row2" style="margin-top:20px;">
 								<div class="table-responsive">
 									<div tabindex="0" 
 											ag-grid="gridOptionsCliente"
@@ -545,7 +553,7 @@
 											ng-click="externalFilterChanged()">
 											<i class="fa fa-search"></i>
 										</button>
-						    	</div>
+								</div>
 
 
 							</div>
