@@ -157,7 +157,7 @@ angular
 							        {
 										headerName : "Articulo",
 										field : "articulo",
-										width : 400,
+										width : 300,
 										cellClass : "text-right"
 									},
 									{
