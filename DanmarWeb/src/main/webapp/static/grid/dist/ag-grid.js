@@ -5274,7 +5274,6 @@ var ag;
             };
             // public - removes the group rows and then redraws them again
             RowRenderer.prototype.refreshGroupRows = function () {
-            	console.log("REFRESH")
                 // find all the group rows
                 var rowsToRemove = [];
                 var that = this;
@@ -5501,7 +5500,6 @@ var ag;
                 this.focusedCell = { rowIndex: rowIndex, colIndex: colIndex, node: this.rowModel.getVirtualRow(rowIndex), colDef: colDef };
                 // this puts the browser focus on the cell (so it gets key presses)
                 if (forceBrowserFocus) {
-					console.log("FOCUSSS")
                     eCell.focus();
                 }
                 this.eventService.dispatchEvent(grid.Events.EVENT_CELL_FOCUSED, this.focusedCell);
@@ -7268,7 +7266,6 @@ var ag;
                 this.reset();
             };
             VirtualPageRowController.prototype.reset = function () {
-            	console.log("reset")
 
                 // see if datasource knows how many rows there are
                 if (typeof this.datasource.rowCount === 'number' && this.datasource.rowCount >= 0) {
@@ -7375,7 +7372,6 @@ var ag;
                 }
             };
             VirtualPageRowController.prototype.isPageAlreadyLoading = function (pageNumber) {
-            	console.log("isPage")
 
                 var result = this.pageLoadsInProgress.indexOf(pageNumber) >= 0 || this.pageLoadsQueued.indexOf(pageNumber) >= 0;
                 return result;
@@ -7384,13 +7380,11 @@ var ag;
                 // if we already tried to load this page, then ignore the request,
                 // otherwise server would be hit 50 times just to display one page, the
                 // first row to find the page missing is enough.
-            	console.log("doLoadOrQueue",pageNumber)
                 if (this.isPageAlreadyLoading(pageNumber)) {
                     return;
                 }
                 // try the page load - if not already doing a load, then we can go ahead
                 if (this.pageLoadsInProgress.length < this.maxConcurrentDatasourceRequests) {
-                	console.log("PAGE NUMBER",pageNumber)
                     // go ahead, load the page
                     this.loadPage(pageNumber);
                 }
@@ -7400,7 +7394,6 @@ var ag;
                 }
             };
             VirtualPageRowController.prototype.addToQueueAndPurgeQueue = function (pageNumber) {
-            	console.log("addToQueueAndPurgeQueue")
 
                 if (logging) {
                     console.log('queueing ' + pageNumber + ' - ' + this.pageLoadsQueued);
@@ -7420,7 +7413,6 @@ var ag;
                 }
             };
             VirtualPageRowController.prototype.findLeastRecentlyAccessedPage = function (pageIndexes) {
-            	console.log("findLeastRecentlyAccessedPage")
 
                 var youngestPageIndex = -1;
                 var youngestPageAccessTime = Number.MAX_VALUE;
@@ -7435,7 +7427,6 @@ var ag;
                 return youngestPageIndex;
             };
             VirtualPageRowController.prototype.checkQueueForNextLoad = function () {
-            	console.log("checkQueueForNextLoad")
 
                 if (this.pageLoadsQueued.length > 0) {
                     // take from the front of the queue
@@ -7448,7 +7439,6 @@ var ag;
                 }
             };
             VirtualPageRowController.prototype.loadPage = function (pageNumber) {
-            	console.log("loadPage")
 
                 this.pageLoadsInProgress.push(pageNumber);
                 var startRow = pageNumber * this.pageSize;
@@ -7481,7 +7471,6 @@ var ag;
                 function successCallback(rows, lastRowIndex,focusX,focusY) {
 					var focusedCellRow=-1
 					var focusedCellColumn=-1
-					console.log("RES1",(that.rowRenderer.getFocusedCell()!=null && that.rowRenderer.getFocusedCell()!='undefined'))
 
 					if (that.rowRenderer.getFocusedCell()!=null && that.rowRenderer.getFocusedCell()!='undefined'){
 					   focusedCellRow=that.rowRenderer.getFocusedCell()['rowIndex']
@@ -7495,12 +7484,9 @@ var ag;
                         return;
                     }
                     that.pageLoaded(pageNumber, rows, lastRowIndex);
-					console.log("RES2",focusedCellRow,focusedCellColumn,(focusedCellRow!="" && focusedCellColumn!=""))
 				    if (focusedCellRow!=-1 && focusedCellColumn!=-1){
-						console.log("PONEEE",focusedCellRow,focusedCellColumn)
 						that.rowRenderer.setFocusedCell(focusedCellRow, focusedCellColumn);
 					}
-					console.log("SUCCESSVIRTUA")
                 }
                 function failCallback() {
                     if (that.requestIsDaemon(datasourceVersionCopy)) {
@@ -7524,7 +7510,6 @@ var ag;
                 // for LRU cache, track when this page was last hit
                 this.pageAccessTimes[pageNumber] = this.accessTime++;
                 if (!page) {
-                	console.log("VIRTUAL LLAMA A LOAD OR",page)
                     this.doLoadOrQueue(pageNumber);
                     // return back an empty row, so table can at least render empty cells
                     return {
@@ -7619,7 +7604,6 @@ var ag;
                 this.reset();
             };
             PaginationController.prototype.reset = function () {
-            	console.log("RESET")
                 // copy pageSize, to guard against it changing the the datasource between calls
                 if (this.datasource.pageSize && typeof this.datasource.pageSize !== 'number') {
                     console.warn('datasource.pageSize should be a number');
@@ -7657,7 +7641,6 @@ var ag;
                 this.totalPages = Math.floor((this.rowCount - 1) / this.pageSize) + 1;
             };
             PaginationController.prototype.pageLoaded = function (rows, lastRowIndex) {
-            	console.log("PAGE LOADED")
                 var firstId = this.currentPage * this.pageSize;
                 this.angularGrid.setRowData(rows, firstId);
                 // see if we hit the last row
@@ -10430,12 +10413,10 @@ var ag;
                 this.gridOptions = grid.ComponentUtil.copyAttributesToGridOptions(this.gridOptions, this);
                 var nativeElement = this.elementDef.nativeElement;
                 var globalEventLister = this.globalEventListener.bind(this);
-                console.log("ANTES",this.gridOptions)
                 this._agGrid = new ag.grid.Grid(nativeElement, this.gridOptions, globalEventLister);
                 this.api = this.gridOptions.api;
                 this.columnApi = this.gridOptions.columnApi;
                 this._initialised = true;
-                console.log("DES",this.gridOptions)
 
             };
             AgGridNg2.prototype.onChanges = function (changes) {

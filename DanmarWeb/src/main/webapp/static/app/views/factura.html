@@ -145,7 +145,7 @@
 											</div>
 										</div>
 										<div class="form-group col-md-6">
-											<label class="col-md-4 control-label"> <strong>Categoria:</strong>
+											<label class="col-md-4 control-label"> <strong>Categoria IVA:</strong>
 											</label>
 											<div class="col-md-8">
 												<span class="label label-default control-label">{{clienteSeleccionadoCategoria}}</span>
@@ -203,7 +203,7 @@
 									<div class="text-center ng-binding">Sub Total</div>
 								</div>
 								<div class="tiles-body" style="font-size: 12px;">
-									<div class="text-center ng-binding">$ {{subTotal}}</div>
+									<div class="text-center ng-binding">{{subTotal | currency:"$ "}}</div>
 								</div>
 							</a>
 						</div>
@@ -212,10 +212,10 @@
 							<a class="info-tiles tiles-green"
 								data="{ title: 'Iva Inscripto', href: '#/ui-tiles',text: '9', color: 'midnightblue'}">
 								<div class="tiles-heading">
-									<div class="text-center ng-binding">Iva ({{ivaInscripto}}%)</div>
+									<div class="text-center ng-binding">Iva ({{ivaInscripto }}%)</div>
 								</div>
 								<div class="tiles-body" style="font-size: 12px;">
-									<div class="text-center ng-binding">$ {{ivaInscriptoTotal}} </div>
+									<div class="text-center ng-binding">{{ivaInscriptoTotal | currency:"$ "}} </div>
 								</div>
 							</a>
 						</div>
@@ -227,7 +227,7 @@
 									<div class="text-center ng-binding">Total</div>
 								</div>
 								<div class="tiles-body" style="font-size: 12px;">
-									<div class="text-center ng-binding">$ {{TotalFact}}</div>
+									<div class="text-center ng-binding">{{TotalFact | currency:"$ "}}</div>
 								</div>
 							</a>
 						</div>
@@ -235,7 +235,7 @@
 					</div>
 					<div class="pull-right">
 						<button ng-class="{botonFocus: focused}" ng-init="focused = false"
-							ng-focus="focused = true" ng-blur="focused = false" tabindex="8"
+							ng-focus="focused = true" ng-blur="focused = false" tabindex="11"
 							class="btn btn-primary" ng-click="guardarFactura()"
 							ng-disabled="estaDeshabilitado()"
 							style="margin: 0px 30px 5px 0px !important;">Guardar
@@ -365,7 +365,7 @@
 											<div class="col-sm-8">
 												<div class="input-group">
 													<input ng-disabled="checkClient()"
-														tabindex="8" type="text" maxlength="19"
+														tabindex="9" type="text" maxlength="19"
 														class="form-control" ng-model="documentoConsumidorFinal">
 												</div>
 											</div>
@@ -379,7 +379,7 @@
 														ng-init="focusedCupon = false"
 														ng-focus="focusedCupon = true"
 														ng-blur="focusedCupon = false" 
-														tabindex="8" type="text" maxlength="19"
+														tabindex="10" type="text" maxlength="19"
 														class="form-control" ng-model="cuponTC" ng-disabled="cuotaSeleccionada==undefined">
 												</div>
 											</div>
@@ -422,7 +422,7 @@
 													<strong>Codigo:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.codigoCliente"></div>
+													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.codigoCliente" ng-keypress="busquedaCliente()"></div>
 											</div>
 										</form>
 									</div>
@@ -435,7 +435,7 @@
 													<strong>Razon Social:</strong>
 												</label>
 												<div class="col-md-8">
-													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.razonSocial"></div>
+													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.razonSocial" ng-keypress="busquedaCliente()"></div>
 											</div>
 										</form>
 									</div>
@@ -448,7 +448,7 @@
 													<strong>Numero Cuit:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.cuit"></div>
+													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.cuit" ng-keypress="busquedaCliente()"></div>
 											</div>
 										</form>
 									</div>
@@ -474,8 +474,9 @@
 								<div class="table-responsive">
 									<div tabindex="0" 
 											ag-grid="gridOptionsCliente"
-											class="ag-fresh" style="height: 400px; ">
+											class="ag-fresh" style="height: 400px;" ng-keypress="seleccionClienteCambiada()" id="clientesGrid">
 									</div>
+
 								</div>
 							</div>
 						</div>
@@ -508,7 +509,7 @@
 													<strong>Codigo de Proveedores:</strong>
 												</label>
 												<div class="col-md-5">
-													<input  tabindex="11" type="text" class="form-control" placeholder="" ng-model="data.codigo1" id="cc1"></div>
+													<input  ng-keypress="externalFilterChanged()" tabindex="11" type="text" class="form-control" placeholder="" ng-model="data.codigo1" id="cc1"></div>
 											</div>
 										</form>
 									</div>
@@ -521,7 +522,7 @@
 													<strong>CC2:</strong>
 												</label>
 												<div class="col-md-7">
-													<input  tabindex="12" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo2"></div>
+													<input  ng-keypress="externalFilterChanged()" tabindex="12" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo2"></div>
 											</div>
 										</form>
 									</div>
@@ -534,7 +535,7 @@
 													<strong>CC3:</strong>
 												</label>
 												<div class="col-md-7">
-													<input  tabindex="13" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo3"></div>
+													<input ng-keypress="externalFilterChanged()" tabindex="13" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo3"></div>
 											</div>
 										</form>
 									</div>
@@ -547,7 +548,7 @@
 													<strong>Articulo:</strong>
 												</label>
 												<div class="col-md-7">
-													<input  tabindex="14" id="busquedaArticulo" type="text" class="form-control" placeholder="" ng-model="data.articulo"></div>
+													<input ng-keypress="externalFilterChanged()" tabindex="14" id="busquedaArticulo" type="text" class="form-control" placeholder="" ng-model="data.articulo"></div>
 											</div>
 										</form>
 									</div>
