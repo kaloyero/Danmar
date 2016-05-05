@@ -39,7 +39,7 @@
 													<label for="#" class="col-md-4 control-label"> <strong>Tipo de Documento:</strong>
 													</label>
 													<div class="input-group col-md-8" >
-														<select class="ng-binding form-control" style="margin: 0px 0px 5px 10px; width:70%; border-radius:3px;">
+														<select ng-focus="onFocusTipoDocumento()" class="ng-binding form-control" style="margin: 0px 0px 5px 10px; width:70%; border-radius:3px;">
 															<option><h2 class="ng-binding">Factura</h2>
 															</option>
 														</select>
@@ -81,8 +81,8 @@
 															ng-model="articuloSeleccionadoBuscar" autofocus>
 													</div>
 													<div class="col-md-2">
-														<button type="button" class="btn btn-block btn-danger"
-															data-toggle="modal"  tabindex="3" ng-click="borrarArticulosTodos()">
+														<button type="button" class="btn btn-block btn-danger" id="botonBorrarArticulos"
+															data-toggle="modal"  tabindex="3" ng-click="borrarArticulosTodos()" ng-focus="clienteFocus()" >
 															<i class="fa fa-trash"></i>
 														</button>													
 													</div>
@@ -93,7 +93,7 @@
 									</div>
 									<div class="col-md-4"></div>
 								</div>
-								<div tabindex="-1" ng-focus="pruebaFocusFactura()"
+									<div tabindex="4" ng-class="{facturaFocus: focusedFactura}" ng-focus="pruebaFocusFactura()"
 									ag-grid="gridOptionsFactura" id="facturaGrid" class="ag-fresh"
 									style="height: 400px; margin-top: 24px;"
 									"></div>
@@ -125,7 +125,7 @@
 											<label class="col-md-2 control-label"> <strong>Cliente:</strong>
 											</label>
 											<div class="col-md-7">
-												<input type="text" class="form-control" tabindex="3"
+												<input type="text" class="form-control" tabindex="5"
 													placeholder="" ng-keypress=onKeyCliente($event)
 													ng-model="clienteSeleccionadoRazon" id="busquedaCliente"
 													ng-focus="clienteFocus()">
@@ -173,7 +173,7 @@
 												<div class="block">
 													<label class="checkbox-inline"> <input style="    width: 100%;    height: 100%;    margin: -4px 0 0;"
 														type="checkbox" ng-model="chkConsumidorFinal"
-														tabindex="4" ng-change="seleccionConsumidorFinal()"><strong>Consumidor Final</strong></input>
+														tabindex="6" ng-change="seleccionConsumidorFinal()"><strong>Consumidor Final</strong></input>
 													</label>
 												</div>
 											</div>
@@ -235,7 +235,7 @@
 					</div>
 					<div class="pull-right">
 						<button ng-class="{botonFocus: focused}" ng-init="focused = false"
-							ng-focus="focused = true" ng-blur="focused = false" tabindex="11"
+							ng-focus="focused = true" ng-blur="focused = false" tabindex="13"
 							class="btn btn-primary" ng-click="guardarFactura()"
 							ng-disabled="estaDeshabilitado()"
 							style="margin: 0px 30px 5px 0px !important;">Guardar
@@ -279,7 +279,7 @@
 											<div class="col-sm-4">
 												<div class="input-group">
 													<span class="input-group-addon"><strong>$</strong></span> <input
-														tabindex="5" type="number" ng-disabled="subTotal==0"
+														tabindex="7" type="number" ng-disabled="subTotal==0"
 														maxlength="10"
 														class="form-control" ng-model="montoEfectivo" 
 														style="text-align:right;"
@@ -307,7 +307,7 @@
 											<label class="col-sm-2 control-label"><strong>Tarjeta</strong></label>
 											<div class="col-sm-10">
 												<div class="input-group col-md-10">
-													<select  tabindex="6" class="form-control" 
+													<select  tabindex="8" class="form-control" 
 															 id="source" ng-class="{botonFocus: focusedTarjeta}" 
 															 ng-init="focusedTarjeta = false" ng-focus="focusedTarjeta = true" 
 															 ng-blur="focusedTarjeta = false" ng-model="selectTarjetaCredito"  
@@ -324,7 +324,7 @@
 													<select ng-class="{botonFocus: focusedCuotas}"
 														ng-init="focusedCuotas = false"
 														ng-focus="focusedCuotas = true"
-														ng-blur="focusedCuotas = false" tabindex="7"
+														ng-blur="focusedCuotas = false" tabindex="9"
 														ng-disabled="selectTarjetaCredito==0 || selectTarjetaCredito==undefined || !montoTC>0"
 														ng-model="cuotaSeleccionada"
 														ng-init="cuotaSeleccionada = cuotas[1]"
@@ -355,7 +355,7 @@
 											<div class="col-sm-8">
 												<div class="input-group">
 													<input ng-disabled="checkClient()"
-														tabindex="8" type="text" maxlength="19"
+														tabindex="10" type="text" maxlength="19"
 														class="form-control" ng-model="nombreConsumidorFinal">
 												</div>
 											</div>
@@ -365,7 +365,7 @@
 											<div class="col-sm-8">
 												<div class="input-group">
 													<input ng-disabled="checkClient()"
-														tabindex="9" type="text" maxlength="19"
+														tabindex="11" type="text" maxlength="19"
 														class="form-control" ng-model="documentoConsumidorFinal">
 												</div>
 											</div>
@@ -379,7 +379,7 @@
 														ng-init="focusedCupon = false"
 														ng-focus="focusedCupon = true"
 														ng-blur="focusedCupon = false" 
-														tabindex="10" type="text" maxlength="19"
+														tabindex="12" type="text" maxlength="19"
 														class="form-control" ng-model="cuponTC" ng-disabled="cuotaSeleccionada==undefined">
 												</div>
 											</div>
@@ -422,7 +422,7 @@
 													<strong>Codigo:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.codigoCliente" ng-keypress="busquedaCliente()"></div>
+													<input tabindex="30" type="text" class="form-control" placeholder="" ng-model="dataCliente.codigoCliente" ng-keypress="busquedaCliente()"></div>
 											</div>
 										</form>
 									</div>
@@ -435,7 +435,7 @@
 													<strong>Razon Social:</strong>
 												</label>
 												<div class="col-md-8">
-													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.razonSocial" ng-keypress="busquedaCliente()"></div>
+													<input tabindex="31" type="text" class="form-control" placeholder="" ng-model="dataCliente.razonSocial" ng-keypress="busquedaCliente()"></div>
 											</div>
 										</form>
 									</div>
@@ -448,7 +448,7 @@
 													<strong>Numero Cuit:</strong>
 												</label>
 												<div class="col-md-9">
-													<input type="text" class="form-control" placeholder="" ng-model="dataCliente.cuit" ng-keypress="busquedaCliente()"></div>
+													<input tabindex="32" type="text" class="form-control" placeholder="" ng-model="dataCliente.cuit" ng-keypress="busquedaCliente()" id="numeroCuit"></div>
 											</div>
 										</form>
 									</div>
@@ -458,7 +458,7 @@
 										<label class="col-md-3 control-label">
 										</label>
 										<div class="col-md-9">
-											<button  tabindex="15" type="button" class="btn btn-block btn-primary"	ng-click="busquedaCliente()">
+											<button  tabindex="33" type="button" class="btn btn-block btn-primary"	ng-click="busquedaCliente()">
 											<i class="fa fa-search"></i>
 										</button>
 									</div>										
@@ -472,9 +472,9 @@
 							</div>
 							<div class="row2" style="margin-top:20px;">
 								<div class="table-responsive">
-									<div tabindex="0" 
+									<div tabindex="34" 
 											ag-grid="gridOptionsCliente"
-											class="ag-fresh" style="height: 400px;" ng-keypress="seleccionClienteCambiada()" id="clientesGrid">
+											class="ag-fresh" style="height: 400px;" ng-keypress="seleccionClienteCambiada()" id="clientesGrid"  ng-class="{facturaFocus: focusedClientes}" ng-focus="onClienteFocus()"">
 									</div>
 
 								</div>
@@ -509,7 +509,7 @@
 													<strong>Codigo de Proveedores:</strong>
 												</label>
 												<div class="col-md-5">
-													<input  ng-keypress="externalFilterChanged()" tabindex="11" type="text" class="form-control" placeholder="" ng-model="data.codigo1" id="cc1"></div>
+													<input  ng-keypress="externalFilterChanged()" tabindex="14" type="text" class="form-control" placeholder="" ng-model="data.codigo1" id="cc1"></div>
 											</div>
 										</form>
 									</div>
@@ -522,7 +522,7 @@
 													<strong>CC2:</strong>
 												</label>
 												<div class="col-md-7">
-													<input  ng-keypress="externalFilterChanged()" tabindex="12" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo2"></div>
+													<input  ng-keypress="externalFilterChanged()" tabindex="15" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo2"></div>
 											</div>
 										</form>
 									</div>
@@ -535,7 +535,7 @@
 													<strong>CC3:</strong>
 												</label>
 												<div class="col-md-7">
-													<input ng-keypress="externalFilterChanged()" tabindex="13" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo3"></div>
+													<input ng-keypress="externalFilterChanged()" tabindex="16" type="text" class="form-control" placeholder="codigo" ng-model="data.codigo3"></div>
 											</div>
 										</form>
 									</div>
@@ -548,13 +548,13 @@
 													<strong>Articulo:</strong>
 												</label>
 												<div class="col-md-7">
-													<input ng-keypress="externalFilterChanged()" tabindex="14" id="busquedaArticulo" type="text" class="form-control" placeholder="" ng-model="data.articulo"></div>
+													<input ng-focus="lostGridProductosFocus()" ng-keypress="externalFilterChanged()" tabindex="17" id="busquedaArticulo" type="text" class="form-control" placeholder="" ng-model="data.articulo"></div>
 											</div>
 										</form>
 									</div>
 								</div>
 								<div class="col-xs-12 col-md-1">
-										<button  tabindex="15" type="button" class="btn btn-block btn-primary"
+										<button  tabindex="29" type="button" class="btn btn-block btn-primary"
 											ng-click="externalFilterChanged()">
 											<i class="fa fa-search"></i>
 										</button>
@@ -565,8 +565,8 @@
 						  </div>
 							<div class="row2">
 								<div class="table-responsive">
-									<div tabindex="0" 
-											ag-grid="gridOptionsProductos" id="productoGrid" ng-keypress="onKeySelectArticulo()"
+									<div tabindex="18" 
+											ag-grid="gridOptionsProductos" id="productoGrid" ng-keypress="onKeySelectArticulo()" ng-class="{facturaFocus: focusedProductos}" ng-focus="pruebaFocusProductos()" ng-blur="lostFocusSpecial()"
 											class="ag-fresh" style="height: 400px; ">
 									</div>
 								</div>
