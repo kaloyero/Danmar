@@ -63,8 +63,7 @@
 	<!-- endbuild -->
 
 	<!-- prochtml:remove:dist -->
-	<script type="text/javascript">less = { env: 'development'};</script>
-	<script type="text/javascript" src="static/app/assets/plugins/misc/less.js"></script>
+	<script type="text/javascript">less = { env: 'production'};</script>
 	<!-- /prochtml -->
 	<style>
 	.ag-fresh .ag-not-dragging {
