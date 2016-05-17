@@ -10,7 +10,9 @@ public class EstadoMapper extends MapperImpl<Estados,EstadosForm>{
 
 
 	public Estados getEntidad(EstadosForm form) {
+		
 		Estados ent = new Estados();
+		/*
 		if (form != null){		
 			ent.setId(form.getId());
 			ent.setTarjeta(ConvertionUtil.IntValueOf(form.getTarjeta()));
@@ -19,11 +21,13 @@ public class EstadoMapper extends MapperImpl<Estados,EstadosForm>{
 			ent.setCuponNro(form.getCuponNro());
 			ent.setImporte(ConvertionUtil.DouValueOf(form.getImporte()));
 		}
+		*/
 		return ent;
 	}
 
 	public EstadosForm getForm(Estados ent) {
 		EstadosForm form =new EstadosForm();
+		/*
 		if (ent != null){
 			form.setId(ent.getId());
 			form.setTarjeta(ConvertionUtil.StrValueOf(ent.getTarjeta()));
@@ -32,6 +36,7 @@ public class EstadoMapper extends MapperImpl<Estados,EstadosForm>{
 			form.setCuponNro(ent.getCuponNro());
 			form.setImporte(FormatUtil.format4DecimalsStr(ent.getImporte()));
 		}
+		*/
 		return form;
 	}
 

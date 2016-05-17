@@ -9,7 +9,7 @@ public class DocumentoLinea_V {
 
 	
 	@Id
-	@Column(name = "Id")
+	@Column(name = "id")
 	private String id	;
 
 	@Column(name = "IdDocumentoEncabezado")
@@ -18,9 +18,9 @@ public class DocumentoLinea_V {
 	private int articuloId;
 	@Column(name = "articulo")
 	private String articulo;
-	@Column(name = "cantidad")
+	@Column(name = "Cantidad")
 	private double cantidad	;
-	@Column(name = "precio")
+	@Column(name = "Precio")
 	private Double precio;
 	@Column(name = "PrecioFinal")
 	private Double precioFinal	;

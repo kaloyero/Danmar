@@ -5,76 +5,51 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity(name="documentopagos")
+@Entity(name="estados")
 public class Estados {
-
 	@Id
 	@GeneratedValue
 	private int id;
 
-	@Column(name = "IdTipoPago")
-	private int tipoPagoId	;
-	@Column(name = "IdDocumentoEncabezado")
-	private int documentoEncabezadoId;
-	@Column(name = "Importe")
-	private Double importe;
-	@Column(name = "Cuotas")
-	private Integer cuotas;
-	@Column(name = "Coeficiente")
-	private Double coeficiente	;	
-	@Column(name = "NroCupon")
-	private String cuponNro	;
-	@Column(name = "Tarjeta")
-	private Integer tarjeta	;
+    @Column(name = "Codigo")
+	private String codigo;
+
+	@Column(name = "Nombre")
+	private String nombre;	
+	
+	@Column(name = "Descripcion")
+	private String descripcion;
 
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
-	public int getTipoPagoId() {
-		return tipoPagoId;
+
+	public String getCodigo() {
+		return codigo;
 	}
-	public void setTipoPagoId(int tipoPagoId) {
-		this.tipoPagoId = tipoPagoId;
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
-	public int getDocumentoEncabezadoId() {
-		return documentoEncabezadoId;
+
+	public String getNombre() {
+		return nombre;
 	}
-	public void setDocumentoEncabezadoId(int documentoEncabezadoId) {
-		this.documentoEncabezadoId = documentoEncabezadoId;
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	public Double getImporte() {
-		return importe;
+
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setImporte(Double importe) {
-		this.importe = importe;
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	public Integer getCuotas() {
-		return cuotas;
-	}
-	public void setCuotas(Integer cuotas) {
-		this.cuotas = cuotas;
-	}
-	public Double getCoeficiente() {
-		return coeficiente;
-	}
-	public void setCoeficiente(Double coeficiente) {
-		this.coeficiente = coeficiente;
-	}
-	public String getCuponNro() {
-		return cuponNro;
-	}
-	public void setCuponNro(String cuponNro) {
-		this.cuponNro = cuponNro;
-	}
-	public Integer getTarjeta() {
-		return tarjeta;
-	}
-	public void setTarjeta(Integer tarjeta) {
-		this.tarjeta = tarjeta;
-	}
-	
 	
 }
