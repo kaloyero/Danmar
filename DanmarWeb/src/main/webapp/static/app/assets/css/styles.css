@@ -8759,7 +8759,7 @@ body.show-infobar #chatarea .chatmsg.sent:after {
   border-radius: 30px;
 }
 .chat-users li a:after {
-  content: "•";
+  content: "ï¿½";
   float: right;
   font-size: 1.7em;
   padding-right: 5px;
@@ -12039,7 +12039,7 @@ a.shortcut-tiles {
   background: #37444e;
 }
 .info-tiles.tiles-midnightblue .tiles-body {
-  background: #37444e;
+  background: #2c373f;
 }
 .info-tiles.tiles-midnightblue .tiles-body-alt {
   background: #37444e;
