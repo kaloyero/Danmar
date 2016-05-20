@@ -35,9 +35,9 @@ var columnFacturas = [
 				field : "id",
 				width : 30,
 				cellRenderer : function(params) {
-					return '<img ng-click="verFila('
+					return '<i class="fa fa-eye" aria-hidden="true" ng-click="verFila('
 							+ params.rowIndex
-							+ ')" src="http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/blue-metallic-orbs-icons-people-things/061229-blue-metallic-orb-icon-people-things-eye4-sc48.png" height="22" width="22">'
+							+ ')"></i>'
 					// return '<button tabindex="-1"
 					// ng-click="borrarFila(' +
 					// params.rowIndex +
@@ -267,6 +267,7 @@ var columnFacturas = [
 			$scope.viewClienteCategoria = data.clienteCategoria ;
 			$scope.viewClienteCuit = data.clienteCuit ;
 			$scope.viewLineasProductos = data.lineas;
+			
 			
         }
 

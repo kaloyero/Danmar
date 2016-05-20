@@ -110,42 +110,7 @@
 		<a href="#/extras-login2" style="font-size: 14px"><i class="fa fa-sign-in"></i> Entrar</a>
 	  </li>
 	
-	  <li tabindex="-1" class="dropdown hidden-xs ng-scope" dropdown="" ng-controller="MessagesController" ng-show="isLoggedIn">
-		<a tabindex="-1" href="" class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-		 <i class="glyphicon glyphicon-envelope"></i><!-- ngIf: unseenCount>0 --><span tabindex="-1"class="badge badge-danger ng-binding ng-scope" ng-if="unseenCount>0" ng-bind="unseenCount">6</span><!-- end ngIf: unseenCount>0 -->
-		</a>
-		<ul class="dropdown-menu animated messages arrow"tabindex="-1">
-		  <li class="dd-header"tabindex="-1">
-			<span class="ng-binding">Mensajes (6)</span>
-			<span><a href="#"></a></span>
-		  </li>
-			  <div tabindex="-1"class="scrollthis" scrollable=""><div tabindex="-1" class="nano has-scrollbar">
-			  <div class="nano-content" ng-transclude="" tabindex="-1" style="right: -17px;">
-				<!-- ngRepeat: item in messages -->
-			  </div><div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div></div>
-		  <li class="dd-footer"><a href="#" ng-click="setReadAll($event)">Marcar todas Leidas</a></li>
-		</ul>
-	  </li>
-	  <li class="dropdown ng-scope" dropdown="" ng-controller="NotificationsController" ng-show="isLoggedIn" tabindex="-1">
-		<a href="" dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" tabindex="-1">
-		  <i class="glyphicon glyphicon-globe"></i><!-- ngIf: unseenCount>0 --><span class="badge badge-indigo ng-binding ng-scope" ng-if="unseenCount>0" ng-bind="unseenCount">5</span><!-- end ngIf: unseenCount>0 -->
-		</a>
-		<ul class="dropdown-menu animated notifications arrow" tabindex="-1">
-		  <li class="dd-header">
-			<span class="ng-binding">Notificaciones (5)</span>
-			<span><a href="#"></a></span>
-		  </li>
-				<div class="scrollthis" scrollable=""><div class="nano has-scrollbar"><div class="nano-content" ng-transclude="" tabindex="0" style="right: -17px;">
-			<!-- ngRepeat: item in notifications --><!-- end ngRepeat: item in notifications -->
-				</div><div class="nano-pane" style="display: none;"><div class="nano-slider" style="height: 20px; transform: translate(0px, 0px);"></div></div></div></div>
-		  <li class="dd-footer"><a href="javascript:;" ng-click="setSeenAll($event)">Marcar todas Leidas</a></li>
-		</ul>
-	  </li>
-	  <li class="dropdown ng-scope" dropdown="" ng-controller="NotificationsController" ng-show="isLoggedIn" tabindex="-1">
-		<a href="" dropdown-toggle="" class="dropdown-toggle" aria-haspopup="true" aria-expanded="false" tabindex="-1">
-		  <i class="glyphicon glyphicon-globe"></i><!-- ngIf: unseenCount>0 --><span class="badge badge-indigo ng-binding ng-scope" ng-if="unseenCount>0" ng-bind="unseenCount">5</span><!-- end ngIf: unseenCount>0 -->
-		</a>
-	  </li>	
+
 	</ul>
 </header>	
 	

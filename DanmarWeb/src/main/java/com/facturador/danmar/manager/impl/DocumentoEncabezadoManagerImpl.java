@@ -153,6 +153,8 @@ public class DocumentoEncabezadoManagerImpl extends GenericManagerImpl<Documento
 		DocumentoImpuesto docImp = new DocumentoImpuesto();
 		//Creo el impuesto perteneciente
 		docImp.setAlicuota(alicuotaIva);
+		
+		//ALE ACA NO SE CAMBIARIA POR el importe * la cantidad?Ahora lo pongo,para probar como queda.
 		docImp.setImporte(importeIvaFinal);
 		docImp.setDocumentoLineaId(lineaEnt.getId());
 		

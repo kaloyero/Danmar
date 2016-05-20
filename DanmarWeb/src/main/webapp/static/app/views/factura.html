@@ -109,16 +109,18 @@
 				<panel data-heading="Totales" panel-class="panel-midnightblue"
 					class="ng-isolate-scope">
 				<div class="panel  panel-midnightblue">
-					<div class="panel-heading">
+					<!-- <div class="panel-heading">
 						<h2 class="ng-binding">
 							<!-- ngIf: panelIcon -->
-							Cliente
-						</h2>
+							<!--Cliente
+						<!--</h2>
+					</div>-->
+					<div class="panel-heading">
 					</div>
 					<div class="panel-body" ng-transclude="">
 						<panel-controls class="ng-scope"> </panel-controls>
 						<div class="panel  panel-primary ng-scope">
-							<div class="panel-body">
+							<div class="panel-body" style="background-color: wheat;">
 								<div class="row">
 									<form action="" class="form-horizontal row-border2">
 										<div class="form-group">
@@ -195,7 +197,8 @@
 				<div class="panel  panel-midnightblue">
 					<div class="panel-heading">
 					</div>				
-					<div class="panel-body" ng-transclude="">
+					<div class="panel-body" ng-transclude="" style="background-color: wheat;"
+>
 						<div class="col-xs-3">
 							<a class="info-tiles tiles-green"
 								data="{ title: 'Sub Total',text: '6', color: 'midnightblue'}">
@@ -223,10 +226,11 @@
 						<div class="col-xs-4">
 							<a class="info-tiles tiles-primary"
 								data="{ title: 'Total', href: '#/ui-tiles',text: '9', color: 'danger'}">
-								<div class="tiles-heading">
+								<div class="tiles-heading" style="background: #37444e;">
 									<div class="text-center ng-binding">Total</div>
 								</div>
-								<div class="tiles-body" style="font-size: 12px;">
+								<div class="tiles-body" style="font-size: 12px;background: #2c373f;
+">
 									<div class="text-center ng-binding">{{TotalFact | currency:"$ "}}</div>
 								</div>
 							</a>
@@ -249,13 +253,15 @@
 				<panel data-heading="Totales" panel-class="panel-midnightblue"
 					class="ng-isolate-scope">
 				<div class="panel  panel-midnightblue">
-					<div class="panel-heading">
+					<!--<div class="panel-heading">
 						<h2 class="ng-binding">Forma de Pago</h2>
+					</div>-->
+					<div class="panel-heading">
 					</div>
 					<div class="panel-body" ng-transclude="">
 						<panel-controls class="ng-scope"> </panel-controls>
 						<div class="panel  panel-primary ng-scope">
-							<div class="panel-body">
+							<div class="panel-body" style="background-color: wheat;">
 								<div class="row">
 									<form action="" class="form-horizontal row-border2">
 										<!--<div class="form-group col-md-5"  >
