@@ -23,7 +23,7 @@ body {
   font-family: 'Roboto', 'Segoe UI', 'Droid Sans', Tahoma, Arial, sans-serif;
   font-size: 12px;
   line-height: 1.5;
-  color: #707980;
+  color: #9C9EA0;
   background-color: #ebeef0;
 }
 input,
@@ -7442,7 +7442,7 @@ html {
 }
 html,
 body {
-  height: 100%;
+/*  height: 100%;*/
 }
 body {
   padding-top: 50px;
@@ -7494,6 +7494,7 @@ footer {
 }
 /* Logo */
 .navbar-brand {
+  margin-left: 15px;
   font: 0/0 a !important;
   color: transparent !important;
   text-shadow: none !important;
@@ -9799,7 +9800,7 @@ body.nooverflow {
   margin: 10px 15px;
 }
 .panel {
-  background-color: #fff;
+  background-color: #2C373F;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.12), 0 -1px 0px 0 rgba(0, 0, 0, 0.03);
 }
 .panel .panel-heading {
@@ -9879,7 +9880,8 @@ body.nooverflow {
   min-width: 200px;
 }
 .panel .panel-body {
-  background-color: #fff;
+    background-color: #37444E;
+	/*background-color: #fff;*/
 }
 .panel.panel-primary .panel-heading,
 accordion.panel-primary .panel-heading {
@@ -10464,14 +10466,14 @@ accordion.panel-sky .panel-heading .panel-ctrls.button-icon-bg .has-bg:hover {
 .panel.panel-midnightblue .panel-heading,
 accordion.panel-midnightblue .panel-heading {
   color: #a2acb3;
-  background-color: #fff;
+  background-color: #2C373F;
   border-color: #37444e;
 }
 .panel.panel-midnightblue .panel-heading h2,
 accordion.panel-midnightblue .panel-heading h2,
 .panel.panel-midnightblue .panel-heading .panel-title,
 accordion.panel-midnightblue .panel-heading .panel-title {
-  color: #a2acb3;
+  color: #fff;
 }
 .panel.panel-midnightblue .panel-heading .nav-tabs li > a,
 accordion.panel-midnightblue .panel-heading .nav-tabs li > a {
@@ -13921,4 +13923,36 @@ body.sidebar-default #horizontal-navbar .navbar-nav > li ul li:hover > a,
 body.sidebar-default #horizontal-navbar .navbar-nav > li ul li:hover > a > i {
   background: #ffffff;
   color: #262d33;
+}
+/* TABLAS DE PLUG IN */
+.ag-cell  {
+	 background-color: #37444E  !important;
+	 font-size: 12px;
+}
+
+.ag-body-viewport{
+	 background-color: #37444E  !important;
+}
+.ag-header-cell{
+    background-color: #4B565F;
+}
+.ag-header {
+    background-color: #4B565F;
+}
+
+.tablaConsultaFactura{
+	    border-radius: 5px; min-height: 500px;background-color: rgb(55, 68, 78);border-radius: 5px;
+}
+.iconoBuscarArticulos{
+	    margin-left: 5px;
+}
+
+.resaltaBordeCampo{
+    border: 2px solid #2685EE;
+    border-radius: 5px;
+}
+.botonBuscar{
+	width: 40px;
+    height: 29px;
+    border-radius: 6px;
 }

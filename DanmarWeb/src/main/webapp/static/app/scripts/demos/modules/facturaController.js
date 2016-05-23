@@ -144,11 +144,12 @@ angular
                         headerName: "Articulo",
                         field: "articulo",
                         width: 300,
-                        cellClass: "text-right"
+                        cellClass: "text-left"
                     }, {
                         headerName: "Cant",
                         field: "canMaxima",
                         width: 100,
+                        cellClass: "text-right",
                         editable: true
                     }, {
                         headerName: "Precio",

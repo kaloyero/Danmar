@@ -29,13 +29,18 @@ var columnFacturas = [
         	} ,  {
                 headerName: "Categoria",
                 field: "clienteCategoriaNombre"
+        	} ,  {
+                headerName: "Total",
+                field: "totalDocumento",                        
+                width: 80,
+                cellClass: "text-right"
             },
-			{
+            {
 				headerName : "",
 				field : "id",
 				width : 30,
 				cellRenderer : function(params) {
-					return '<i class="fa fa-eye" aria-hidden="true" ng-click="verFila('
+					return '<i class="fa fa-eye iconoBuscarArticulos" aria-hidden="true" ng-click="verFila('
 							+ params.rowIndex
 							+ ')"></i>'
 					// return '<button tabindex="-1"
