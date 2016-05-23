@@ -9,7 +9,6 @@
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar" sourcepath="M2_REPO/javax/servlet/servlet-api/2.5/servlet-api-2.5-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/jstl/1.2/jstl-1.2.jar"/>
 	<classpathentry kind="var" path="M2_REPO/junit/junit/4.8.1/junit-4.8.1.jar" sourcepath="M2_REPO/junit/junit/4.8.1/junit-4.8.1-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/com/danmar/dbf/DanmarDBF/0.0.1-SNAPSHOT/DanmarDBF-0.0.1-SNAPSHOT.jar" sourcepath="/M2_REPO/com/danmar/dbf/DanmarDBF/0.0.1-SNAPSHOT/DanmarDBF-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/danmar/beans/DanmarBeans/0.0.1-SNAPSHOT/DanmarBeans-0.0.1-SNAPSHOT.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6.jar" sourcepath="M2_REPO/commons-lang/commons-lang/2.6/commons-lang-2.6-sources.jar">
 		<attributes>

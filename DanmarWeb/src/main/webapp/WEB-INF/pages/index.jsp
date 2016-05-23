@@ -97,7 +97,7 @@
 	
 <header tabindex="-1" id="topnav" class="navbar ng-scope navbar-fixed-top" ng-class="{'navbar-fixed-top': getLayoutOption('fixedHeader'), 'navbar-static-top': !getLayoutOption('fixedHeader')}" ng-controller="MainController" role="banner" ng-show="true">
 	<a id="leftmenu-trigger" ng-click="toggleLeftBar()"></a>
-	<a id="rightmenu-trigger" ng-click="toggleRightBar()"></a>
+<!-- 	<a id="rightmenu-trigger" ng-click="toggleRightBar()"></a> -->
 
 
 	<div class="navbar-header pull-left" tabindex="-1">
