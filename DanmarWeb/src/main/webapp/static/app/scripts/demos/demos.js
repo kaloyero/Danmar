@@ -1,9 +1,6 @@
 angular
   .module('theme.demos', [
     'oc.lazyLoad',
-    
-   
-   
     'theme.demos.ng_grid',
     'theme.demos.busquedaFactura'
   ])

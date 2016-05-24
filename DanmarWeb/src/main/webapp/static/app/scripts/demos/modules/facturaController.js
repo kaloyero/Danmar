@@ -1,15 +1,12 @@
 angular
-    .module('theme.demos.ng_grid', ['agGrid', 'theme.core.servicesFactura'])
+    .module('theme.demos.ng_grid', ['agGrid'])
     .controller(
         'FacturaController', [
             '$modal',
             '$scope',
             '$http',
-            'ArticuloService',
-            'ArticuloServiceFiltro',
             '$route', '$timeout',
-            function($modal, $scope, $http, ArticuloService,
-                ArticuloServiceFiltro, $route, $timeout) {
+            function($modal, $scope, $http, $route, $timeout) {
                 'use strict';
 
                 $scope.estaDeshabilitado = function(e) {
@@ -514,6 +511,7 @@ angular
                                         params.successCallback(
                                             rowsThisPage,
                                             lastRow);
+											console.log("PRIMER IN",$scope.primerIngreso)
                                         if ($scope.primerIngreso == 1) {
                                             $scope.primerIngreso = 0;
                                             if ($scope.data.articulo != '') {
@@ -522,7 +520,9 @@ angular
                                                 pruebaFocusProductos("event", "init")
 
                                             }
-                                        }
+                                        }else{
+											pruebaFocusProductos("event", "init")
+										} 
 
 
                                     }
@@ -575,7 +575,10 @@ angular
                                             $scope.primerIngresoCliente = 0;
                                             console.log("ENTRAAAAA")
                                             onClienteFocus("event", "init")
-                                        }
+                                        }else{
+											onClienteFocus("event", "init")
+										} 
+
                                     }
                                 });
 

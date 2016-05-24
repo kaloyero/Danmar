@@ -1,7 +1,6 @@
 angular
   .module('themesApp', [
-    'theme',
-    'theme.demos',
+    'theme'
   ])
   .config(['$provide', '$routeProvider', function($provide, $routeProvider) {
     'use strict';

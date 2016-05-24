@@ -1,6 +1,6 @@
 angular
   .module('theme.core.services')
-  .service('$theme', ['$rootScope', 'EnquireService', '$document', function($rootScope, EnquireService, $document) {
+  .service('$theme', ['$rootScope', '$document', function($rootScope, $document) {
     'use strict';
     this.settings = {
       fixedHeader: true,
@@ -52,14 +52,7 @@ angular
     };
 
     $document.ready(function() {
-      EnquireService.register('screen and (max-width: 767px)', {
-        match: function() {
-          $rootScope.$broadcast('themeEvent:maxWidth767', true);
-        },
-        unmatch: function() {
-          $rootScope.$broadcast('themeEvent:maxWidth767', false);
-        }
-      });
+
     });
 
     this.get = function(key) {

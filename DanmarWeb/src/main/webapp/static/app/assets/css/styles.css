@@ -13926,7 +13926,8 @@ body.sidebar-default #horizontal-navbar .navbar-nav > li ul li:hover > a > i {
 }
 /* TABLAS DE PLUG IN */
 .ag-cell  {
-	 background-color: #37444E  !important;
+	 /*background-color: #37444E  !important;*/
+	 color: black;
 	 font-size: 12px;
 }
 
