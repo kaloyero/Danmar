@@ -204,9 +204,8 @@ angular
                 init();
 
                 function pruebaFocusFactura(event) {
-                    console.log("ENRAFOCus")
+				
                     if ($scope.focusedFactura == true) {
-                        console.log("IGUAL")
                         $timeout(function() {
                             $('#botonBorrarArticulos').focus();
                         });
@@ -230,18 +229,17 @@ angular
                 }
 
                 function onClienteFocus(event, status) {
-                    console.log("FOCUSPROD", status)
+					//angular.element('.ag-row-selected').removeClass("ag-row-selected")
+				$scope.gridOptionsCliente.api.deselectAll()
                     $scope.va = "true"
                     $timeout(function() {
                         // anything you want can go here and will safely be run on the next digest.
                         if (status == "init") {
-                            console.log("INIT")
                             $scope.focusedClientes = true
                             $scope.focusedClientesJustAdded = true
                             $scope.gridOptionsCliente.api.setFocusedCell(0, 0)
                         } else {
                             if ($scope.focusedClientes == true) {
-                                console.log("IGUALIGUAL")
                                 $timeout(function() {
                                     $('#numeroCuit').focus();
                                 });
@@ -279,7 +277,9 @@ angular
                  }} */
 
                 function pruebaFocusProductos(event, status) {
-                    console.log("FOCUSPROD", status)
+                 
+					//angular.element('.ag-row-selected').removeClass("ag-row-selected")
+					 $scope.gridOptionsProductos.api.deselectAll()
                     $timeout(function() {
                         if (status == "init") {
                             console.log("INIT")
@@ -300,7 +300,7 @@ angular
 
                             }
                         }
-
+						
                     })
                 }
 
@@ -383,6 +383,8 @@ angular
                     $scope.focusedProductos = false
                     $scope.focusedClientes = false
                     $scope.focusedClientesJustAdded = false
+					$scope.arrayPruebas=new Object()
+					$scope.arrayPruebasClientes=new Object()
 
                     $scope.focusedProductosJustAdded = false
                     $scope.isShowingArticuloPopup = false
@@ -447,8 +449,9 @@ angular
 
                 function setGridEvents() {
                     $scope.externalFilterChanged = function() {
+						
                         if ((event instanceof MouseEvent) || (event instanceof KeyboardEvent && event.code == "Enter")) {
-
+						
                             $scope.gridOptionsProductos.api
                                 .onFilterChanged();
                         };
@@ -511,7 +514,6 @@ angular
                                         params.successCallback(
                                             rowsThisPage,
                                             lastRow);
-											console.log("PRIMER IN",$scope.primerIngreso)
                                         if ($scope.primerIngreso == 1) {
                                             $scope.primerIngreso = 0;
                                             if ($scope.data.articulo != '') {
@@ -573,7 +575,6 @@ angular
                                             lastRow);
                                         if ($scope.primerIngresoCliente == 1) {
                                             $scope.primerIngresoCliente = 0;
-                                            console.log("ENTRAAAAA")
                                             onClienteFocus("event", "init")
                                         }else{
 											onClienteFocus("event", "init")
@@ -700,6 +701,11 @@ angular
                         columnDefs: columnProductos,
                         rowSelection: 'multiple',
                         rowData: null,
+						onRowSelected:  function rowSelected(event) {
+						$scope.arrayPruebas[String(event.node.data.codigo)]=event.node.data
+						},  onRowDeselected:  function rowDes(event) {
+								delete $scope.arrayPruebas[event.node.data.codigo];
+						},
                         enableFilter: true,
                         enableServerSideFilter: true,
                         cellFocused: function() {},
@@ -722,6 +728,12 @@ angular
                         enableFilter: true,
                         enableServerSideFilter: true,
                         virtualPaging: true,
+						onRowSelected:  function rowSelected(event) {
+							$scope.arrayPruebasClientes=new Object()
+							$scope.arrayPruebasClientes[String(event.node.data.codigo)]=event.node.data
+						},  onRowDeselected:  function rowDes(event) {
+							delete $scope.arrayPruebasClientes[event.node.data.codigo];
+					},
 
                         //onSelectionChanged : seleccionClienteCambiada,
                         cellFocused: function() {},
@@ -740,13 +752,11 @@ angular
                         enableFilter: true,
                         context: {},
                         onCellFocused: function(val) {
-                            console.log("FOCUS CELL", val)
                             $scope.currentFocusedRow = val.rowIndex
                             $scope.currentFocusedColumn = val.colIndex
                         },
                         onCellValueChanged: function(value) {
                             valorCeldaCambiado();
-                            console.log("VALIE", value, $scope.gridOptionsFactura.api.getFocusedCell());
                             $scope.gridOptionsFactura.api.setFocusedCell($scope.currentFocusedRow, $scope.currentFocusedColumn);
                         },
                         angularCompileRows: true
@@ -964,11 +974,15 @@ angular
                 }
 
                 function seleccionCambiada() {
-                    var clonedArray = JSON
-                        .parse(JSON
-                            .stringify($scope.gridOptionsProductos.api
-                                .getSelectedRows()))
+					var clonedArray3 =$scope.gridOptionsProductos.api.getSelectedRows()
+					var clonedArray=new Array()
+					var clonedArray2=$scope.arrayPruebas
+					for (var key in clonedArray2) {
+						console.log("VA",clonedArray2[key])
+						clonedArray.push(clonedArray2[key])
+}
                     var arrayViejo = clone($scope.gridOptionsFactura.rowData);
+					console.log("ccambia",clonedArray,clonedArray2)
 
                     var x;
                     if (arrayViejo != null) {
@@ -1003,7 +1017,10 @@ angular
                 function seleccionClienteCambiada(event) {
 
                     modalInstanceCliente.close();
-                    var seleccion = $scope.gridOptionsCliente.api.getSelectedRows()[0]
+					console.log(Object.keys($scope.arrayPruebasClientes)[0])
+					var indexCliente=Object.keys($scope.arrayPruebasClientes)[0]
+                    var seleccion = $scope.arrayPruebasClientes[indexCliente]
+					console.log("seleccion",seleccion)
                         // Seteamos el valor del cliente elegido
 
                     $scope.clienteSeleccionadoRazon = seleccion.razonSocial;
@@ -1288,7 +1305,6 @@ angular
                 }
 
                 function onFocusTipoDocumento() {
-                    console.log("FOCUSTIPODO")
                     if ($scope.isShowingArticuloPopup == true) {
                         $timeout(function() {
                             $('#busquedaArticulo').focus();
@@ -1305,7 +1321,6 @@ angular
                 }
 
                 function showSelectArticuloPopup(event) {
-                    console.log("JEYPRESS")
                     seleccionCambiada(event);
                 }
 
