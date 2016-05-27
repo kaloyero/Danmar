@@ -72,7 +72,7 @@
 													<div class="col-md-6">
 														<input ng-class="{botonFocus: focusedBusqueda}"
 															style="height:36px;"
-															ng-init="focusedBusqueda = false"
+															ng-init="focusedBusqueda = true"
 															ng-focus="focusedBusqueda = true"
 															ng-blur="focusedBusqueda = false" tabindex="2"
 															type="text" class="form-control" id="busquedaProd"
@@ -81,8 +81,8 @@
 															ng-model="articuloSeleccionadoBuscar" autofocus>
 													</div>
 													<div class="col-md-2">
-														<button type="button" class="btn btn-block btn-danger" id="botonBorrarArticulos"
-															data-toggle="modal"  tabindex="3" ng-click="borrarArticulosTodos()" ng-focus="clienteFocus()" >
+														<button type="button"  ng-class="{botonFocus: focusedBorrarTodos}" class="btn btn-block btn-danger" id="botonBorrarArticulos"
+															data-toggle="modal"  tabindex="3" ng-click="borrarArticulosTodos()" ng-focus="clienteFocus()" ng-blur="focusedBorrarTodos = false">
 															<i class="fa fa-trash"></i>
 														</button>													
 													</div>
@@ -490,7 +490,7 @@
 								<div class="table-responsive">
 									<div tabindex="34" 
 											ag-grid="gridOptionsCliente"
-											class="ag-fresh" style="height: 400px;" ng-keypress="seleccionClienteCambiada()" id="clientesGrid"  ng-class="{facturaFocus: focusedClientes}" ng-focus="onClienteFocus()"">
+											class="ag-fresh" style="height: 400px;" ng-keypress="seleccionClienteCambiada()" id="clientesGrid"  ng-class="{facturaFocus: focusedClientes}" ng-focus="onClienteFocus($event,'focus')"">
 									</div>
 
 								</div>
@@ -584,7 +584,7 @@
 							<div class="row2">
 								<div class="table-responsive">
 									<div tabindex="18" 
-											ag-grid="gridOptionsProductos" id="productoGrid" ng-keypress="onKeySelectArticulo()" ng-class="{facturaFocus: focusedProductos}" ng-focus="pruebaFocusProductos()" ng-blur="lostFocusSpecial()"
+											ag-grid="gridOptionsProductos" id="productoGrid" ng-keypress="onKeySelectArticulo()" ng-class="{facturaFocus: focusedProductos}" ng-focus="pruebaFocusProductos($event,'focus')" ng-blur="lostFocusSpecial()"
 											class="ag-fresh" style="height: 400px; ">
 									</div>
 								</div>

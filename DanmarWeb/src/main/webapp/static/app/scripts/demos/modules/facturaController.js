@@ -234,11 +234,20 @@ angular
                     $scope.va = "true"
                     $timeout(function() {
                         // anything you want can go here and will safely be run on the next digest.
+						
+						if (status == "noinit") {
+							$scope.focusedClientes = true
+							 $scope.gridOptionsCliente.api.setFocusedCell(0, 0)
+					
+
+						}
+						
+						
                         if (status == "init") {
                             $scope.focusedClientes = true
                             $scope.focusedClientesJustAdded = true
                             $scope.gridOptionsCliente.api.setFocusedCell(0, 0)
-                        } else {
+                        } else if (status == "focus") {
                             if ($scope.focusedClientes == true) {
                                 $timeout(function() {
                                     $('#numeroCuit').focus();
@@ -279,14 +288,25 @@ angular
                 function pruebaFocusProductos(event, status) {
                  
 					//angular.element('.ag-row-selected').removeClass("ag-row-selected")
-					 $scope.gridOptionsProductos.api.deselectAll()
+					console.log("STATUS",status)
                     $timeout(function() {
+						if (status == "noinit") {
+							$scope.focusedProductos = true
+							 $scope.gridOptionsProductos.api.setFocusedCell(0, 0)
+							console.log($scope.gridOptionsProductos.api.getFocusedCell())
+							//var currentRow=$scope.gridOptionsProductos.api.getFocusedCell()
+							 //$scope.gridOptionsProductos.api.deselectAll()
+							   //$scope.gridOptionsProductos.api.setFocusedCell(currentRow.rowIndex, currentRow.colIndex)
+
+						}
                         if (status == "init") {
                             console.log("INIT")
                             $scope.focusedProductos = true
                             $scope.focusedProductosJustAdded = true
+
                             $scope.gridOptionsProductos.api.setFocusedCell(0, 0)
-                        } else {
+                        } else if (status == "focus") {
+							console.log("ELSE")
                             if ($scope.focusedProductos == true) {
                                 console.log("IGUALIGUAL")
                                 $timeout(function() {
@@ -296,7 +316,7 @@ angular
                             } else {
 
                                 $scope.focusedProductos = true
-                                $scope.gridOptionsProductos.api.setFocusedCell(0, 0)
+                                $scope.gridOptionsProductos.api.setFocusedCell(0, 1)
 
                             }
                         }
@@ -328,6 +348,7 @@ angular
                 function clienteFocus(event) {
                     //$("#facturaGrid").css("border-style", "none")
                     $scope.focusedFactura = false
+					$scope.focusedBorrarTodos = true
                 }
 
                 function lostGridProductosFocus(event) {
@@ -353,7 +374,7 @@ angular
 
                 /* Arranque del controlador */
                 function init() {
-
+				
                     $scope.onKeyCliente = showClientePopup;
                     $scope.onKeyArticulo = showArticuloPopup;
                     $scope.borrarArticulosTodos = borrarArticulosTodos;
@@ -364,7 +385,6 @@ angular
                     $scope.changeEfectivo = changeEfectivo;
                     $scope.seleccionConsumidorFinal = seleccionConsumidorFinal;
                     $scope.clienteFocus = clienteFocus;
-                    4
                     $scope.lostGridProductosFocus = lostGridProductosFocus
                     $scope.lostFocusSpecial = lostFocusSpecial
                     $scope.pruebaFocusFactura = pruebaFocusFactura;
@@ -413,6 +433,8 @@ angular
                     //Flag que se usa cuando se entra a la busqueda de articulos,si es la primera vez se posiciona en el primer lugar.Esto es para evitar que 
                     //cuando se pagine ,cada vez que traigo nuevos valores se posicione en el primer lugar.Porque se posiciona luego de encontrar informacion
                     $scope.primerIngreso;
+					$scope.focusedBusqueda=true
+
                     $scope.fechaFactura = new Date();
                     $scope.tipoFactura = "B";
                     $scope.chkConsumidorFinal = true;
@@ -443,6 +465,7 @@ angular
                     setGrids()
                     setGridEvents()
                     setModals()
+					 focus($("#busquedaProd"))
 
                 }
                 /* Eventos de las Grillas */
@@ -467,7 +490,7 @@ angular
                 /* Setear Datasource */
 
                 function setDatasources() {
-                    var pageSize = 30;
+                    var pageSize = 60;
 
                     dataSource = {
                         rowCount: null, // behave as infinite
@@ -475,7 +498,7 @@ angular
                         pageSize: pageSize,
                         overflowSize: 50,
                         maxConcurrentRequests: 2,
-                        maxPagesInCache: 20,
+                        maxPagesInCache: 60,
                         getRows: function(params) {
 
                             var start = params.startRow + 1;
@@ -523,7 +546,7 @@ angular
 
                                             }
                                         }else{
-											pruebaFocusProductos("event", "init")
+											pruebaFocusProductos("event", "noinit")
 										} 
 
 
@@ -577,7 +600,7 @@ angular
                                             $scope.primerIngresoCliente = 0;
                                             onClienteFocus("event", "init")
                                         }else{
-											onClienteFocus("event", "init")
+											onClienteFocus("event", "noinit")
 										} 
 
                                     }
@@ -1720,6 +1743,8 @@ angular
                     cleanTotales()
                     calculateTotales()
                     recalculateGridProductos()
+					$scope.focusedBusqueda=true
+					 focus($("#busquedaProd"))
 
                 }
 
