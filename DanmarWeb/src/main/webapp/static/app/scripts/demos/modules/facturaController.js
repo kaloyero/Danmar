@@ -234,11 +234,14 @@ angular
                     $scope.va = "true"
                     $timeout(function() {
                         // anything you want can go here and will safely be run on the next digest.
-						
 						if (status == "noinit") {
-							$scope.focusedClientes = true
-							 $scope.gridOptionsCliente.api.setFocusedCell(0, 0)
+							if ($scope.isBusquedaClientes==true){
+								$scope.isBusquedaClientes=false
+								$scope.gridOptionsCliente.api.setFocusedCell(0, 0)
 					
+							}
+							$scope.focusedClientes = true
+							
 
 						}
 						
@@ -289,11 +292,22 @@ angular
                  
 					//angular.element('.ag-row-selected').removeClass("ag-row-selected")
 					console.log("STATUS",status)
+		
+																
+
+
                     $timeout(function() {
 						if (status == "noinit") {
-							$scope.focusedProductos = true
-							 $scope.gridOptionsProductos.api.setFocusedCell(0, 0)
-							console.log($scope.gridOptionsProductos.api.getFocusedCell())
+							if ($scope.externalFilterSearch==true){
+								console.log("ENTR",$scope.externalFilterSearch)
+								$scope.externalFilterSearch=false;
+								$scope.gridOptionsProductos.api.deselectAll()
+								$scope.focusedProductos = true
+								$scope.gridOptionsProductos.api.setFocusedCell(0, 0)
+								selectOldProducts()
+							}
+							 //$scope.gridOptionsProductos.api.setFocusedCell(0, 0)
+							//console.log($scope.gridOptionsProductos.api.getFocusedCell())
 							//var currentRow=$scope.gridOptionsProductos.api.getFocusedCell()
 							 //$scope.gridOptionsProductos.api.deselectAll()
 							   //$scope.gridOptionsProductos.api.setFocusedCell(currentRow.rowIndex, currentRow.colIndex)
@@ -405,6 +419,7 @@ angular
                     $scope.focusedClientesJustAdded = false
 					$scope.arrayPruebas=new Object()
 					$scope.arrayPruebasClientes=new Object()
+					$scope.selectOldProducts=selectOldProducts
 
                     $scope.focusedProductosJustAdded = false
                     $scope.isShowingArticuloPopup = false
@@ -469,19 +484,30 @@ angular
 
                 }
                 /* Eventos de las Grillas */
-
+				function selectOldProducts(){
+					console.log("ARRAY PRO",$scope.arrayPruebas)
+					$scope.gridOptionsProductos.api.forEachNode( function (node) {
+						console.log("RE",$scope.arrayPruebas[node.data.codigo])
+						if ($scope.arrayPruebas[node.data.codigo]!=undefined){
+							console.log("ENRAAAA")
+							$scope.gridOptionsProductos.api.selectNode(node, true);
+						}
+						//console.log("RE",$scope.arrayPruebas[node.data.codigo])
+							
+					});
+				}
                 function setGridEvents() {
                     $scope.externalFilterChanged = function() {
 						
                         if ((event instanceof MouseEvent) || (event instanceof KeyboardEvent && event.code == "Enter")) {
-						
-                            $scope.gridOptionsProductos.api
-                                .onFilterChanged();
+							console.log("FILTERCH")
+							$scope.externalFilterSearch=true;
+                            $scope.gridOptionsProductos.api.onFilterChanged();
                         };
                     }
                     $scope.busquedaCliente = function() {
                         if ((event instanceof MouseEvent) || (event instanceof KeyboardEvent && event.code == "Enter")) {
-
+							$scope.isBusquedaClientes=true;
                             $scope.gridOptionsCliente.api.onFilterChanged();
                         }
                     };
@@ -529,6 +555,7 @@ angular
                                         // Se posiciona en el
                                         // INPUT de Busqueda
                                         // focus($("#busquedaArticulo"))
+										
                                         resultadoBusqueda = JSON
                                             .parse(angular
                                                 .toJson(data.lista))
@@ -537,7 +564,12 @@ angular
                                         params.successCallback(
                                             rowsThisPage,
                                             lastRow);
+											
+
+											console.log("PRIMERIN",$scope.primerIngreso)
                                         if ($scope.primerIngreso == 1) {
+											
+											selectOldProducts()
                                             $scope.primerIngreso = 0;
                                             if ($scope.data.articulo != '') {
                                                 focusOnFilter()
@@ -684,7 +716,6 @@ angular
                         });
                     }
                     $scope.openDemoModalArticulo = function(size) {
-
                         modalInstanceArticulo = $modal
                             .open({
                                 templateUrl: 'modalBuscadorArticulo.html',
@@ -739,11 +770,10 @@ angular
                         // done
                         // onSelectionChanged: seleccionCambiada,
                         ready: function(api) {
-                            $scope.gridOptionsProductos.api
-                                .setDatasource(dataSource);
+							if ($scope.gridOptionsProductos.datasource==undefined)
+								$scope.gridOptionsProductos.api.setDatasource(dataSource);
                         }
                     };
-
                     $scope.gridOptionsCliente = {
                         columnDefs: columnCliente,
                         rowSelection: 'single',
@@ -761,8 +791,9 @@ angular
                         //onSelectionChanged : seleccionClienteCambiada,
                         cellFocused: function() {},
                         ready: function(api) {
-                            $scope.gridOptionsCliente.api
-                                .setDatasource(dataSourceCliente);
+
+							if ($scope.gridOptionsCliente.datasource==undefined)
+								$scope.gridOptionsCliente.api.setDatasource(dataSourceCliente);
                         }
                     };
 
