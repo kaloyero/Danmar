@@ -425,6 +425,7 @@ var ag;
                 return widthNoScroll - widthWithScroll;
             };
             Utils.isKeyPressed = function (event, keyToCheck) {
+				console.log("KEYPRE")
                 var pressedKey = event.which || event.keyCode;
                 return pressedKey === keyToCheck;
             };
@@ -3941,6 +3942,7 @@ var ag;
                 eInput.addEventListener("blur", blurListener);
                 //stop editing if enter pressed
                 eInput.addEventListener('keypress', function (event) {
+					console.log("KEYPRESS")
                     var key = event.which || event.keyCode;
                     if (key === grid.Constants.KEY_ENTER) {
                         _this.stopEditing(eInput, blurListener);
@@ -3957,6 +3959,7 @@ var ag;
                 });
                 // tab key doesn't generate keypress, so need keydown to listen for that
                 eInput.addEventListener('keydown', function (event) {
+					console.log("KEYDOWN")
                     var key = event.which || event.keyCode;
                     if (key == grid.Constants.KEY_TAB) {
                         that.stopEditing(eInput, blurListener);
@@ -4241,6 +4244,7 @@ var ag;
                 });
             };
             RenderedCell.prototype.isKeycodeForStartEditing = function (key) {
+				console.log("ISKEYBODE")
                 return key === grid.Constants.KEY_ENTER || key === grid.Constants.KEY_BACKSPACE || key === grid.Constants.KEY_DELETE;
             };
             RenderedCell.prototype.createSelectionCheckbox = function () {
@@ -4984,6 +4988,7 @@ var ag;
                 // and then expand / contract as the user hits enter or space-bar
                 if (params.eGridCell) {
                     params.eGridCell.addEventListener('keydown', function (event) {
+						console.log("KEyDo")
                         if (utils.isKeyPressed(event, constants.KEY_ENTER)) {
                             expandOrContract();
                             event.preventDefault();

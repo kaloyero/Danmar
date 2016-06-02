@@ -184,6 +184,10 @@ angular
                         headerName: "",
                         field: "total",
                         width: 30,
+						editable:function(params){
+							console.log("HEYPara",params)
+							borrarFila(params.rowIndex)
+						},
                         cellClass: "text-right",
                         cellRenderer: function(params) {
                             return '<img ng-click="borrarFila(' +
@@ -1140,8 +1144,10 @@ angular
                 function borrarFila(data) {
 
                     var nombreArticuloEliminar = $scope.gridOptionsFactura.rowData[data].articulo
+					console.log("ARRAY PRO",$scope.arrayPruebas[$scope.gridOptionsFactura.rowData[data.codigo]])
+					delete $scope.arrayPruebas[$scope.gridOptionsFactura.rowData[data.codigo]]
 
-                    var arrayNodes = jQuery.extend({},
+                   /* var arrayNodes = jQuery.extend({},
                         $scope.gridOptionsProductos.api
                         .getSelectedNodes());
                     var producto;
@@ -1153,7 +1159,7 @@ angular
 
                         }
 
-                    }
+                    }*/
                     $scope.gridOptionsProductos.api
                         .forEachNode(function(node) {
 
@@ -1162,12 +1168,15 @@ angular
                                     .deselectNode(node);
                             }
                         });
+						
                     $scope.gridOptionsFactura.rowData.splice(data,
                         1);
 
                     var newArray = $scope.gridOptionsFactura.rowData
                     $scope.gridOptionsFactura.api
                         .setRowData(newArray); // Investigar
+					$scope.gridOptionsFactura.api.setFocusedCell(data, 6)
+
                     // refrescar y
                     // no hacer esto
                     cleanTotales()
@@ -1429,7 +1438,7 @@ angular
                                     console.log("RES", data)
                                     $scope.numeroFactura = data.responseText;
                                     $scope
-                                        .openDemoModalSuccessFactura('lg');
+                                        .openDemoModalSuccessFactura('sm');
                                 }
 
                             }
