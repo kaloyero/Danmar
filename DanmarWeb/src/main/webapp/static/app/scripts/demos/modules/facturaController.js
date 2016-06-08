@@ -1209,7 +1209,7 @@ angular
 
                 function calculateSaldosTotales() {
                     var producto;
-
+					debugger
                     var total = 0;
                     var totalPrecioLista = 0;
 
@@ -1229,16 +1229,14 @@ angular
                         $scope.dni = ""
                     }
 
-
-                    //Calculo el sub total.totalFact / 21(iva)/100 +1
-                    //var subTotal = (totalFact - ivaTotal);
-                    var subTotal = totalFact / ((getIva() / 100) + 1)
+                  var ivaTotal = (totalFact * getIva()  / 100)
+                   // var subTotal = totalFact / ((getIva() / 100) + 1)
+				   var subTotal=totalFact-ivaTotal;
                     setSubTotal(subTotal);
-
                     /* Impuestos y Subtotal */
                     //Agrego que el subtotal sea el total menos el IVA
                     //var ivaTotal = calculaIva(totalFact);
-                    var ivaTotal = (totalFact - subTotal)
+                  
                     setIvaInscriptoTotal(ivaTotal)
 
                 }
